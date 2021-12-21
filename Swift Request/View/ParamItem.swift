@@ -1,5 +1,5 @@
 //
-//  QueryParamItem.swift
+//  ParamItem.swift
 //  Swift Request
 //
 //  Created by Jonathan Dowdell on 12/20/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct QueryParamItem: View {
+struct ParamItem: View {
     
     private var queryParam: ParamEntity
     
