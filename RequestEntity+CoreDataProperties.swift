@@ -19,6 +19,9 @@ extension RequestEntity {
     @NSManaged public var method: String?
     @NSManaged public var url: String?
     @NSManaged public var project: ProjectEntity?
+    @NSManaged public var urlParams: ParamEntity?
+    @NSManaged public var headerParams: ParamEntity?
+    @NSManaged public var bodyParams: ParamEntity?
 
 }
 

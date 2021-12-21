@@ -20,15 +20,14 @@ extension ParamEntity {
     @NSManaged public var key: String?
     @NSManaged public var type: String?
     @NSManaged public var value: String?
+
+    var wrappedValue: String {
+        value ?? ""
+    }
     
     var wrappedKey: String {
-        return key ?? ""
+        key ?? ""
     }
-    
-    var wrappedValue: String {
-        return value ?? ""
-    }
-
 }
 
 extension ParamEntity : Identifiable {

@@ -18,10 +18,10 @@
 		244CC7B32770FACE008EA7AD /* QueryParamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CC7B22770FACE008EA7AD /* QueryParamItem.swift */; };
 		24F7705D27725C98001C94A9 /* ProjectEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7705B27725C98001C94A9 /* ProjectEntity+CoreDataClass.swift */; };
 		24F7705E27725C98001C94A9 /* ProjectEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7705C27725C98001C94A9 /* ProjectEntity+CoreDataProperties.swift */; };
-		24F7706127725CB4001C94A9 /* ParamEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7705F27725CB4001C94A9 /* ParamEntity+CoreDataClass.swift */; };
-		24F7706227725CB4001C94A9 /* ParamEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7706027725CB4001C94A9 /* ParamEntity+CoreDataProperties.swift */; };
-		24F7706527725CC8001C94A9 /* RequestEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7706327725CC8001C94A9 /* RequestEntity+CoreDataClass.swift */; };
-		24F7706627725CC8001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7706427725CC8001C94A9 /* RequestEntity+CoreDataProperties.swift */; };
+		24F7707C27726180001C94A9 /* ParamEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7707A27726180001C94A9 /* ParamEntity+CoreDataClass.swift */; };
+		24F7707D27726180001C94A9 /* ParamEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7707B27726180001C94A9 /* ParamEntity+CoreDataProperties.swift */; };
+		24F77080277261F5001C94A9 /* RequestEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7707E277261F5001C94A9 /* RequestEntity+CoreDataClass.swift */; };
+		24F77081277261F5001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7707F277261F5001C94A9 /* RequestEntity+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,10 +37,13 @@
 		244CC7B22770FACE008EA7AD /* QueryParamItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParamItem.swift; sourceTree = "<group>"; };
 		24F7705B27725C98001C94A9 /* ProjectEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		24F7705C27725C98001C94A9 /* ProjectEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		24F7705F27725CB4001C94A9 /* ParamEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		24F7706027725CB4001C94A9 /* ParamEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		24F7706327725CC8001C94A9 /* RequestEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		24F7706427725CC8001C94A9 /* RequestEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		24F770742772600F001C94A9 /* ParamEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		24F7707627726067001C94A9 /* ParamEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		24F7707827726099001C94A9 /* ParamEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		24F7707A27726180001C94A9 /* ParamEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		24F7707B27726180001C94A9 /* ParamEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		24F7707E277261F5001C94A9 /* RequestEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		24F7707F277261F5001C94A9 /* RequestEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +127,8 @@
 		2440A57C276FEAC400943B06 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				24F7706327725CC8001C94A9 /* RequestEntity+CoreDataClass.swift */,
-				24F7706427725CC8001C94A9 /* RequestEntity+CoreDataProperties.swift */,
+				24F7707E277261F5001C94A9 /* RequestEntity+CoreDataClass.swift */,
+				24F7707F277261F5001C94A9 /* RequestEntity+CoreDataProperties.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -133,8 +136,11 @@
 		2440A57D276FEACE00943B06 /* Param */ = {
 			isa = PBXGroup;
 			children = (
-				24F7705F27725CB4001C94A9 /* ParamEntity+CoreDataClass.swift */,
-				24F7706027725CB4001C94A9 /* ParamEntity+CoreDataProperties.swift */,
+				24F7707A27726180001C94A9 /* ParamEntity+CoreDataClass.swift */,
+				24F7707B27726180001C94A9 /* ParamEntity+CoreDataProperties.swift */,
+				24F7706827725E81001C94A9 /* URL */,
+				24F7706927725E8A001C94A9 /* Header */,
+				24F7706727725E77001C94A9 /* Body */,
 			);
 			path = Param;
 			sourceTree = "<group>";
@@ -146,6 +152,30 @@
 				24F7705C27725C98001C94A9 /* ProjectEntity+CoreDataProperties.swift */,
 			);
 			path = Project;
+			sourceTree = "<group>";
+		};
+		24F7706727725E77001C94A9 /* Body */ = {
+			isa = PBXGroup;
+			children = (
+				24F770742772600F001C94A9 /* ParamEntity+CoreDataProperties.swift */,
+			);
+			path = Body;
+			sourceTree = "<group>";
+		};
+		24F7706827725E81001C94A9 /* URL */ = {
+			isa = PBXGroup;
+			children = (
+				24F7707827726099001C94A9 /* ParamEntity+CoreDataProperties.swift */,
+			);
+			path = URL;
+			sourceTree = "<group>";
+		};
+		24F7706927725E8A001C94A9 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				24F7707627726067001C94A9 /* ParamEntity+CoreDataProperties.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,16 +254,16 @@
 			files = (
 				2440A54F276F9A2300943B06 /* Persistence.swift in Sources */,
 				244CC7B32770FACE008EA7AD /* QueryParamItem.swift in Sources */,
-				24F7706627725CC8001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */,
+				24F77081277261F5001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */,
+				24F7707D27726180001C94A9 /* ParamEntity+CoreDataProperties.swift in Sources */,
 				2440A55B276FA08300943B06 /* RequestItem.swift in Sources */,
+				24F7707C27726180001C94A9 /* ParamEntity+CoreDataClass.swift in Sources */,
 				2440A546276F9A2200943B06 /* Swift_RequestApp.swift in Sources */,
-				24F7706127725CB4001C94A9 /* ParamEntity+CoreDataClass.swift in Sources */,
-				24F7706227725CB4001C94A9 /* ParamEntity+CoreDataProperties.swift in Sources */,
 				24F7705D27725C98001C94A9 /* ProjectEntity+CoreDataClass.swift in Sources */,
 				2440A559276F9A4500943B06 /* MainView.swift in Sources */,
 				24F7705E27725C98001C94A9 /* ProjectEntity+CoreDataProperties.swift in Sources */,
 				2440A552276F9A2300943B06 /* Swift_Request.xcdatamodeld in Sources */,
-				24F7706527725CC8001C94A9 /* RequestEntity+CoreDataClass.swift in Sources */,
+				24F77080277261F5001C94A9 /* RequestEntity+CoreDataClass.swift in Sources */,
 				2440A55F276FCE6000943B06 /* CreateRequestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

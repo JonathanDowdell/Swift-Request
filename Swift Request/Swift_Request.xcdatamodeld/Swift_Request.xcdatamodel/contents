@@ -42,11 +42,11 @@
         <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="urlParams" inverseEntity="RequestEntity"/>
     </entity>
     <elements>
-        <element name="ParamEntity" positionX="18" positionY="-72" width="128" height="89"/>
-        <element name="ProjectEntity" positionX="-99.3828125" positionY="-214.12890625" width="128" height="89"/>
-        <element name="RequestEntity" positionX="-61.453125" positionY="-66.11328125" width="128" height="119"/>
-        <element name="HeaderParamEntity" positionX="-45" positionY="-117" width="128" height="104"/>
-        <element name="URLParamEntity" positionX="-36" positionY="-108" width="128" height="104"/>
-        <element name="BodyParamEntity" positionX="-27" positionY="-99" width="128" height="104"/>
+        <element name="ParamEntity" positionX="18" positionY="-72" width="128" height="103"/>
+        <element name="ProjectEntity" positionX="-308.82421875" positionY="-589.38671875" width="128" height="89"/>
+        <element name="RequestEntity" positionX="-220.15625" positionY="-436.73828125" width="128" height="119"/>
+        <element name="HeaderParamEntity" positionX="-656.7578125" positionY="-496.6328125" width="128" height="104"/>
+        <element name="URLParamEntity" positionX="-318.24609375" positionY="-168.5859375" width="128" height="104"/>
+        <element name="BodyParamEntity" positionX="119.6875" positionY="-502.79296875" width="128" height="104"/>
     </elements>
 </model>
