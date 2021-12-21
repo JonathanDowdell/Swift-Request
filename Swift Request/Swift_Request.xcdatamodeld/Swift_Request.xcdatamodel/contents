@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BodyParamEntity" representedClassName="ParamEntity" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="bodyParams" inverseEntity="RequestEntity"/>
+    </entity>
+    <entity name="HeaderParamEntity" representedClassName="ParamEntity" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="headerParams" inverseEntity="RequestEntity"/>
+    </entity>
     <entity name="ParamEntity" representedClassName="ParamEntity" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="key" optional="YES" attributeType="String"/>
@@ -15,11 +29,24 @@
     <entity name="RequestEntity" representedClassName="RequestEntity" syncable="YES">
         <attribute name="method" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="bodyParams" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BodyParamEntity" inverseName="request" inverseEntity="BodyParamEntity"/>
+        <relationship name="headerParams" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HeaderParamEntity" inverseName="request" inverseEntity="HeaderParamEntity"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectEntity" inverseName="requests" inverseEntity="ProjectEntity"/>
+        <relationship name="urlParams" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="URLParamEntity" inverseName="request" inverseEntity="URLParamEntity"/>
+    </entity>
+    <entity name="URLParamEntity" representedClassName="ParamEntity" syncable="YES">
+        <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+        <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="urlParams" inverseEntity="RequestEntity"/>
     </entity>
     <elements>
         <element name="ParamEntity" positionX="18" positionY="-72" width="128" height="89"/>
         <element name="ProjectEntity" positionX="-99.3828125" positionY="-214.12890625" width="128" height="89"/>
-        <element name="RequestEntity" positionX="-61.453125" positionY="-66.11328125" width="128" height="74"/>
+        <element name="RequestEntity" positionX="-61.453125" positionY="-66.11328125" width="128" height="119"/>
+        <element name="HeaderParamEntity" positionX="-45" positionY="-117" width="128" height="104"/>
+        <element name="URLParamEntity" positionX="-36" positionY="-108" width="128" height="104"/>
+        <element name="BodyParamEntity" positionX="-27" positionY="-99" width="128" height="104"/>
     </elements>
 </model>
