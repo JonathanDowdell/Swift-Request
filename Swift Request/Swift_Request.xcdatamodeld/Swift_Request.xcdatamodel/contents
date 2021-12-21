@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="QueryParamEntity" representedClassName="QueryParamEntity" syncable="YES">
+    <entity name="ParamEntity" representedClassName="ParamEntity" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
         <attribute name="value" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="RequestEntity" representedClassName="RequestEntity" syncable="YES"/>
+    <entity name="ProjectEntity" representedClassName="ProjectEntity" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="requests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="project" inverseEntity="RequestEntity"/>
+    </entity>
+    <entity name="RequestEntity" representedClassName="RequestEntity" syncable="YES">
+        <attribute name="method" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectEntity" inverseName="requests" inverseEntity="ProjectEntity"/>
+    </entity>
     <elements>
-        <element name="QueryParamEntity" positionX="-54" positionY="-9" width="128" height="74"/>
-        <element name="RequestEntity" positionX="-63" positionY="-18" width="128" height="29"/>
+        <element name="ParamEntity" positionX="18" positionY="-72" width="128" height="89"/>
+        <element name="ProjectEntity" positionX="-99.3828125" positionY="-214.12890625" width="128" height="89"/>
+        <element name="RequestEntity" positionX="-61.453125" positionY="-66.11328125" width="128" height="74"/>
     </elements>
 </model>

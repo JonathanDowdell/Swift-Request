@@ -7,17 +7,40 @@
 
 import SwiftUI
 
+class MainViewModel: ObservableObject {
+    @Published var searchText = ""
+    @Published var list = Range(1...10)
+    @Published var shouldPresentCompose = false
+    @Published var toolbarItemLeadingPlacement: ToolbarItemPlacement = .bottomBar
+    @Published var toolbarItemTrailingPlacement: ToolbarItemPlacement = .bottomBar
+    @Published var layout: Layout = .bottom
+ 
+    
+    enum Layout: String {
+    case top, bottom
+    }
+    
+    func changeToolbarLayout() {
+        if layout == .bottom {
+            toolbarItemLeadingPlacement = .navigationBarLeading
+            toolbarItemTrailingPlacement = .navigationBarTrailing
+            layout = .top
+        } else {
+            toolbarItemLeadingPlacement = .bottomBar
+            toolbarItemTrailingPlacement = .bottomBar
+            layout = .bottom
+        }
+    }
+}
+
+
 struct MainView: View {
     
-    @State private var searchText = ""
-    
-    @State private var list = Range(1...10)
-    
-    @State private var shouldPresentCompose = false
+    @StateObject private var viewModel = MainViewModel()
     
     var history: some View {
         Section {
-            ForEach(list.prefix(3), id: \.self) { _ in
+            ForEach(viewModel.list.prefix(3), id: \.self) { _ in
                 NavigationLink {
                     EmptyView()
                 } label: {
@@ -34,7 +57,7 @@ struct MainView: View {
     
     var projects: some View {
         Section {
-            ForEach(list.prefix(4), id: \.self) { _ in
+            ForEach(viewModel.list.prefix(4), id: \.self) { _ in
                 NavigationLink {
                     EmptyView()
                 } label: {
@@ -71,59 +94,45 @@ struct MainView: View {
                 }
                 .navigationTitle("Requests")
                 .navigationBarTitleDisplayMode(.large)
-                .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .automatic))
+                .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .automatic))
                 .toolbar {
-//                    ToolbarItem(placement: .navigationBarLeading) {
-//                        Button {
-//
-//                        } label: {
-//                            Image(systemName: "line.3.horizontal.decrease.circle")
-//                        }
-//                    }
-//
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        Button {
-//                            shouldPresentCompose = true
-//                        } label: {
-//                            Image(systemName: "folder")
-//                        }
-//                    }
-//
-//                    ToolbarItem(placement: .navigationBarTrailing) {
-//                        Button {
-//                            shouldPresentCompose = true
-//                        } label: {
-//                            Image(systemName: "square.and.pencil")
-//                        }
-//                    }
-                    
-                    
-                    ToolbarItem(placement: .bottomBar) {
+                    ToolbarItem(placement: viewModel.toolbarItemLeadingPlacement) {
                         HStack {
                             Button {
+                                viewModel.changeToolbarLayout()
                             } label: {
                                 Image(systemName: "line.3.horizontal.decrease.circle")
-//                                Image(systemName: "gearshape")
                             }
                             
-                            Button {
-                            } label: {
-                                Image(systemName: "folder")
+                            if viewModel.layout == .bottom {
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "folder.badge.plus")
+                                }
                             }
                         }
                     }
                     
-                    ToolbarItem(placement: .bottomBar) {
+                    ToolbarItem(placement: viewModel.toolbarItemTrailingPlacement) {
                         HStack {
+                            if viewModel.layout == .top {
+                                Button {
+                                    
+                                } label: {
+                                    Image(systemName: "folder.badge.plus")
+                                }
+                            }
+                            
                             Button {
-                                shouldPresentCompose = true
+                                viewModel.shouldPresentCompose = true
                             } label: {
                                 Image(systemName: "square.and.pencil")
                             }
                         }
                     }
                 }
-                .popover(isPresented: $shouldPresentCompose) {
+                .popover(isPresented: $viewModel.shouldPresentCompose) {
                     CreateRequestView(viewModel: CreateRequestViewModel())
                 }
             }
@@ -142,3 +151,5 @@ struct MainView_Previews: PreviewProvider {
         }
     }
 }
+
+

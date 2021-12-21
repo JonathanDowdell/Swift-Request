@@ -8,7 +8,7 @@
 import SwiftUI
 
 class CreateRequestViewModel: ObservableObject {
-    @Published var urlQueryParams = [QueryParamEntity]()
+    @Published var urlQueryParams = [ParamEntity]()
     @Published var title = ""
     @Published var url = ""
     
@@ -18,11 +18,11 @@ class CreateRequestViewModel: ObservableObject {
     @Published var bodyTypeSelectionIndex = 0
     var bodyTypeOptions = BodyType.allCases
     
-    @Published var chosenBodyType: BodyType = .URLEncoded
-    @Published var bodyEncodedQueryParams = [QueryParamEntity]()
-    @Published var bodyFormDataQueryParams = [QueryParamEntity]()
+    @Published var chosenBodyType: BodyType = .FormURLEncoded
+    @Published var bodyEncodedQueryParams = [ParamEntity]()
+    @Published var bodyFormDataQueryParams = [ParamEntity]()
     
-    @Published var headersParams = [QueryParamEntity]()
+    @Published var headersParams = [ParamEntity]()
 }
 
 enum Method: String, CaseIterable {
@@ -49,18 +49,20 @@ enum Method: String, CaseIterable {
 }
 
 enum BodyType: String, CaseIterable {
-    case URLEncoded, FormData, Raw, Binary
+    case FormURLEncoded, JSON, XML, Raw, Binary
     
     func color() -> (primary: Color, secondary: Color) {
         switch self {
-        case .URLEncoded:
+        case .FormURLEncoded:
             return (Color.green, Color.green.opacity(0.15))
-        case .FormData:
-            return (Color.orange, Color.orange.opacity(0.15))
-        case .Raw:
+        case .JSON:
+            return (Color.mint, Color.mint.opacity(0.15))
+        case .XML:
             return (Color.cyan, Color.cyan.opacity(0.15))
-        case .Binary:
+        case .Raw:
             return (Color.indigo, Color.indigo.opacity(0.15))
+        case .Binary:
+            return (Color.orange, Color.orange.opacity(0.15))
         }
     }
 }
@@ -110,11 +112,11 @@ struct CreateRequestView: View {
             }
             
             ForEach(viewModel.urlQueryParams, id: \.self) {
-                QueryParamItem(queryParam: $0)
+                QueryParamItem($0)
             }
-            .onDelete(perform: removeQueryParam)
+            .onDelete(perform: removeURLQueryParam)
             
-            Button(action: addQueryParam) {
+            Button(action: addURLQueryParam) {
                 HStack {
                     Image(systemName: "plus.circle.fill")
                     
@@ -131,12 +133,25 @@ struct CreateRequestView: View {
         }
     }
     
+    private func addURLQueryParam() {
+        let queryParam = ParamEntity(context: moc)
+        queryParam.active = true
+        withAnimation {
+            viewModel.urlQueryParams.append(queryParam)
+        }
+    }
+    
+    private func removeURLQueryParam(_ offSet: IndexSet) {
+        guard let element = offSet.first else { return }
+        viewModel.urlQueryParams.remove(at: element)
+    }
+    
     // MARK: Header
     
     private var headerSection: some View {
         Section {
             ForEach(viewModel.headersParams, id: \.self) {
-                QueryParamItem(queryParam: $0)
+                QueryParamItem($0)
             }
             .onDelete(perform: removeHeaderParam)
             
@@ -159,20 +174,19 @@ struct CreateRequestView: View {
         }
     }
     
-    // MARK: Query Section
-    
-    private func addQueryParam() {
-        let queryParam = QueryParamEntity(context: moc)
-        queryParam.active = false
+    private func addHeaderParam() {
+        let queryParam = ParamEntity(context: moc)
+        queryParam.active = true
         withAnimation {
-            viewModel.urlQueryParams.append(queryParam)
+            viewModel.headersParams.append(queryParam)
         }
     }
     
-    private func removeQueryParam(_ offSet: IndexSet) {
+    private func removeHeaderParam(_ offSet: IndexSet) {
         guard let element = offSet.first else { return }
-        viewModel.urlQueryParams.remove(at: element)
+        viewModel.headersParams.remove(at: element)
     }
+    
     
     // MARK: Body Content
     
@@ -185,6 +199,7 @@ struct CreateRequestView: View {
                         .font(.caption)
                         .bold()
                         .padding(5)
+                        .padding(.horizontal, 3)
                         .foregroundColor(method.color().primary)
                         .background(method.color().secondary)
                         .cornerRadius(10)
@@ -202,10 +217,12 @@ struct CreateRequestView: View {
             }
             
             switch viewModel.chosenBodyType {
-            case .URLEncoded:
-                urlEncodedParamsSection
-            case .FormData:
+            case .FormURLEncoded:
                 bodyFormDataParamsSection
+            case .JSON:
+                Text("JSON")
+            case .XML:
+                Text("XML")
             case .Binary:
                 Text("Binary")
             case .Raw:
@@ -229,28 +246,31 @@ struct CreateRequestView: View {
     
     private var urlEncodedParamsSection: some View {
         ForEach(viewModel.bodyEncodedQueryParams, id: \.self) {
-            QueryParamItem(queryParam: $0)
+            QueryParamItem($0)
         }
         .onDelete(perform: removeBodyParam)
     }
     
     private var bodyFormDataParamsSection: some View {
         ForEach(viewModel.bodyFormDataQueryParams, id: \.self) {
-            QueryParamItem(queryParam: $0)
+            QueryParamItem($0)
         }
         .onDelete(perform: removeBodyParam)
     }
     
     private func addBodyParam() {
-        let queryParam = QueryParamEntity(context: moc)
+        let queryParam = ParamEntity(context: moc)
+        queryParam.active = true
         withAnimation {
             switch viewModel.chosenBodyType {
-            case .URLEncoded:
-                viewModel.bodyEncodedQueryParams.append(queryParam)
-            case .FormData:
+            case .FormURLEncoded:
                 viewModel.bodyFormDataQueryParams.append(queryParam)
             case .Binary:
                 print("Binary")
+            case .JSON:
+                print("JSON")
+            case .XML:
+                print("XML")
             case .Raw:
                 print("Raw")
             }
@@ -260,26 +280,10 @@ struct CreateRequestView: View {
     private func removeBodyParam(_ offSet: IndexSet) {
         guard let element = offSet.first else { return }
         switch viewModel.chosenBodyType {
-        case .URLEncoded:
-            viewModel.bodyEncodedQueryParams.remove(at: element)
-        case .FormData:
+        case .FormURLEncoded:
             viewModel.bodyFormDataQueryParams.remove(at: element)
         default:
             print("")
-        }
-    }
-    
-    
-    
-    private func removeHeaderParam(_ offSet: IndexSet) {
-        guard let element = offSet.first else { return }
-        viewModel.headersParams.remove(at: element)
-    }
-    
-    private func addHeaderParam() {
-        let queryParam = QueryParamEntity(context: moc)
-        withAnimation {
-            viewModel.headersParams.append(queryParam)
         }
     }
     

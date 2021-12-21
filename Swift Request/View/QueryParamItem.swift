@@ -9,11 +9,16 @@ import SwiftUI
 
 struct QueryParamItem: View {
     
-    var queryParam: QueryParamEntity
+    private var queryParam: ParamEntity
     
-    @State private var active = false
+    @State private var active: Bool
     
     @Environment(\.managedObjectContext) var moc
+    
+    init(_ queryParam: ParamEntity) {
+        self.queryParam = queryParam
+        self.active = queryParam.active
+    }
     
     private var key: Binding<String> {
         .init {
