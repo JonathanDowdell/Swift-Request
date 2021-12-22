@@ -23,7 +23,7 @@ extension CreateRequestView {
                     .multilineTextAlignment(.trailing)
                     .padding(.trailing, 10)
             }
-            Picker(selection: $viewModel.methodSelection) {
+            Picker(selection: $viewModel.methodType) {
                 ForEach(viewModel.methodOptions, id: \.self) {
                     MethodItem(method: $0)
                 }
@@ -61,6 +61,7 @@ extension CreateRequestView {
     
     private func addURLQueryParam() {
         let queryParam = ParamEntity(context: moc)
+        queryParam.type = ParamType.URL.rawValue
         queryParam.active = true
         withAnimation {
             viewModel.urlParams.append(queryParam)
@@ -70,5 +71,17 @@ extension CreateRequestView {
     private func removeURLQueryParam(_ offSet: IndexSet) {
         guard let element = offSet.first else { return }
         viewModel.urlParams.remove(at: element)
+    }
+}
+
+struct CreateRequest_UrlSection_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CreateRequestView(viewModel: CreateRequestViewModel())
+                .environment(\.colorScheme, .light)
+            
+            CreateRequestView(viewModel: CreateRequestViewModel())
+                .environment(\.colorScheme, .dark)
+        }
     }
 }

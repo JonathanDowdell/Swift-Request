@@ -79,6 +79,7 @@ extension CreateRequestView {
     
     private func addBodyParam() {
         let queryParam = ParamEntity(context: moc)
+        queryParam.type = ParamType.Body.rawValue
         queryParam.active = true
         withAnimation {
             switch viewModel.bodyContentType {
@@ -107,3 +108,14 @@ extension CreateRequestView {
     }
 }
 
+struct CreateRequest_BodyContentSection_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CreateRequestView(viewModel: CreateRequestViewModel())
+                .environment(\.colorScheme, .light)
+            
+            CreateRequestView(viewModel: CreateRequestViewModel())
+                .environment(\.colorScheme, .dark)
+        }
+    }
+}

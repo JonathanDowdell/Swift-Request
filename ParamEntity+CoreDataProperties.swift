@@ -2,7 +2,7 @@
 //  ParamEntity+CoreDataProperties.swift
 //  Swift Request
 //
-//  Created by Jonathan Dowdell on 12/21/21.
+//  Created by Jonathan Dowdell on 12/22/21.
 //
 //
 
@@ -20,6 +20,7 @@ extension ParamEntity {
     @NSManaged public var key: String?
     @NSManaged public var type: String?
     @NSManaged public var value: String?
+    @NSManaged public var request: RequestEntity?
 
     var wrappedValue: String {
         value ?? ""

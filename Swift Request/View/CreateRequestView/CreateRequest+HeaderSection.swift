@@ -31,13 +31,14 @@ extension CreateRequestView {
             
         } header: {
             HStack {
-                Text("Headers")
+                Text("Header")
             }
         }
     }
     
     private func addHeaderParam() {
         let queryParam = ParamEntity(context: moc)
+        queryParam.type = ParamType.Header.rawValue
         queryParam.active = true
         withAnimation {
             viewModel.headerParams.append(queryParam)
@@ -47,5 +48,17 @@ extension CreateRequestView {
     private func removeHeaderParam(_ offSet: IndexSet) {
         guard let element = offSet.first else { return }
         viewModel.headerParams.remove(at: element)
+    }
+}
+
+struct CreateRequest_HeaderSection_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CreateRequestView(viewModel: CreateRequestViewModel())
+                .environment(\.colorScheme, .light)
+            
+            CreateRequestView(viewModel: CreateRequestViewModel())
+                .environment(\.colorScheme, .dark)
+        }
     }
 }

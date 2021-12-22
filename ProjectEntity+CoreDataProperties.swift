@@ -20,7 +20,12 @@ extension ProjectEntity {
     @NSManaged public var name: String?
     @NSManaged public var order: Int32
     @NSManaged public var requests: NSSet?
+    
+    var wrappedName: String {
+        name ?? "Unnamed"
+    }
 
+    
 }
 
 // MARK: Generated accessors for requests

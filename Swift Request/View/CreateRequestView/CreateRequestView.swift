@@ -13,7 +13,7 @@ class CreateRequestViewModel: ObservableObject {
     @Published var title = ""
     @Published var url = ""
     @Published var urlParams = [ParamEntity]()
-    @Published var methodSelection: MethodType = .GET
+    @Published var methodType: MethodType = .GET
     var methodOptions = MethodType.allCases
     
     // MARK: Header
@@ -24,6 +24,10 @@ class CreateRequestViewModel: ObservableObject {
     @Published var bodyEncodedQueryParams = [ParamEntity]()
     @Published var bodyFormDataQueryParams = [ParamEntity]()
     var bodyTypeOptions = BodyType.allCases
+    
+    // MARK: Projects
+    @Published var projects = [ProjectEntity]()
+    @Published var selectedProject: ProjectEntity?
 }
 
 struct CreateRequestView: View {
@@ -42,6 +46,20 @@ struct CreateRequestView: View {
                 headerSection
                 
                 bodyContentSection
+                
+                Picker(selection: $viewModel.selectedProject) {
+                    
+                } label: {
+                    HStack {
+                        Image(systemName: "shippingbox")
+                            .padding(.trailing, 14)
+                            .foregroundColor(Color.accentColor)
+                        Text("Project")
+                            .foregroundColor(.gray)
+                    }
+                    .tint(Color.accentColor)
+                }
+
             }
             .listStyle(.sidebar)
             .toolbar {
@@ -85,7 +103,5 @@ struct CreateRequestView_Previews: PreviewProvider {
         }
     }
 }
-
-
 
 
