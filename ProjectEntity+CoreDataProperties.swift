@@ -2,7 +2,7 @@
 //  ProjectEntity+CoreDataProperties.swift
 //  Swift Request
 //
-//  Created by Jonathan Dowdell on 12/21/21.
+//  Created by Jonathan Dowdell on 12/22/21.
 //
 //
 
@@ -19,13 +19,26 @@ extension ProjectEntity {
     @NSManaged public var creationDate: Date?
     @NSManaged public var name: String?
     @NSManaged public var order: Int32
+    @NSManaged public var systemIcon: String?
+    @NSManaged public var version: String?
     @NSManaged public var requests: NSSet?
-    
+
     var wrappedName: String {
         name ?? "Unnamed"
     }
-
     
+    var wrappedSystemIcon: String {
+        systemIcon ?? "network"
+    }
+    
+    var wrappedVersion: String {
+        version ?? "Version 1.0"
+    }
+    
+    var wrappedRequests: [RequestEntity] {
+        let requests = requests as? Set<RequestEntity> ?? []
+        return requests.map { $0 }
+    }
 }
 
 // MARK: Generated accessors for requests

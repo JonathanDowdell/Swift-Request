@@ -1,5 +1,5 @@
 //
-//  CreateRequest+UrlSection.swift
+//  RunRequest+UrlSection.swift
 //  Swift Request
 //
 //  Created by Jonathan Dowdell on 12/21/21.
@@ -8,10 +8,22 @@
 import SwiftUI
 
 // MARK: URL Section
-extension CreateRequestView {
+extension RunRequestView {
     
     var urlSection: some View {
         Section {
+            HStack {
+                Image(systemName: "pencil")
+                    .padding(.trailing, 10)
+                    .foregroundColor(viewModel.title.isEmpty ? Color.gray : Color.accentColor)
+                Text("Title")
+                    .foregroundColor(Color.gray)
+                Spacer()
+                TextField("Optional", text: $viewModel.title)
+                    .multilineTextAlignment(.trailing)
+                    .disableAutocorrection(true)
+                    .padding(.trailing, 10)
+            }
             HStack {
                 Image(systemName: "personalhotspot")
                     .padding(.trailing, 10)
@@ -21,6 +33,7 @@ extension CreateRequestView {
                 Spacer()
                 TextField("Localhost:3000", text: $viewModel.url)
                     .multilineTextAlignment(.trailing)
+                    .disableAutocorrection(true)
                     .padding(.trailing, 10)
             }
             Picker(selection: $viewModel.methodType) {
@@ -77,10 +90,10 @@ extension CreateRequestView {
 struct CreateRequest_UrlSection_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CreateRequestView(viewModel: CreateRequestViewModel())
+            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
                 .environment(\.colorScheme, .light)
             
-            CreateRequestView(viewModel: CreateRequestViewModel())
+            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
                 .environment(\.colorScheme, .dark)
         }
     }

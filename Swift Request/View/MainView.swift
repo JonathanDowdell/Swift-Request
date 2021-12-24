@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
+import CoreData
 
 class MainViewModel: ObservableObject {
     @Published var searchText = ""
-    @Published var list = Range(1...10)
     @Published var shouldPresentCompose = false
+    @Published var shouldPresentNewProject = false
     @Published var toolbarItemLeadingPlacement: ToolbarItemPlacement = .bottomBar
     @Published var toolbarItemTrailingPlacement: ToolbarItemPlacement = .bottomBar
     @Published var layout: Layout = .bottom
- 
     
     enum Layout: String {
     case top, bottom
@@ -36,48 +36,70 @@ class MainViewModel: ObservableObject {
 
 struct MainView: View {
     
-    @StateObject private var viewModel = MainViewModel()
+    @StateObject var viewModel: MainViewModel
     
-    var history: some View {
+    @State var historyUpdateId = UUID()
+    
+    @Environment(\.managedObjectContext) var moc
+    
+    @FetchRequest(entity: RequestEntity.entity(), sortDescriptors: []) private var requests: FetchedResults<RequestEntity>
+    
+    @FetchRequest(entity: ProjectEntity.entity(), sortDescriptors: []) private var projects: FetchedResults<ProjectEntity>
+    
+    private var filteredProjects: [ProjectEntity] {
+        projects.filter { viewModel.searchText.isEmpty ? true : $0.wrappedName.lowercased().contains(viewModel.searchText.lowercased()) }
+    }
+    
+    private var requestHistory: [FetchedResults<RequestEntity>.Element] {
+        requests.filter { $0.project == nil }
+        .filter { viewModel.searchText.isEmpty ? true : $0.wrappedTitle.lowercased().contains(viewModel.searchText.lowercased()) }
+    }
+    
+    private func deleteRequest(_ offSet: IndexSet) {
+        for index in offSet {
+            let request = requests[index]
+            moc.delete(request)
+        }
+        try? moc.save()
+    }
+    
+    fileprivate func deleteProject(_ offSet: IndexSet) {
+        for index in offSet {
+            let project = projects[index]
+            moc.delete(project)
+            try? moc.save()
+        }
+    }
+    
+    var historySection: some View {
         Section {
-            ForEach(viewModel.list.prefix(3), id: \.self) { _ in
+            ForEach(requestHistory, id: \.self) { request in
                 NavigationLink {
-                    EmptyView()
+                    RunRequestView(viewModel: RunRequestViewModel(request: request, historyUpdateId: $historyUpdateId))
                 } label: {
-                    RequestItem()
+                    RequestItem(request: request)
                 }
             }
-            .onDelete { _ in
-
+            .onDelete { offSet in
+                deleteRequest(offSet)
             }
         } header: {
             Text("History")
         }
+        .id(historyUpdateId)
     }
     
-    var projects: some View {
+    var projectSection: some View {
         Section {
-            ForEach(viewModel.list.prefix(4), id: \.self) { _ in
+            ForEach(filteredProjects, id: \.self) { project in
                 NavigationLink {
                     EmptyView()
                 } label: {
-                    HStack {
-                        Image(systemName: "network")
-                            .padding(.horizontal, 11)
-                            .padding(.vertical, 10)
-                            .foregroundColor(Color.cyan)
-                            .background(Color.cyan.opacity(0.15))
-                            .cornerRadius(10)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Social Setting")
-                            Text("Version 1.0")
-                                .font(.footnote)
-                                .foregroundColor(Color.gray)
-                                .tint(Color.gray)
-                        }
-                    }
+                    ProjectItem(project: project)
                 }
+            }
+            .onDelete { offSet in
+                deleteProject(offSet)
             }
         } header: {
             Text("Projects")
@@ -88,9 +110,9 @@ struct MainView: View {
         NavigationView {
             ZStack {
                 List {
-                    projects
+                    projectSection
                     
-                    history
+                    historySection
                 }
                 .navigationTitle("Requests")
                 .navigationBarTitleDisplayMode(.large)
@@ -100,13 +122,17 @@ struct MainView: View {
                         HStack {
                             Button {
                                 viewModel.changeToolbarLayout()
+//                                for project in projects {
+//                                    moc.delete(project)
+//                                }
+//                                try? moc.save()
                             } label: {
                                 Image(systemName: "line.3.horizontal.decrease.circle")
                             }
                             
                             if viewModel.layout == .bottom {
                                 Button {
-                                    
+                                    viewModel.shouldPresentNewProject = true
                                 } label: {
                                     Image(systemName: "folder.badge.plus")
                                 }
@@ -118,7 +144,7 @@ struct MainView: View {
                         HStack {
                             if viewModel.layout == .top {
                                 Button {
-                                    
+                                    viewModel.shouldPresentNewProject = true
                                 } label: {
                                     Image(systemName: "folder.badge.plus")
                                 }
@@ -133,7 +159,19 @@ struct MainView: View {
                     }
                 }
                 .popover(isPresented: $viewModel.shouldPresentCompose) {
-                    CreateRequestView(viewModel: CreateRequestViewModel())
+                    NavigationView {
+                        RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: $historyUpdateId))
+                            .toolbar {
+                                ToolbarItem(placement: .navigationBarLeading) {
+                                    Button { viewModel.shouldPresentCompose = false } label: {
+                                        Text("Cancel")
+                                    }
+                                }
+                            }
+                    }
+                }
+                .popover(isPresented: $viewModel.shouldPresentNewProject) {
+                    CreateProjectView(viewModel: CreateProjectViewModel(moc: moc))
                 }
             }
         }
@@ -143,13 +181,15 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            MainView()
+            MainView(viewModel: MainViewModel())
                 .environment(\.colorScheme, .light)
             
-            MainView()
+            MainView(viewModel: MainViewModel())
                 .environment(\.colorScheme, .dark)
         }
     }
 }
+
+
 
 

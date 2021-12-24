@@ -1,5 +1,5 @@
 //
-//  CreateRequest+BodyContent.swift
+//  RunRequest+BodyContent.swift
 //  Swift Request
 //
 //  Created by Jonathan Dowdell on 12/21/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension CreateRequestView {
+extension RunRequestView {
     
     var bodyContentSection: some View {
         Section {
@@ -24,7 +24,7 @@ extension CreateRequestView {
                         .cornerRadius(10)
                 }
             } label: {
-                let active = (!viewModel.bodyEncodedQueryParams.isEmpty || !viewModel.bodyFormDataQueryParams.isEmpty)
+                let active = (!viewModel.bodyFormURLEncodedQueryParams.isEmpty)
                 
                 HStack {
                     Image(systemName: "shippingbox")
@@ -64,14 +64,14 @@ extension CreateRequestView {
     }
     
     private var urlEncodedParamsSection: some View {
-        ForEach(viewModel.bodyEncodedQueryParams, id: \.self) {
+        ForEach(viewModel.bodyFormURLEncodedQueryParams, id: \.self) {
             ParamItem($0)
         }
         .onDelete(perform: removeBodyParam)
     }
     
     private var bodyFormDataParamsSection: some View {
-        ForEach(viewModel.bodyFormDataQueryParams, id: \.self) {
+        ForEach(viewModel.bodyFormURLEncodedQueryParams, id: \.self) {
             ParamItem($0)
         }
         .onDelete(perform: removeBodyParam)
@@ -84,7 +84,7 @@ extension CreateRequestView {
         withAnimation {
             switch viewModel.bodyContentType {
             case .FormURLEncoded:
-                viewModel.bodyFormDataQueryParams.append(queryParam)
+                viewModel.bodyFormURLEncodedQueryParams.append(queryParam)
             case .Binary:
                 print("Binary")
             case .JSON:
@@ -101,7 +101,7 @@ extension CreateRequestView {
         guard let element = offSet.first else { return }
         switch viewModel.bodyContentType {
         case .FormURLEncoded:
-            viewModel.bodyFormDataQueryParams.remove(at: element)
+            viewModel.bodyFormURLEncodedQueryParams.remove(at: element)
         default:
             print("")
         }
@@ -111,10 +111,10 @@ extension CreateRequestView {
 struct CreateRequest_BodyContentSection_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CreateRequestView(viewModel: CreateRequestViewModel())
+            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
                 .environment(\.colorScheme, .light)
             
-            CreateRequestView(viewModel: CreateRequestViewModel())
+            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
                 .environment(\.colorScheme, .dark)
         }
     }

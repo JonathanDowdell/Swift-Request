@@ -1,5 +1,5 @@
 //
-//  CreateRequest+HeaderSection.swift
+//  RunRequest+HeaderSection.swift
 //  Swift Request
 //
 //  Created by Jonathan Dowdell on 12/21/21.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 // MARK: Header
-extension CreateRequestView {
+extension RunRequestView {
     
     var headerSection: some View {
         Section {
@@ -54,10 +54,10 @@ extension CreateRequestView {
 struct CreateRequest_HeaderSection_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CreateRequestView(viewModel: CreateRequestViewModel())
+            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
                 .environment(\.colorScheme, .light)
             
-            CreateRequestView(viewModel: CreateRequestViewModel())
+            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
                 .environment(\.colorScheme, .dark)
         }
     }

@@ -13,7 +13,7 @@ struct Swift_RequestApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(viewModel: MainViewModel())
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

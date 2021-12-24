@@ -11,17 +11,21 @@
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="systemIcon" optional="YES" attributeType="String"/>
+        <attribute name="version" optional="YES" attributeType="String"/>
         <relationship name="requests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="project" inverseEntity="RequestEntity"/>
     </entity>
     <entity name="RequestEntity" representedClassName="RequestEntity" syncable="YES">
+        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="method" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
-        <relationship name="params" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ParamEntity" inverseName="request" inverseEntity="ParamEntity"/>
+        <relationship name="params" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ParamEntity" inverseName="request" inverseEntity="ParamEntity"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectEntity" inverseName="requests" inverseEntity="ProjectEntity"/>
     </entity>
     <elements>
         <element name="ParamEntity" positionX="18" positionY="-72" width="128" height="118"/>
-        <element name="ProjectEntity" positionX="-308.82421875" positionY="-589.38671875" width="128" height="89"/>
-        <element name="RequestEntity" positionX="-220.15625" positionY="-436.73828125" width="128" height="103"/>
+        <element name="ProjectEntity" positionX="-308.82421875" positionY="-589.38671875" width="128" height="119"/>
+        <element name="RequestEntity" positionX="-220.15625" positionY="-436.73828125" width="128" height="119"/>
     </elements>
 </model>
