@@ -1,20 +1,71 @@
 //
-//  MainView.swift
+//  MainViewModel.swift
 //  Swift Request
 //
-//  Created by Jonathan Dowdell on 12/19/21.
+//  Created by Jonathan Dowdell on 12/26/21.
 //
 
 import SwiftUI
 import CoreData
 
-class MainViewModel: ObservableObject {
+protocol RequestsManagement: ObservableObject {
+    func reload()
+}
+
+class MainViewModel: RequestsManagement {
     @Published var searchText = ""
     @Published var shouldPresentCompose = false
     @Published var shouldPresentNewProject = false
     @Published var toolbarItemLeadingPlacement: ToolbarItemPlacement = .bottomBar
     @Published var toolbarItemTrailingPlacement: ToolbarItemPlacement = .bottomBar
     @Published var layout: Layout = .bottom
+    
+    @Published var projects = [ProjectEntity]()
+    
+    @Published var requests = [RequestEntity]()
+    
+    var filteredProjects: [FetchedResults<ProjectEntity>.Element] {
+        projects.filter { searchText.isEmpty ? true : $0.wrappedName.lowercased().contains(searchText.lowercased()) }
+    }
+    
+    var requestHistory: [FetchedResults<RequestEntity>.Element] {
+        requests.filter { $0.project == nil }
+        .filter { searchText.isEmpty ? true : $0.wrappedTitle.lowercased().contains(searchText.lowercased()) }
+    }
+    
+    let context: NSManagedObjectContext
+    
+    init(context: NSManagedObjectContext) {
+        self.context = context
+        
+        reload()
+    }
+    
+    func reload() {
+        guard let projects = try? context.fetch(ProjectEntity.fetchRequest()) else { return }
+        self.projects = projects
+        
+        guard let request = try? context.fetch(RequestEntity.fetchRequest()) else { return }
+        self.requests = request
+    }
+    
+    func deleteRequest(_ offSet: IndexSet) {
+        for index in offSet {
+            let request = requests[index]
+            context.delete(request)
+        }
+        try? context.save()
+        reload()
+    }
+    
+    func deleteProject(_ offSet: IndexSet) {
+        for index in offSet {
+            let project = projects[index]
+            context.delete(project)
+        }
+        try? context.save()
+        reload()
+    }
     
     enum Layout: String {
     case top, bottom
@@ -33,73 +84,42 @@ class MainViewModel: ObservableObject {
     }
 }
 
-
 struct MainView: View {
     
     @StateObject var viewModel: MainViewModel
     
-    @State var historyUpdateId = UUID()
-    
     @Environment(\.managedObjectContext) var moc
-    
-    @FetchRequest(entity: RequestEntity.entity(), sortDescriptors: []) private var requests: FetchedResults<RequestEntity>
-    
-    @FetchRequest(entity: ProjectEntity.entity(), sortDescriptors: []) private var projects: FetchedResults<ProjectEntity>
-    
-    private var filteredProjects: [ProjectEntity] {
-        projects.filter { viewModel.searchText.isEmpty ? true : $0.wrappedName.lowercased().contains(viewModel.searchText.lowercased()) }
-    }
-    
-    private var requestHistory: [FetchedResults<RequestEntity>.Element] {
-        requests.filter { $0.project == nil }
-        .filter { viewModel.searchText.isEmpty ? true : $0.wrappedTitle.lowercased().contains(viewModel.searchText.lowercased()) }
-    }
-    
-    private func deleteRequest(_ offSet: IndexSet) {
-        for index in offSet {
-            let request = requests[index]
-            moc.delete(request)
-        }
-        try? moc.save()
-    }
-    
-    fileprivate func deleteProject(_ offSet: IndexSet) {
-        for index in offSet {
-            let project = projects[index]
-            moc.delete(project)
-            try? moc.save()
-        }
-    }
     
     var historySection: some View {
         Section {
-            ForEach(requestHistory, id: \.self) { request in
+            ForEach(viewModel.requestHistory, id: \.self) { request in
                 NavigationLink {
-                    RunRequestView(viewModel: RunRequestViewModel(request: request, historyUpdateId: $historyUpdateId))
+                    RunRequestView(vm: RunRequestViewModel(request: request, context: moc),
+                                   requestsManager: viewModel)
                 } label: {
                     RequestItem(request: request)
                 }
             }
             .onDelete { offSet in
-                deleteRequest(offSet)
+                viewModel.deleteRequest(offSet)
             }
         } header: {
             Text("History")
         }
-        .id(historyUpdateId)
     }
     
     var projectSection: some View {
         Section {
-            ForEach(filteredProjects, id: \.self) { project in
+            ForEach(viewModel.filteredProjects, id: \.self) { project in
                 NavigationLink {
-                    EmptyView()
+                    ProjectView(vm: ProjectViewModel(project, context: moc),
+                                project: project)
                 } label: {
                     ProjectItem(project: project)
                 }
             }
             .onDelete { offSet in
-                deleteProject(offSet)
+                viewModel.deleteProject(offSet)
             }
         } header: {
             Text("Projects")
@@ -121,11 +141,10 @@ struct MainView: View {
                     ToolbarItem(placement: viewModel.toolbarItemLeadingPlacement) {
                         HStack {
                             Button {
-                                viewModel.changeToolbarLayout()
-//                                for project in projects {
-//                                    moc.delete(project)
-//                                }
-//                                try? moc.save()
+                                
+                                withAnimation {
+                                    viewModel.reload()
+                                }
                             } label: {
                                 Image(systemName: "line.3.horizontal.decrease.circle")
                             }
@@ -141,7 +160,7 @@ struct MainView: View {
                     }
                     
                     ToolbarItem(placement: viewModel.toolbarItemTrailingPlacement) {
-                        HStack {
+                        HStack(spacing: 20) {
                             if viewModel.layout == .top {
                                 Button {
                                     viewModel.shouldPresentNewProject = true
@@ -160,36 +179,29 @@ struct MainView: View {
                 }
                 .popover(isPresented: $viewModel.shouldPresentCompose) {
                     NavigationView {
-                        RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: $historyUpdateId))
+                        RunRequestView(vm: RunRequestViewModel(context: moc), requestsManager: viewModel)
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarLeading) {
                                     Button { viewModel.shouldPresentCompose = false } label: {
-                                        Text("Cancel")
+                                        Text("Close")
                                     }
                                 }
                             }
                     }
                 }
                 .popover(isPresented: $viewModel.shouldPresentNewProject) {
-                    CreateProjectView(viewModel: CreateProjectViewModel(moc: moc))
+                    CreateProjectView(vm: CreateProjectViewModel(moc: moc), previousVm: viewModel)
                 }
+            }
+            .onAppear {
+                viewModel.reload()
             }
         }
     }
 }
 
-struct MainView_Previews: PreviewProvider {
+struct MainViewAlt_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            MainView(viewModel: MainViewModel())
-                .environment(\.colorScheme, .light)
-            
-            MainView(viewModel: MainViewModel())
-                .environment(\.colorScheme, .dark)
-        }
+        MainView(viewModel: MainViewModel(context: PersistenceController.shared.container.viewContext))
     }
 }
-
-
-
-

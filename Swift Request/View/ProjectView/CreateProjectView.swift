@@ -18,10 +18,26 @@ class CreateProjectViewModel: ObservableObject {
     
     @Published var unassignedRequests = [RequestEntity]()
     
-    private var moc: NSManagedObjectContext
+    @Published var project: ProjectEntity?
     
-    init(moc: NSManagedObjectContext) {
+    private let moc: NSManagedObjectContext
+    
+    let title: String
+    
+    
+    init(project: ProjectEntity? = nil, moc: NSManagedObjectContext) {
+        if let project = project {
+            self.name = project.wrappedName
+            self.version = project.wrappedVersion
+            self.project = project
+            self.title = "Edit Project"
+            self.projectRequests = project.wrappedRequests
+        } else {
+            self.title = "Create Project"
+        }
+        
         self.moc = moc
+        
         do {
             let requests: [RequestEntity] = try moc.fetch(RequestEntity.fetchRequest())
             unassignedRequests = requests.filter { $0.project == nil }
@@ -43,11 +59,12 @@ class CreateProjectViewModel: ObservableObject {
     }
     
     fileprivate func saveProject(presentationMode: Binding<PresentationMode>) {
-        let project = ProjectEntity(context: moc)
+        let project = self.project ?? ProjectEntity(context: moc)
         project.name = self.name
         project.creationDate = Date()
         project.systemIcon = self.projectIcon
         project.version = self.version.isEmpty ? "Version 1.0" : self.version
+        project.wrappedRequests.forEach { project.removeFromRequests($0) }
         for projectRequest in projectRequests {
             project.addToRequests(projectRequest)
             projectRequest.project = project
@@ -59,11 +76,12 @@ class CreateProjectViewModel: ObservableObject {
 }
 
 struct CreateProjectView: View {
-    @StateObject var viewModel: CreateProjectViewModel
     
-    @State var project: ProjectEntity?
+    @StateObject var vm: CreateProjectViewModel
     
-    @Environment(\.presentationMode) var presentationMode
+    @StateObject var previousVm: MainViewModel
+    
+    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
         NavigationView {
@@ -72,22 +90,22 @@ struct CreateProjectView: View {
                     HStack {
                         Text("Name")
                         Spacer()
-                        TextField("Fancy Project Name", text: $viewModel.name)
+                        TextField("Fancy Project Name", text: $vm.name)
                             .multilineTextAlignment(.trailing)
                     }
                     
                     HStack {
                         Text("Version")
                         Spacer()
-                        TextField("Version 1.0", text: $viewModel.version)
+                        TextField("Version 1.0", text: $vm.version)
                             .multilineTextAlignment(.trailing)
                     }
                     
                     HStack {
                         Button {
-                            viewModel.shouldPresentIcons = true
+                            vm.shouldPresentIcons = true
                         } label: {
-                            Image(systemName: viewModel.projectIcon)
+                            Image(systemName: vm.projectIcon)
                                 .padding(.horizontal, 11)
                                 .padding(.vertical, 10)
                                 .foregroundColor(Color.cyan)
@@ -98,9 +116,9 @@ struct CreateProjectView: View {
 
                         
                         VStack(alignment: .leading) {
-                            Text(viewModel.name)
+                            Text(vm.name)
                                 .foregroundColor(.primary)
-                            Text(viewModel.version)
+                            Text(vm.version)
                                 .font(.footnote)
                                 .foregroundColor(Color.gray)
                                 .tint(Color.gray)
@@ -110,12 +128,11 @@ struct CreateProjectView: View {
                 }
                 
                 Section {
-                    ForEach(viewModel.projectRequests, id: \.self) { request in
+                    ForEach(vm.projectRequests, id: \.self) { request in
                         Button {
-                            viewModel.removeRequestFromProject(request: request)
+                            vm.removeRequestFromProject(request: request)
                         } label: {
                             RequestItem(request: request) {
-                                Spacer()
                                 Image(systemName: "minus.circle.fill")
                                     .foregroundColor(Color.red)
                             }
@@ -127,12 +144,11 @@ struct CreateProjectView: View {
                 }
                 
                 Section {
-                    ForEach(viewModel.unassignedRequests, id: \.self) { request in
+                    ForEach(vm.unassignedRequests, id: \.self) { request in
                         Button {
-                            viewModel.moveRequestToProject(request: request)
+                            vm.moveRequestToProject(request: request)
                         } label: {
                             RequestItem(request: request) {
-                                Spacer()
                                 Image(systemName: "plus.circle.fill")
                                     .foregroundColor(Color.green)
                             }
@@ -145,7 +161,7 @@ struct CreateProjectView: View {
                 
                 
             }
-            .navigationTitle("Create Project")
+            .navigationTitle(vm.title)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
@@ -155,7 +171,8 @@ struct CreateProjectView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     PillButton {
-                        viewModel.saveProject(presentationMode: presentationMode)
+                        vm.saveProject(presentationMode: presentationMode)
+                        previousVm.reload()
                     } content: {
                         Text("Save")
                             .font(.footnote)
@@ -164,8 +181,8 @@ struct CreateProjectView: View {
                     }
                 }
             }
-            .popover(isPresented: $viewModel.shouldPresentIcons) {
-                IconsView(projectIcon: $viewModel.projectIcon)
+            .popover(isPresented: $vm.shouldPresentIcons) {
+                IconsView(projectIcon: $vm.projectIcon)
             }
         }
     }
@@ -173,6 +190,6 @@ struct CreateProjectView: View {
 
 struct CreateProjectViewAlt_Previews: PreviewProvider {
     static var previews: some View {
-        CreateProjectView(viewModel: CreateProjectViewModel(moc: PersistenceController.shared.container.viewContext))
+        CreateProjectView(vm: CreateProjectViewModel(moc: PersistenceController.shared.container.viewContext), previousVm: MainViewModel(context: PersistenceController.shared.container.viewContext))
     }
 }

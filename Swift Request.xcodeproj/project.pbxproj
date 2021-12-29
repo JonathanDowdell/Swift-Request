@@ -12,7 +12,6 @@
 		2440A54D276F9A2300943B06 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2440A54C276F9A2300943B06 /* Preview Assets.xcassets */; };
 		2440A54F276F9A2300943B06 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440A54E276F9A2300943B06 /* Persistence.swift */; };
 		2440A552276F9A2300943B06 /* Swift_Request.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2440A550276F9A2300943B06 /* Swift_Request.xcdatamodeld */; };
-		2440A559276F9A4500943B06 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440A558276F9A4500943B06 /* MainView.swift */; };
 		2440A55B276FA08300943B06 /* RequestItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440A55A276FA08300943B06 /* RequestItem.swift */; };
 		2440A55F276FCE6000943B06 /* RunRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440A55E276FCE6000943B06 /* RunRequestView.swift */; };
 		244CC7B32770FACE008EA7AD /* ParamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CC7B22770FACE008EA7AD /* ParamItem.swift */; };
@@ -35,6 +34,10 @@
 		24F770B42774DC02001C94A9 /* RequestEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B22774DC02001C94A9 /* RequestEntity+CoreDataClass.swift */; };
 		24F770B52774DC03001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B32774DC02001C94A9 /* RequestEntity+CoreDataProperties.swift */; };
 		24F770B727755B81001C94A9 /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B627755B81001C94A9 /* CreateProjectView.swift */; };
+		24F770BA27763852001C94A9 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B927763852001C94A9 /* Networking.swift */; };
+		24F770BC27785CC0001C94A9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770BB27785CC0001C94A9 /* MainView.swift */; };
+		24F770BF277A1D5E001C94A9 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770BE277A1D5E001C94A9 /* ProjectView.swift */; };
+		24F770C2277B0708001C94A9 /* Array+Etx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770C1277B0708001C94A9 /* Array+Etx.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +47,6 @@
 		2440A54C276F9A2300943B06 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2440A54E276F9A2300943B06 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		2440A551276F9A2300943B06 /* Swift_Request.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Swift_Request.xcdatamodel; sourceTree = "<group>"; };
-		2440A558276F9A4500943B06 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2440A55A276FA08300943B06 /* RequestItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestItem.swift; sourceTree = "<group>"; };
 		2440A55E276FCE6000943B06 /* RunRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunRequestView.swift; sourceTree = "<group>"; };
 		244CC7B22770FACE008EA7AD /* ParamItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamItem.swift; sourceTree = "<group>"; };
@@ -67,6 +69,10 @@
 		24F770B22774DC02001C94A9 /* RequestEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		24F770B32774DC02001C94A9 /* RequestEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		24F770B627755B81001C94A9 /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
+		24F770B927763852001C94A9 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		24F770BB27785CC0001C94A9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		24F770BE277A1D5E001C94A9 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
+		24F770C1277B0708001C94A9 /* Array+Etx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Etx.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +105,11 @@
 		2440A544276F9A2200943B06 /* Swift Request */ = {
 			isa = PBXGroup;
 			children = (
+				24F770B827763809001C94A9 /* Networking */,
 				2440A55D276FC48800943B06 /* View */,
 				2440A573276FEA1D00943B06 /* Entity */,
 				2440A55C276FC48100943B06 /* Model */,
+				24F770C0277B06E1001C94A9 /* Extension */,
 				2440A545276F9A2200943B06 /* Swift_RequestApp.swift */,
 				2440A549276F9A2300943B06 /* Assets.xcassets */,
 				2440A550276F9A2300943B06 /* Swift_Request.xcdatamodeld */,
@@ -130,12 +138,11 @@
 		2440A55D276FC48800943B06 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2440A558276F9A4500943B06 /* MainView.swift */,
-				24F77089277272FC001C94A9 /* CreateRequestView */,
-				24F770AA2773CE6A001C94A9 /* CreateProjectView */,
+				24F770BB27785CC0001C94A9 /* MainView.swift */,
+				24F77089277272FC001C94A9 /* RunRequestView */,
+				24F770BD277A1D4C001C94A9 /* ProjectView */,
 				2440A55A276FA08300943B06 /* RequestItem.swift */,
 				24F770AD2774D675001C94A9 /* ProjectItem.swift */,
-				244CC7B22770FACE008EA7AD /* ParamItem.swift */,
 				24F77082277270F2001C94A9 /* MethodItem.swift */,
 				24F7709627732AAD001C94A9 /* Misc */,
 			);
@@ -190,7 +197,7 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
-		24F77089277272FC001C94A9 /* CreateRequestView */ = {
+		24F77089277272FC001C94A9 /* RunRequestView */ = {
 			isa = PBXGroup;
 			children = (
 				2440A55E276FCE6000943B06 /* RunRequestView.swift */,
@@ -198,9 +205,10 @@
 				24F7708C2772737F001C94A9 /* RunRequest+HeaderSection.swift */,
 				24F7708E277273BE001C94A9 /* RunRequest+BodyContent.swift */,
 				24F77099277331F2001C94A9 /* CreateRequestProjectView.swift */,
+				244CC7B22770FACE008EA7AD /* ParamItem.swift */,
 				24F7709B277359B5001C94A9 /* IconsView.swift */,
 			);
-			path = CreateRequestView;
+			path = RunRequestView;
 			sourceTree = "<group>";
 		};
 		24F7709627732AAD001C94A9 /* Misc */ = {
@@ -211,20 +219,37 @@
 			path = Misc;
 			sourceTree = "<group>";
 		};
-		24F770AA2773CE6A001C94A9 /* CreateProjectView */ = {
-			isa = PBXGroup;
-			children = (
-				24F770B627755B81001C94A9 /* CreateProjectView.swift */,
-			);
-			path = CreateProjectView;
-			sourceTree = "<group>";
-		};
 		24F770AF2774D82D001C94A9 /* Test */ = {
 			isa = PBXGroup;
 			children = (
 				24F770B02774D840001C94A9 /* TestData.swift */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		24F770B827763809001C94A9 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				24F770B927763852001C94A9 /* Networking.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		24F770BD277A1D4C001C94A9 /* ProjectView */ = {
+			isa = PBXGroup;
+			children = (
+				24F770BE277A1D5E001C94A9 /* ProjectView.swift */,
+				24F770B627755B81001C94A9 /* CreateProjectView.swift */,
+			);
+			path = ProjectView;
+			sourceTree = "<group>";
+		};
+		24F770C0277B06E1001C94A9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				24F770C1277B0708001C94A9 /* Array+Etx.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,6 +329,7 @@
 				2440A54F276F9A2300943B06 /* Persistence.swift in Sources */,
 				24F770B52774DC03001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */,
 				244CC7B32770FACE008EA7AD /* ParamItem.swift in Sources */,
+				24F770BA27763852001C94A9 /* Networking.swift in Sources */,
 				24F770AE2774D675001C94A9 /* ProjectItem.swift in Sources */,
 				24F7708F277273BE001C94A9 /* RunRequest+BodyContent.swift in Sources */,
 				24F770B727755B81001C94A9 /* CreateProjectView.swift in Sources */,
@@ -317,8 +343,10 @@
 				24F7709C277359B5001C94A9 /* IconsView.swift in Sources */,
 				24F7708D2772737F001C94A9 /* RunRequest+HeaderSection.swift in Sources */,
 				24F770B42774DC02001C94A9 /* RequestEntity+CoreDataClass.swift in Sources */,
+				24F770BC27785CC0001C94A9 /* MainView.swift in Sources */,
+				24F770C2277B0708001C94A9 /* Array+Etx.swift in Sources */,
+				24F770BF277A1D5E001C94A9 /* ProjectView.swift in Sources */,
 				24F7709227732799001C94A9 /* ParamEntity+CoreDataClass.swift in Sources */,
-				2440A559276F9A4500943B06 /* MainView.swift in Sources */,
 				24F770B12774D840001C94A9 /* TestData.swift in Sources */,
 				24F7709A277331F2001C94A9 /* CreateRequestProjectView.swift in Sources */,
 				24F7708B27727331001C94A9 /* RunRequest+UrlSection.swift in Sources */,

@@ -29,6 +29,10 @@ extension ParamEntity {
     var wrappedKey: String {
         key ?? ""
     }
+    
+    var wrappedType: ParamType {
+        return ParamType.init(type ?? "URL")
+    }
 }
 
 extension ParamEntity : Identifiable {

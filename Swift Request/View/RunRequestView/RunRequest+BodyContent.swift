@@ -11,7 +11,7 @@ extension RunRequestView {
     
     var bodyContentSection: some View {
         Section {
-            Picker(selection: $viewModel.bodyContentType) {
+            Picker(selection: $vm.bodyContentType) {
                 ForEach(BodyType.allCases, id: \.self) {
                     let method = $0
                     Text(method.rawValue)
@@ -24,7 +24,7 @@ extension RunRequestView {
                         .cornerRadius(10)
                 }
             } label: {
-                let active = (!viewModel.bodyFormURLEncodedQueryParams.isEmpty)
+                let active = (!vm.bodyFormURLEncodedQueryParams.isEmpty)
                 
                 HStack {
                     Image(systemName: "shippingbox")
@@ -35,7 +35,7 @@ extension RunRequestView {
                 }
             }
             
-            switch viewModel.bodyContentType {
+            switch vm.bodyContentType {
             case .FormURLEncoded:
                 bodyFormDataParamsSection
             case .JSON:
@@ -52,7 +52,7 @@ extension RunRequestView {
                 HStack {
                     Image(systemName: "plus.circle.fill")
                     Spacer()
-                    Text("Add \(viewModel.bodyContentType.rawValue) Param")
+                    Text("Add \(vm.bodyContentType.rawValue) Param")
                 }
                 .foregroundColor(.blue)
                 .padding(.trailing, 10)
@@ -63,15 +63,8 @@ extension RunRequestView {
         }
     }
     
-    private var urlEncodedParamsSection: some View {
-        ForEach(viewModel.bodyFormURLEncodedQueryParams, id: \.self) {
-            ParamItem($0)
-        }
-        .onDelete(perform: removeBodyParam)
-    }
-    
     private var bodyFormDataParamsSection: some View {
-        ForEach(viewModel.bodyFormURLEncodedQueryParams, id: \.self) {
+        ForEach(vm.bodyFormURLEncodedQueryParams, id: \.self) {
             ParamItem($0)
         }
         .onDelete(perform: removeBodyParam)
@@ -82,9 +75,9 @@ extension RunRequestView {
         queryParam.type = ParamType.Body.rawValue
         queryParam.active = true
         withAnimation {
-            switch viewModel.bodyContentType {
+            switch vm.bodyContentType {
             case .FormURLEncoded:
-                viewModel.bodyFormURLEncodedQueryParams.append(queryParam)
+                vm.bodyFormURLEncodedQueryParams.append(queryParam)
             case .Binary:
                 print("Binary")
             case .JSON:
@@ -99,22 +92,27 @@ extension RunRequestView {
     
     private func removeBodyParam(_ offSet: IndexSet) {
         guard let element = offSet.first else { return }
-        switch viewModel.bodyContentType {
+        switch vm.bodyContentType {
         case .FormURLEncoded:
-            viewModel.bodyFormURLEncodedQueryParams.remove(at: element)
+            let param = vm.bodyFormURLEncodedQueryParams[element]
+            moc.delete(param)
+            vm.bodyFormURLEncodedQueryParams.remove(at: element)
         default:
             print("")
         }
+        try? moc.save()
     }
 }
 
-struct CreateRequest_BodyContentSection_Previews: PreviewProvider {
+struct RunRequestView_BodyContentSection_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
+            let context = PersistenceController.shared.container.viewContext
+            
+            RunRequestView(vm: RunRequestViewModel(context: context), requestsManager: MainViewModel(context: context))
                 .environment(\.colorScheme, .light)
             
-            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
+            RunRequestView(vm: RunRequestViewModel(context: context), requestsManager: MainViewModel(context: context))
                 .environment(\.colorScheme, .dark)
         }
     }

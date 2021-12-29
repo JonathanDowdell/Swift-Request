@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProjectItem<Label: View>: View {
     
-    var project: ProjectEntity
+    @ObservedObject var project: ProjectEntity
     
     let label: Label
     

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RequestItem<Label: View>: View {
     
-    var request: RequestEntity
+    @ObservedObject var request: RequestEntity
+    
     let label: Label
     
     init(request: RequestEntity, @ViewBuilder label: () -> Label) {
@@ -17,17 +18,46 @@ struct RequestItem<Label: View>: View {
         self.request = request
     }
     
+    private var primaryColor: Color {
+        if let method = MethodType.init(rawValue: request.wrappedMethod) {
+            return method.color().primary
+        } else {
+            return Color.cyan
+        }
+    }
+    
+    private var secondaryColor: Color {
+        if let method = MethodType.init(rawValue: request.wrappedMethod) {
+            return method.color().secondary
+        } else {
+            return Color.cyan.opacity(0.15)
+        }
+    }
+    
+    private var fontSize: Font {
+        if let method = MethodType.init(rawValue: request.wrappedMethod) {
+            switch method {
+            case .GET, .POST, .PUT, .HEAD:
+                return .caption2
+            case .PATCH, .DELETE, .OPTION:
+                return .system(size: 10)
+            }
+        }
+        return .caption2
+    }
+    
     var body: some View {
         VStack {
             HStack {
                 ZStack {
                     Text(request.wrappedMethod.uppercased())
-                        .font(.caption2)
+                        .font(fontSize)
                         .bold()
                         .padding(5)
-                        .foregroundColor(Color.cyan)
+                        .foregroundColor(primaryColor)
+                        .frame(width: 50, height: 25, alignment: .center)
                 }
-                .background(Color.cyan.opacity(0.15))
+                .background(secondaryColor)
                 .cornerRadius(10)
                 VStack(alignment: .leading) {
                     Text(request.wrappedTitle)
@@ -36,7 +66,7 @@ struct RequestItem<Label: View>: View {
                         .foregroundColor(Color.gray)
                         .tint(Color.gray)
                 }
-                
+                Spacer()
                 label
             }
         }

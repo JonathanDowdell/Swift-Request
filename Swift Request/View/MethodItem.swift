@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MethodItem: View {
-    var method: MethodType
+    let method: MethodType
     
     var body: some View {
         Text(method.rawValue)

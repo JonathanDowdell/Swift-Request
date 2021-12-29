@@ -12,7 +12,7 @@ extension RunRequestView {
     
     var headerSection: some View {
         Section {
-            ForEach(viewModel.headerParams, id: \.self) {
+            ForEach(vm.headerParams, id: \.self) {
                 ParamItem($0)
             }
             .onDelete(perform: removeHeaderParam)
@@ -41,23 +41,25 @@ extension RunRequestView {
         queryParam.type = ParamType.Header.rawValue
         queryParam.active = true
         withAnimation {
-            viewModel.headerParams.append(queryParam)
+            vm.headerParams.append(queryParam)
         }
     }
     
     private func removeHeaderParam(_ offSet: IndexSet) {
         guard let element = offSet.first else { return }
-        viewModel.headerParams.remove(at: element)
+        vm.headerParams.remove(at: element)
     }
 }
 
-struct CreateRequest_HeaderSection_Previews: PreviewProvider {
+struct RunRequestView_HeaderSection_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
+            let context = PersistenceController.shared.container.viewContext
+            
+            RunRequestView(vm: RunRequestViewModel(context: context), requestsManager: MainViewModel(context: context))
                 .environment(\.colorScheme, .light)
             
-            RunRequestView(viewModel: RunRequestViewModel(historyUpdateId: .constant(UUID())))
+            RunRequestView(vm: RunRequestViewModel(context: context), requestsManager: MainViewModel(context: context))
                 .environment(\.colorScheme, .dark)
         }
     }

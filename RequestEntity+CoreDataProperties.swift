@@ -22,6 +22,9 @@ extension RequestEntity {
     @NSManaged public var params: NSSet?
     @NSManaged public var project: ProjectEntity?
     @NSManaged public var creationDate: Date?
+    @NSManaged public var contentType: String?
+    @NSManaged public var order: Int64
+    
 
     var wrappedTitle: String {
         title ?? "Request"
@@ -31,10 +34,22 @@ extension RequestEntity {
         method ?? "GET"
     }
     
+    var wrappedMethodType: MethodType {
+        return MethodType.init(rawValue: method ?? "GET") ?? .GET
+    }
+    
     var wrappedURL: String {
         url ?? "Localhost"
     }
     
+    var wrappedParams: [ParamEntity] {
+        let params = params as? Set<ParamEntity> ?? []
+        return params.map { $0 }
+    }
+    
+    var wrappedContentType: BodyType {
+        return BodyType.init(rawValue: contentType ?? "FormURLEncoded") ?? .FormURLEncoded
+    }
 }
 
 // MARK: Generated accessors for params
