@@ -76,9 +76,7 @@ class RunRequestViewModel: ObservableObject {
         savedRequest?.url = url
         savedRequest?.title = title
         savedRequest?.creationDate = Date()
-        savedRequest?.contentType = bodyContentType.rawValue
-        savedRequest?.order = 0
-        
+        savedRequest?.contentType = bodyContentType.rawValue 
         for param in params {
             savedRequest?.addToParams(param)
         }

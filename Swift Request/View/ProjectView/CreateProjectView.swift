@@ -64,7 +64,10 @@ class CreateProjectViewModel: ObservableObject {
         project.creationDate = Date()
         project.systemIcon = self.projectIcon
         project.version = self.version.isEmpty ? "Version 1.0" : self.version
-        project.wrappedRequests.forEach { project.removeFromRequests($0) }
+        project.wrappedRequests.forEach {
+            $0.order = 0
+            project.removeFromRequests($0)
+        }
         for projectRequest in projectRequests {
             project.addToRequests(projectRequest)
             projectRequest.project = project

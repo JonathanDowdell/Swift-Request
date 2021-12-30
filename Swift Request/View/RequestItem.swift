@@ -67,7 +67,11 @@ struct RequestItem<Label: View>: View {
                         .tint(Color.gray)
                 }
                 Spacer()
-                label
+                if request.running {
+                    ProgressView()
+                } else {
+                    label
+                }
             }
         }
     }

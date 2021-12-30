@@ -24,6 +24,7 @@ extension RequestEntity {
     @NSManaged public var creationDate: Date?
     @NSManaged public var contentType: String?
     @NSManaged public var order: Int64
+    @NSManaged public var running: Bool
     
 
     var wrappedTitle: String {

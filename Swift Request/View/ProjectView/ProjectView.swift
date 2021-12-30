@@ -14,9 +14,13 @@ class ProjectViewModel: RequestsManagement {
     
     @Published var project: ProjectEntity
     
-    @Published var shouldOpenEditView = false
+    @Published var shouldOpenProjectEditView = false
+    
+    @Published var disableRunRequestView = false
     
     private let context: NSManagedObjectContext
+    
+    private var removedRequests = [RequestEntity]()
     
     init(_ project: ProjectEntity, context: NSManagedObjectContext) {
         self.project = project
@@ -24,7 +28,15 @@ class ProjectViewModel: RequestsManagement {
     }
     
     var requests: [RequestEntity] {
-        return project.wrappedRequests.sorted { $0.order < $1.order }
+        let request: [RequestEntity] = project.wrappedRequests
+        let requestUnSorted = request.allSatisfy { $0.order == 0 }
+        return request.sorted {
+            if requestUnSorted {
+                return $0.id > $1.id
+            } else {
+                return $0.order < $1.order
+            }
+        }
     }
     
     func move(from source: IndexSet, to destination: Int) {
@@ -41,13 +53,19 @@ class ProjectViewModel: RequestsManagement {
     
     func delete(_ offSet: IndexSet) {
         for index in offSet {
-            let request = requests[index]
-            context.delete(request)
+            let request = self.requests[index]
+            self.context.delete(request)
         }
         try? context.save()
     }
     
     func reload() {}
+    
+    func runRequests() {
+        for request in requests {
+            request.running.toggle()
+        }
+    }
     
 }
 
@@ -73,6 +91,7 @@ struct ProjectView: View {
                             }
                             .padding(.vertical, 8)
                         }
+                        .disabled(vm.disableRunRequestView)
 
                     }
                     .onMove(perform: vm.move)
@@ -92,8 +111,7 @@ struct ProjectView: View {
                         }
                         
                         Button {
-                            vm.project.name = "Playground"
-                            try? moc.save()
+                            vm.runRequests()
                         } label: {
                             Image(systemName: "flowchart.fill")
                         }
@@ -105,16 +123,20 @@ struct ProjectView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    vm.shouldOpenEditView = true
+                    vm.shouldOpenProjectEditView = true
                 } label: {
                     Image(systemName: "ellipsis")
                 }
             }
         }
-        .popover(isPresented: $vm.shouldOpenEditView, content: {
-            CreateProjectView(vm: CreateProjectViewModel(project: self.project, moc: moc), previousVm: MainViewModel(context: moc))
+        .popover(isPresented: $vm.shouldOpenProjectEditView, content: {
+            CreateProjectView(vm: CreateProjectViewModel(project: self.project, moc: moc),
+                              previousVm: MainViewModel(context: moc))
         })
         .navigationTitle(vm.project.wrappedName)
+        .onAppear {
+            vm.requests.forEach { print($0.order) }
+        }
     }
 }
 

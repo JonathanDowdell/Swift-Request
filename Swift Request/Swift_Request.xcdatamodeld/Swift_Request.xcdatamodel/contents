@@ -20,6 +20,7 @@
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="method" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="running" optional="YES" transient="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <relationship name="params" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ParamEntity" inverseName="request" inverseEntity="ParamEntity"/>
@@ -28,6 +29,6 @@
     <elements>
         <element name="ParamEntity" positionX="18" positionY="-72" width="128" height="118"/>
         <element name="ProjectEntity" positionX="-308.82421875" positionY="-589.38671875" width="128" height="119"/>
-        <element name="RequestEntity" positionX="-220.15625" positionY="-436.73828125" width="128" height="149"/>
+        <element name="RequestEntity" positionX="-220.15625" positionY="-436.73828125" width="128" height="164"/>
     </elements>
 </model>
