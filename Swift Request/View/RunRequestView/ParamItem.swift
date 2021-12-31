@@ -49,12 +49,16 @@ struct ParamItem: View {
             }
             .buttonStyle(.plain)
             .padding(.trailing)
+            .accessibilityIdentifier("paramToggleButton")
+            
             Spacer()
             TextField("key", text: key)
                 .multilineTextAlignment(.leading)
+                .accessibilityIdentifier("paramKeyTextField")
             TextField("value", text: value)
                 .multilineTextAlignment(.trailing)
                 .padding(.trailing, 10)
+                .accessibilityIdentifier("paramValueTextField")
         }
     }
 }

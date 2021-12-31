@@ -75,7 +75,7 @@ class RunRequestViewModel: ObservableObject {
         savedRequest?.method = methodType.rawValue
         savedRequest?.url = url
         savedRequest?.title = title
-        savedRequest?.creationDate = Date()
+        savedRequest?.creationDate = savedRequest?.creationDate ?? Date()
         savedRequest?.contentType = bodyContentType.rawValue 
         for param in params {
             savedRequest?.addToParams(param)
@@ -136,6 +136,7 @@ struct RunRequestView<RequestManager>: View where RequestManager: RequestsManage
                 }
                 .tint(Color.accentColor)
             }
+            .accessibilityIdentifier("projectSelectionBtn")
             
             
             
@@ -148,6 +149,7 @@ struct RunRequestView<RequestManager>: View where RequestManager: RequestsManage
                 Button(action: runRequest) {
                     Image(systemName: "play.fill")
                 }
+                .accessibilityIdentifier("runRequestBtn")
             }
         }
         .navigationTitle("Run Request")

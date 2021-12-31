@@ -25,12 +25,13 @@ class MainViewModel: RequestsManagement {
     @Published var requests = [RequestEntity]()
     
     var filteredProjects: [FetchedResults<ProjectEntity>.Element] {
-        projects.filter { searchText.isEmpty ? true : $0.wrappedName.lowercased().contains(searchText.lowercased()) }
+        return projects.filter { searchText.isEmpty ? true : $0.wrappedName.lowercased().contains(searchText.lowercased()) }
     }
     
     var requestHistory: [FetchedResults<RequestEntity>.Element] {
-        requests.filter { $0.project == nil }
+        return requests.filter { $0.project == nil }
         .filter { searchText.isEmpty ? true : $0.wrappedTitle.lowercased().contains(searchText.lowercased()) }
+        .sorted { $0.wrappedCreationDate > $1.wrappedCreationDate }
     }
     
     let context: NSManagedObjectContext
@@ -51,8 +52,10 @@ class MainViewModel: RequestsManagement {
     
     func deleteRequest(_ offSet: IndexSet) {
         for index in offSet {
-            let request = requests[index]
+            let request = requests.sorted { $0.wrappedCreationDate > $1.wrappedCreationDate }[index]
+            print(request.wrappedTitle)
             context.delete(request)
+//            context.delete(request)
         }
         try? context.save()
         reload()
@@ -134,6 +137,7 @@ struct MainView: View {
                     
                     historySection
                 }
+                .accessibilityIdentifier("mainSection")
                 .navigationTitle("Requests")
                 .navigationBarTitleDisplayMode(.large)
                 .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .automatic))
@@ -155,25 +159,19 @@ struct MainView: View {
                                 } label: {
                                     Image(systemName: "folder.badge.plus")
                                 }
+                                .accessibility(identifier: "composeProject")
                             }
                         }
                     }
                     
                     ToolbarItem(placement: viewModel.toolbarItemTrailingPlacement) {
                         HStack(spacing: 20) {
-                            if viewModel.layout == .top {
-                                Button {
-                                    viewModel.shouldPresentNewProject = true
-                                } label: {
-                                    Image(systemName: "folder.badge.plus")
-                                }
-                            }
-                            
                             Button {
                                 viewModel.shouldPresentCompose = true
                             } label: {
                                 Image(systemName: "square.and.pencil")
                             }
+                            .accessibility(identifier: "composeRequest")
                         }
                     }
                 }
@@ -185,6 +183,7 @@ struct MainView: View {
                                     Button { viewModel.shouldPresentCompose = false } label: {
                                         Text("Close")
                                     }
+                                    .accessibility(identifier: "closeRequestBtn")
                                 }
                             }
                     }

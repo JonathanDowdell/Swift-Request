@@ -95,6 +95,7 @@ struct CreateProjectView: View {
                         Spacer()
                         TextField("Fancy Project Name", text: $vm.name)
                             .multilineTextAlignment(.trailing)
+                            .accessibilityIdentifier("projectNameTextField")
                     }
                     
                     HStack {
@@ -102,6 +103,7 @@ struct CreateProjectView: View {
                         Spacer()
                         TextField("Version 1.0", text: $vm.version)
                             .multilineTextAlignment(.trailing)
+                            .accessibilityIdentifier("versionTextField")
                     }
                     
                     HStack {
@@ -158,12 +160,14 @@ struct CreateProjectView: View {
                         }
                         .padding(.vertical, 5)
                     }
+                    .accessibilityIdentifier("unAssignedRequestBtn")
                 } header: {
                     Text("Unassigned Request")
                 }
                 
-                
             }
+            .accessibilityIdentifier("addProjectionList")
+            
             .navigationTitle(vm.title)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -182,6 +186,7 @@ struct CreateProjectView: View {
                             .bold()
                             .foregroundColor(.accentColor)
                     }
+                    .accessibilityIdentifier("projectSaveBtn")
                 }
             }
             .popover(isPresented: $vm.shouldPresentIcons) {

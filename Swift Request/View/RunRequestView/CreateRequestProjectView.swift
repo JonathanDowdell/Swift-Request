@@ -155,7 +155,6 @@ struct CreateRequestProjectView: View {
                             }
                         }
                     }
-
                 }
                 .padding(.vertical, 5)
                 

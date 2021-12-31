@@ -51,6 +51,11 @@ extension RequestEntity {
     var wrappedContentType: BodyType {
         return BodyType.init(rawValue: contentType ?? "FormURLEncoded") ?? .FormURLEncoded
     }
+    
+    var wrappedCreationDate: Date {
+        return self.creationDate ?? Date()
+    }
+    
 }
 
 // MARK: Generated accessors for params

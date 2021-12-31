@@ -28,6 +28,7 @@ extension RunRequestView {
                 .foregroundColor(.blue)
                 .padding(.trailing, 10)
             }
+            .accessibilityIdentifier("addUrlHeaderBtn")
             
         } header: {
             HStack {

@@ -32,7 +32,7 @@ class ProjectViewModel: RequestsManagement {
         let requestUnSorted = request.allSatisfy { $0.order == 0 }
         return request.sorted {
             if requestUnSorted {
-                return $0.id > $1.id
+                return $0.wrappedCreationDate > $1.wrappedCreationDate
             } else {
                 return $0.order < $1.order
             }

@@ -23,6 +23,7 @@ extension RunRequestView {
                     .multilineTextAlignment(.trailing)
                     .disableAutocorrection(true)
                     .padding(.trailing, 10)
+                    .accessibilityIdentifier("titleTextField")
             }
             HStack {
                 Image(systemName: "personalhotspot")
@@ -35,6 +36,7 @@ extension RunRequestView {
                     .multilineTextAlignment(.trailing)
                     .disableAutocorrection(true)
                     .padding(.trailing, 10)
+                    .accessibilityIdentifier("urlTextField")
             }
             Picker(selection: $vm.methodType) {
                 ForEach(MethodType.allCases, id: \.self) {
@@ -49,6 +51,7 @@ extension RunRequestView {
                         .foregroundColor(.gray)
                 }
             }
+            .accessibilityIdentifier("methodTypePicker")
             
             ForEach(vm.urlParams, id: \.self) {
                 ParamItem($0)
@@ -66,7 +69,7 @@ extension RunRequestView {
                 .foregroundColor(.blue)
                 .padding(.trailing, 10)
             }
-
+            .accessibilityIdentifier("addUrlParamBtn")
         } header: {
             Text("URL")
         }
