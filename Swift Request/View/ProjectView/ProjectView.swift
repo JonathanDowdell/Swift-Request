@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Collections
 
 class ProjectViewModel: RequestsManagement {
     
@@ -18,9 +19,13 @@ class ProjectViewModel: RequestsManagement {
     
     @Published var disableRunRequestView = false
     
+    @Published var runningSequentialRequest = false
+    
     private let context: NSManagedObjectContext
     
     private var removedRequests = [RequestEntity]()
+    
+    private var requestLoaderQueue = Deque<RequestLoader>()
     
     init(_ project: ProjectEntity, context: NSManagedObjectContext) {
         self.project = project
@@ -61,13 +66,26 @@ class ProjectViewModel: RequestsManagement {
     
     func reload() {}
     
-    func runRequests() {
-        for request in requests {
-            request.running.toggle()
-        }
+    func runRequestSequentially() {
+        requestLoaderQueue.removeAll()
+        requestLoaderQueue.append(contentsOf: requests.map { RequestLoader(request: $0) })
+        runningSequentialRequest = true
+        runAll()
+        print("Done")
     }
     
+    private func runAll() {
+        guard let requestLoader = requestLoaderQueue.popFirst() else {
+            runningSequentialRequest = false
+            return
+        }
+        requestLoader.load { [weak self] value in
+            self?.runAll()
+        }
+    }
 }
+
+
 
 struct ProjectView: View {
     
@@ -92,7 +110,7 @@ struct ProjectView: View {
                             .padding(.vertical, 8)
                         }
                         .disabled(vm.disableRunRequestView)
-
+                        .disabled(vm.runningSequentialRequest)
                     }
                     .onMove(perform: vm.move)
                     .onDelete(perform: vm.delete)
@@ -111,9 +129,9 @@ struct ProjectView: View {
                         }
                         
                         Button {
-                            vm.runRequests()
+                            vm.runRequestSequentially()
                         } label: {
-                            Image(systemName: "flowchart.fill")
+                            Image(systemName: !vm.runningSequentialRequest ? "play.fill" : "stop.fill")
                         }
                     }
                 }

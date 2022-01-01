@@ -17,6 +17,10 @@
 		244CC7B32770FACE008EA7AD /* ParamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CC7B22770FACE008EA7AD /* ParamItem.swift */; };
 		249968A9277E068900DBF249 /* Swift_Request_Main_View_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249968A8277E068900DBF249 /* Swift_Request_Main_View_UITests.swift */; };
 		249968AB277E068900DBF249 /* Swift_RequestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249968AA277E068900DBF249 /* Swift_RequestUITestsLaunchTests.swift */; };
+		24EED98F277FEA9700FC5CDA /* RequestLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EED98E277FEA9700FC5CDA /* RequestLoader.swift */; };
+		24EED992277FF06B00FC5CDA /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 24EED991277FF06B00FC5CDA /* Collections */; };
+		24EED994277FF06B00FC5CDA /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 24EED993277FF06B00FC5CDA /* DequeModule */; };
+		24EED996277FF06B00FC5CDA /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 24EED995277FF06B00FC5CDA /* OrderedCollections */; };
 		24F77083277270F2001C94A9 /* MethodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F77082277270F2001C94A9 /* MethodItem.swift */; };
 		24F770862772716C001C94A9 /* BodyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770852772716C001C94A9 /* BodyType.swift */; };
 		24F7708827727192001C94A9 /* MethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7708727727192001C94A9 /* MethodType.swift */; };
@@ -65,6 +69,7 @@
 		249968A6277E068900DBF249 /* Swift RequestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Swift RequestUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		249968A8277E068900DBF249 /* Swift_Request_Main_View_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_Request_Main_View_UITests.swift; sourceTree = "<group>"; };
 		249968AA277E068900DBF249 /* Swift_RequestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_RequestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		24EED98E277FEA9700FC5CDA /* RequestLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLoader.swift; sourceTree = "<group>"; };
 		24F77082277270F2001C94A9 /* MethodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodItem.swift; sourceTree = "<group>"; };
 		24F770852772716C001C94A9 /* BodyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyType.swift; sourceTree = "<group>"; };
 		24F7708727727192001C94A9 /* MethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodType.swift; sourceTree = "<group>"; };
@@ -95,6 +100,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24EED992277FF06B00FC5CDA /* Collections in Frameworks */,
+				24EED994277FF06B00FC5CDA /* DequeModule in Frameworks */,
+				24EED996277FF06B00FC5CDA /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				24F770B927763852001C94A9 /* Networking.swift */,
+				24EED98E277FEA9700FC5CDA /* RequestLoader.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -302,6 +311,9 @@
 			);
 			name = "Swift Request";
 			packageProductDependencies = (
+				24EED991277FF06B00FC5CDA /* Collections */,
+				24EED993277FF06B00FC5CDA /* DequeModule */,
+				24EED995277FF06B00FC5CDA /* OrderedCollections */,
 			);
 			productName = "Swift Request";
 			productReference = 2440A542276F9A2200943B06 /* Swift Request.app */;
@@ -354,6 +366,7 @@
 			);
 			mainGroup = 2440A539276F9A2200943B06;
 			packageReferences = (
+				24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 2440A543276F9A2200943B06 /* Products */;
 			projectDirPath = "";
@@ -395,6 +408,7 @@
 				24F770BA27763852001C94A9 /* Networking.swift in Sources */,
 				24F770AE2774D675001C94A9 /* ProjectItem.swift in Sources */,
 				24F7708F277273BE001C94A9 /* RunRequest+BodyContent.swift in Sources */,
+				24EED98F277FEA9700FC5CDA /* RequestLoader.swift in Sources */,
 				24F770B727755B81001C94A9 /* CreateProjectView.swift in Sources */,
 				2440A55B276FA08300943B06 /* RequestItem.swift in Sources */,
 				24F77095277327E5001C94A9 /* ParamType.swift in Sources */,
@@ -680,6 +694,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		24EED991277FF06B00FC5CDA /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		24EED993277FF06B00FC5CDA /* DequeModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = DequeModule;
+		};
+		24EED995277FF06B00FC5CDA /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2440A550276F9A2300943B06 /* Swift_Request.xcdatamodeld */ = {
