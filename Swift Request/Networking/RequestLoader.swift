@@ -14,7 +14,7 @@ struct RequestLoader {
     
     func load(completion: @escaping (Bool) -> Void) {
         request.running.toggle()
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts/1") else {
+        guard let url = URL(string: request.wrappedURL) else {
             return completion(false)
         }
         

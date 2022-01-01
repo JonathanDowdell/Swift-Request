@@ -71,7 +71,6 @@ class ProjectViewModel: RequestsManagement {
         requestLoaderQueue.append(contentsOf: requests.map { RequestLoader(request: $0) })
         runningSequentialRequest = true
         runAll()
-        print("Done")
     }
     
     private func runAll() {
@@ -133,7 +132,9 @@ struct ProjectView: View {
                         } label: {
                             Image(systemName: !vm.runningSequentialRequest ? "play.fill" : "stop.fill")
                         }
+                        .foregroundColor(!vm.runningSequentialRequest ? .accentColor : .red)
                     }
+                    .animation(.default, value: vm.runningSequentialRequest)
                 }
             }
         }

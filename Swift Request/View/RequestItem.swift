@@ -62,10 +62,11 @@ struct RequestItem<Label: View>: View {
                 VStack(alignment: .leading) {
                     Text(request.wrappedTitle)
                     Text(request.wrappedURL)
-                        .font(.footnote)
+                        .font(.caption2)
                         .foregroundColor(Color.gray)
                         .tint(Color.gray)
                 }
+                .clipped()
                 Spacer()
                 if request.running {
                     ProgressView()
