@@ -70,6 +70,7 @@
 		249968A8277E068900DBF249 /* Swift_Request_Main_View_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_Request_Main_View_UITests.swift; sourceTree = "<group>"; };
 		249968AA277E068900DBF249 /* Swift_RequestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_RequestUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		24EED98E277FEA9700FC5CDA /* RequestLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLoader.swift; sourceTree = "<group>"; };
+		24EED9972780083500FC5CDA /* Swift-Request-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Swift-Request-Info.plist"; sourceTree = SOURCE_ROOT; };
 		24F77082277270F2001C94A9 /* MethodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodItem.swift; sourceTree = "<group>"; };
 		24F770852772716C001C94A9 /* BodyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyType.swift; sourceTree = "<group>"; };
 		24F7708727727192001C94A9 /* MethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodType.swift; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 		2440A544276F9A2200943B06 /* Swift Request */ = {
 			isa = PBXGroup;
 			children = (
+				24EED9972780083500FC5CDA /* Swift-Request-Info.plist */,
 				24F770B827763809001C94A9 /* Networking */,
 				2440A55D276FC48800943B06 /* View */,
 				2440A573276FEA1D00943B06 /* Entity */,
@@ -582,6 +584,7 @@
 				DEVELOPMENT_TEAM = MBQ2JLQD83;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Swift-Request-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -611,6 +614,7 @@
 				DEVELOPMENT_TEAM = MBQ2JLQD83;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Swift-Request-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
