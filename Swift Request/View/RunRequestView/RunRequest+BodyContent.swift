@@ -24,7 +24,7 @@ extension RunRequestView {
                         .cornerRadius(10)
                 }
             } label: {
-                let active = (!vm.bodyFormURLEncodedQueryParams.isEmpty)
+                let active = (!vm.bodyQueryParams.isEmpty)
                 
                 HStack {
                     Image(systemName: "shippingbox")
@@ -36,8 +36,8 @@ extension RunRequestView {
             }
             
             switch vm.bodyContentType {
-            case .FormURLEncoded:
-                bodyFormDataParamsSection
+            case .FormURLEncoded, .MultipartFormData:
+                bodyParamsSection
             case .JSON:
                 Text("JSON")
             case .XML:
@@ -63,8 +63,8 @@ extension RunRequestView {
         }
     }
     
-    private var bodyFormDataParamsSection: some View {
-        ForEach(vm.bodyFormURLEncodedQueryParams, id: \.self) {
+    private var bodyParamsSection: some View {
+        ForEach(vm.bodyQueryParams, id: \.self) {
             ParamItem($0)
         }
         .onDelete(perform: removeBodyParam)
@@ -76,8 +76,8 @@ extension RunRequestView {
         queryParam.active = true
         withAnimation {
             switch vm.bodyContentType {
-            case .FormURLEncoded:
-                vm.bodyFormURLEncodedQueryParams.append(queryParam)
+            case .FormURLEncoded, .MultipartFormData:
+                vm.bodyQueryParams.append(queryParam)
             case .Binary:
                 print("Binary")
             case .JSON:
@@ -91,16 +91,22 @@ extension RunRequestView {
     }
     
     private func removeBodyParam(_ offSet: IndexSet) {
-        guard let element = offSet.first else { return }
-        switch vm.bodyContentType {
-        case .FormURLEncoded:
-            let param = vm.bodyFormURLEncodedQueryParams[element]
-            moc.delete(param)
-            vm.bodyFormURLEncodedQueryParams.remove(at: element)
-        default:
-            print("")
+        for index in offSet {
+            let element = vm.bodyQueryParams[index]
+            moc.delete(element)
         }
+        vm.bodyQueryParams.remove(atOffsets: offSet)
         try? moc.save()
+//        guard let element = offSet.first else { return }
+//        switch vm.bodyContentType {
+//        case .FormURLEncoded:
+//            let param = vm.bodyQueryParams[element]
+//            moc.delete(param)
+//            vm.bodyQueryParams.remove(at: element)
+//        default:
+//            print("")
+//        }
+//        try? moc.save()
     }
 }
 

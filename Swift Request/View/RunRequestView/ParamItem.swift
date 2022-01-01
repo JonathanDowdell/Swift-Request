@@ -54,10 +54,12 @@ struct ParamItem: View {
             Spacer()
             TextField("key", text: key)
                 .multilineTextAlignment(.leading)
+                .autocapitalization(.none)
                 .accessibilityIdentifier("paramKeyTextField")
             TextField("value", text: value)
                 .multilineTextAlignment(.trailing)
                 .padding(.trailing, 10)
+                .autocapitalization(.none)
                 .accessibilityIdentifier("paramValueTextField")
         }
     }

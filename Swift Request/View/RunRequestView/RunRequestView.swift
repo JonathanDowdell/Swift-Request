@@ -21,7 +21,8 @@ class RunRequestViewModel: ObservableObject {
     
     // MARK: Body
     @Published var bodyContentType: BodyType = .FormURLEncoded
-    @Published var bodyFormURLEncodedQueryParams = [ParamEntity]()
+    @Published var bodyQueryParams = [ParamEntity]()
+    
     
     // MARK: Projects
     @Published var projects = [ProjectEntity]()
@@ -45,12 +46,12 @@ class RunRequestViewModel: ObservableObject {
         self.bodyContentType = request.wrappedContentType
         let urlParams = request.wrappedParams.filter { return $0.wrappedType == .URL }
         let headerParams = request.wrappedParams.filter { return $0.wrappedType == .Header }
-        let bodyFormURLEncodedQueryParams = request.wrappedParams.filter { return $0.wrappedType == .Body }
+        let bodyQueryParams = request.wrappedParams.filter { return $0.wrappedType == .Body }
         
         
         self.urlParams = urlParams
         self.headerParams = headerParams
-        self.bodyFormURLEncodedQueryParams = bodyFormURLEncodedQueryParams
+        self.bodyQueryParams = bodyQueryParams
         self.selectedProject = request.project
     }
     
@@ -60,8 +61,8 @@ class RunRequestViewModel: ObservableObject {
         params.append(contentsOf: headerParams)
         
         switch bodyContentType {
-        case .FormURLEncoded:
-            params.append(contentsOf: bodyFormURLEncodedQueryParams)
+        case .FormURLEncoded, .MultipartFormData:
+            params.append(contentsOf: bodyQueryParams)
         case .JSON: break
         case .XML: break
         case .Raw: break
@@ -85,7 +86,16 @@ class RunRequestViewModel: ObservableObject {
         
         shouldUpdate = true
         
-        return savedRequest!
+        return savedRequest
+    }
+    
+    func runRequest() {
+        _ = saveRequest()
+        guard let request = self.savedRequest else { return }
+        let requestLoader = RequestLoader(request: request)
+        requestLoader.load { value in
+            
+        }
     }
     
     func saveProject() {
@@ -164,7 +174,7 @@ struct RunRequestView<RequestManager>: View where RequestManager: RequestsManage
     }
     
     private func runRequest() {
-        let _ = vm.saveRequest()
+        vm.runRequest()
         requestsManager.reload()
     }
 }

@@ -36,7 +36,13 @@ extension RunRequestView {
                     .multilineTextAlignment(.trailing)
                     .disableAutocorrection(true)
                     .padding(.trailing, 10)
+                    .autocapitalization(.none)
                     .accessibilityIdentifier("urlTextField")
+                    .toolbar {
+                        ToolbarItem(placement: .keyboard) {
+                            KeyboardToolBar()
+                        }
+                    }
             }
             Picker(selection: $vm.methodType) {
                 ForEach(MethodType.allCases, id: \.self) {

@@ -21,6 +21,7 @@
 		24EED992277FF06B00FC5CDA /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 24EED991277FF06B00FC5CDA /* Collections */; };
 		24EED994277FF06B00FC5CDA /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 24EED993277FF06B00FC5CDA /* DequeModule */; };
 		24EED996277FF06B00FC5CDA /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 24EED995277FF06B00FC5CDA /* OrderedCollections */; };
+		24EED999278118A000FC5CDA /* KeyboardToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EED998278118A000FC5CDA /* KeyboardToolBar.swift */; };
 		24F77083277270F2001C94A9 /* MethodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F77082277270F2001C94A9 /* MethodItem.swift */; };
 		24F770862772716C001C94A9 /* BodyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770852772716C001C94A9 /* BodyType.swift */; };
 		24F7708827727192001C94A9 /* MethodType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7708727727192001C94A9 /* MethodType.swift */; };
@@ -71,6 +72,7 @@
 		249968AA277E068900DBF249 /* Swift_RequestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_RequestUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		24EED98E277FEA9700FC5CDA /* RequestLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLoader.swift; sourceTree = "<group>"; };
 		24EED9972780083500FC5CDA /* Swift-Request-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Swift-Request-Info.plist"; sourceTree = SOURCE_ROOT; };
+		24EED998278118A000FC5CDA /* KeyboardToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolBar.swift; sourceTree = "<group>"; };
 		24F77082277270F2001C94A9 /* MethodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodItem.swift; sourceTree = "<group>"; };
 		24F770852772716C001C94A9 /* BodyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyType.swift; sourceTree = "<group>"; };
 		24F7708727727192001C94A9 /* MethodType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodType.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				24F7709727732B84001C94A9 /* PillButton.swift */,
+				24EED998278118A000FC5CDA /* KeyboardToolBar.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 			files = (
 				2440A54F276F9A2300943B06 /* Persistence.swift in Sources */,
 				24F770B52774DC03001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */,
+				24EED999278118A000FC5CDA /* KeyboardToolBar.swift in Sources */,
 				244CC7B32770FACE008EA7AD /* ParamItem.swift in Sources */,
 				24F770BA27763852001C94A9 /* Networking.swift in Sources */,
 				24F770AE2774D675001C94A9 /* ProjectItem.swift in Sources */,
