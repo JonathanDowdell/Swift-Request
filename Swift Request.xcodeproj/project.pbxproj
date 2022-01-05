@@ -21,6 +21,10 @@
 		244CC7B32770FACE008EA7AD /* ParamItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CC7B22770FACE008EA7AD /* ParamItem.swift */; };
 		244CF92F278666170055FB02 /* ParamEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF92D278666170055FB02 /* ParamEntity+CoreDataClass.swift */; };
 		244CF930278666170055FB02 /* ParamEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF92E278666170055FB02 /* ParamEntity+CoreDataProperties.swift */; };
+		244CF9332786666D0055FB02 /* RequestEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF9312786666D0055FB02 /* RequestEntity+CoreDataClass.swift */; };
+		244CF9342786666D0055FB02 /* RequestEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF9322786666D0055FB02 /* RequestEntity+CoreDataProperties.swift */; };
+		244CF9372786669D0055FB02 /* ProjectEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF9352786669D0055FB02 /* ProjectEntity+CoreDataClass.swift */; };
+		244CF9382786669D0055FB02 /* ProjectEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244CF9362786669D0055FB02 /* ProjectEntity+CoreDataProperties.swift */; };
 		249968A9277E068900DBF249 /* Swift_Request_Main_View_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249968A8277E068900DBF249 /* Swift_Request_Main_View_UITests.swift */; };
 		249968AB277E068900DBF249 /* Swift_RequestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249968AA277E068900DBF249 /* Swift_RequestUITestsLaunchTests.swift */; };
 		24EED98F277FEA9700FC5CDA /* RequestLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EED98E277FEA9700FC5CDA /* RequestLoader.swift */; };
@@ -39,12 +43,8 @@
 		24F7709827732B84001C94A9 /* PillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7709727732B84001C94A9 /* PillButton.swift */; };
 		24F7709A277331F2001C94A9 /* CreateRequestProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F77099277331F2001C94A9 /* CreateRequestProjectView.swift */; };
 		24F7709C277359B5001C94A9 /* IconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F7709B277359B5001C94A9 /* IconsView.swift */; };
-		24F770A82773CD79001C94A9 /* ProjectEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770A62773CD79001C94A9 /* ProjectEntity+CoreDataClass.swift */; };
-		24F770A92773CD79001C94A9 /* ProjectEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770A72773CD79001C94A9 /* ProjectEntity+CoreDataProperties.swift */; };
 		24F770AE2774D675001C94A9 /* ProjectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770AD2774D675001C94A9 /* ProjectItem.swift */; };
 		24F770B12774D840001C94A9 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B02774D840001C94A9 /* TestData.swift */; };
-		24F770B42774DC02001C94A9 /* RequestEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B22774DC02001C94A9 /* RequestEntity+CoreDataClass.swift */; };
-		24F770B52774DC03001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B32774DC02001C94A9 /* RequestEntity+CoreDataProperties.swift */; };
 		24F770B727755B81001C94A9 /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B627755B81001C94A9 /* CreateProjectView.swift */; };
 		24F770BA27763852001C94A9 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770B927763852001C94A9 /* Networking.swift */; };
 		24F770BC27785CC0001C94A9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F770BB27785CC0001C94A9 /* MainView.swift */; };
@@ -78,6 +78,10 @@
 		244CC7B22770FACE008EA7AD /* ParamItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamItem.swift; sourceTree = "<group>"; };
 		244CF92D278666170055FB02 /* ParamEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		244CF92E278666170055FB02 /* ParamEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParamEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		244CF9312786666D0055FB02 /* RequestEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		244CF9322786666D0055FB02 /* RequestEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		244CF9352786669D0055FB02 /* ProjectEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		244CF9362786669D0055FB02 /* ProjectEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		249968A6277E068900DBF249 /* Swift RequestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Swift RequestUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		249968A8277E068900DBF249 /* Swift_Request_Main_View_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_Request_Main_View_UITests.swift; sourceTree = "<group>"; };
 		249968AA277E068900DBF249 /* Swift_RequestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_RequestUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -95,12 +99,8 @@
 		24F7709727732B84001C94A9 /* PillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillButton.swift; sourceTree = "<group>"; };
 		24F77099277331F2001C94A9 /* CreateRequestProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRequestProjectView.swift; sourceTree = "<group>"; };
 		24F7709B277359B5001C94A9 /* IconsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsView.swift; sourceTree = "<group>"; };
-		24F770A62773CD79001C94A9 /* ProjectEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		24F770A72773CD79001C94A9 /* ProjectEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		24F770AD2774D675001C94A9 /* ProjectItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectItem.swift; sourceTree = "<group>"; };
 		24F770B02774D840001C94A9 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
-		24F770B22774DC02001C94A9 /* RequestEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		24F770B32774DC02001C94A9 /* RequestEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		24F770B627755B81001C94A9 /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
 		24F770B927763852001C94A9 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		24F770BB27785CC0001C94A9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -221,8 +221,8 @@
 		2440A57C276FEAC400943B06 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				24F770B22774DC02001C94A9 /* RequestEntity+CoreDataClass.swift */,
-				24F770B32774DC02001C94A9 /* RequestEntity+CoreDataProperties.swift */,
+				244CF9312786666D0055FB02 /* RequestEntity+CoreDataClass.swift */,
+				244CF9322786666D0055FB02 /* RequestEntity+CoreDataProperties.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -239,8 +239,8 @@
 		244CC7B8277253BB008EA7AD /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				24F770A62773CD79001C94A9 /* ProjectEntity+CoreDataClass.swift */,
-				24F770A72773CD79001C94A9 /* ProjectEntity+CoreDataProperties.swift */,
+				244CF9352786669D0055FB02 /* ProjectEntity+CoreDataClass.swift */,
+				244CF9362786669D0055FB02 /* ProjectEntity+CoreDataProperties.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -432,13 +432,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2440A54F276F9A2300943B06 /* Persistence.swift in Sources */,
-				24F770B52774DC03001C94A9 /* RequestEntity+CoreDataProperties.swift in Sources */,
 				24EED999278118A000FC5CDA /* KeyboardToolBar.swift in Sources */,
+				244CF9332786666D0055FB02 /* RequestEntity+CoreDataClass.swift in Sources */,
 				244CC7B32770FACE008EA7AD /* ParamItem.swift in Sources */,
 				24F770BA27763852001C94A9 /* Networking.swift in Sources */,
 				2403F0012783A24A00ECE984 /* JsonItem.swift in Sources */,
 				24F770AE2774D675001C94A9 /* ProjectItem.swift in Sources */,
 				24F7708F277273BE001C94A9 /* RunRequest+BodyContent.swift in Sources */,
+				244CF9342786666D0055FB02 /* RequestEntity+CoreDataProperties.swift in Sources */,
 				24EED98F277FEA9700FC5CDA /* RequestLoader.swift in Sources */,
 				24F770B727755B81001C94A9 /* CreateProjectView.swift in Sources */,
 				2440A55B276FA08300943B06 /* RequestItem.swift in Sources */,
@@ -448,12 +449,11 @@
 				24F77083277270F2001C94A9 /* MethodItem.swift in Sources */,
 				24F770862772716C001C94A9 /* BodyType.swift in Sources */,
 				2440A546276F9A2200943B06 /* Swift_RequestApp.swift in Sources */,
+				244CF9372786669D0055FB02 /* ProjectEntity+CoreDataClass.swift in Sources */,
 				2403EFFF2783A06700ECE984 /* JsonTreeView.swift in Sources */,
 				244CF92F278666170055FB02 /* ParamEntity+CoreDataClass.swift in Sources */,
-				24F770A82773CD79001C94A9 /* ProjectEntity+CoreDataClass.swift in Sources */,
 				24F7709C277359B5001C94A9 /* IconsView.swift in Sources */,
 				24F7708D2772737F001C94A9 /* RunRequest+HeaderSection.swift in Sources */,
-				24F770B42774DC02001C94A9 /* RequestEntity+CoreDataClass.swift in Sources */,
 				24F770BC27785CC0001C94A9 /* MainView.swift in Sources */,
 				24F770C2277B0708001C94A9 /* Array+Etx.swift in Sources */,
 				24F770BF277A1D5E001C94A9 /* ProjectView.swift in Sources */,
@@ -461,8 +461,8 @@
 				24F7709A277331F2001C94A9 /* CreateRequestProjectView.swift in Sources */,
 				24F7708B27727331001C94A9 /* RunRequest+UrlSection.swift in Sources */,
 				2440A552276F9A2300943B06 /* Swift_Request.xcdatamodeld in Sources */,
-				24F770A92773CD79001C94A9 /* ProjectEntity+CoreDataProperties.swift in Sources */,
 				244CF930278666170055FB02 /* ParamEntity+CoreDataProperties.swift in Sources */,
+				244CF9382786669D0055FB02 /* ProjectEntity+CoreDataProperties.swift in Sources */,
 				24F7708827727192001C94A9 /* MethodType.swift in Sources */,
 				2403EFFC27839DBF00ECE984 /* JsonViewer.swift in Sources */,
 				2440A55F276FCE6000943B06 /* RunRequestView.swift in Sources */,
