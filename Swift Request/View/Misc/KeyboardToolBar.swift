@@ -16,11 +16,6 @@ struct KeyboardToolBar: View {
                 Image(systemName: "arrow.right")
             }
             .font(.caption2)
-//                                Button {
-//                                    print("Clicked")
-//                                } label: {
-//                                    Text("{ }")
-//                                }
             Button {
                 print("Clicked")
             } label: {
@@ -31,11 +26,6 @@ struct KeyboardToolBar: View {
             } label: {
                 Text("}")
             }
-//                                Button {
-//                                    print("Clicked")
-//                                } label: {
-//                                    Text("[ ]")
-//                                }
             Button {
                 print("Clicked")
             } label: {

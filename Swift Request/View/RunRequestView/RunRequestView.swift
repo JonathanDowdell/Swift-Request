@@ -33,6 +33,7 @@ class RunRequestViewModel: ObservableObject {
     
     let context: NSManagedObjectContext
     
+    
     init(context: NSManagedObjectContext) {
         self.context = context
     }
@@ -93,14 +94,28 @@ class RunRequestViewModel: ObservableObject {
         _ = saveRequest()
         guard let request = self.savedRequest else { return }
         let requestLoader = RequestLoader(request: request)
-        requestLoader.load { value in
-            
+        requestLoader.load { [weak self] result in
+            switch result {
+            case .success(let responseDataPackage):
+                self?.handleResponseDataPackage(responseDataPackage)
+            case .failure(let error):
+                self?.handleNetworkError(error)
+            }
         }
     }
     
     func saveProject() {
         savedRequest?.project = selectedProject
         try? context.save()
+    }
+    
+    func handleResponseDataPackage(_ responseDataPackage: ResponseDataPackage) {
+        guard let response = responseDataPackage.response as? HTTPURLResponse else { return }
+        print(response)
+    }
+    
+    func handleNetworkError(_ error: NetworkError) {
+        
     }
     
 }
@@ -114,6 +129,8 @@ struct RunRequestView<RequestManager>: View where RequestManager: RequestsManage
     @Environment(\.presentationMode) private var presentationMode
     
     @Environment(\.managedObjectContext) var moc
+    
+    let url: URL = Bundle.main.url(forResource: "appStore-receipt", withExtension: "json")!
     
     var body: some View {
         List {
@@ -184,11 +201,15 @@ struct RunRequestView_Previews: PreviewProvider {
         Group {
             let context = PersistenceController.shared.container.viewContext
             
-            RunRequestView(vm: RunRequestViewModel(context: context), requestsManager: MainViewModel(context: context))
-                .environment(\.colorScheme, .light)
+            NavigationView {
+                RunRequestView(vm: RunRequestViewModel(context: context), requestsManager: MainViewModel(context: context))
+                    .environment(\.colorScheme, .light)
+            }
             
-            RunRequestView(vm: RunRequestViewModel(context: context), requestsManager: MainViewModel(context: context))
-                .environment(\.colorScheme, .dark)
+            NavigationView {
+                RunRequestView(vm: RunRequestViewModel(context: context), requestsManager: MainViewModel(context: context))
+                    .environment(\.colorScheme, .dark)
+            }
         }
     }
 }

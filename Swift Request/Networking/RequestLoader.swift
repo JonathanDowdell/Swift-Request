@@ -8,16 +8,20 @@
 import Foundation
 import SwiftUI
 
+enum NetworkError: Error {
+    case badUrl
+}
+
 struct RequestLoader {
     var session = URLSession.shared
     var decoder = JSONDecoder()
     var request: RequestEntity
     
-    func load(completion: @escaping (Bool) -> Void) {
+    func load(completion: @escaping (Result<ResponseDataPackage, NetworkError>) -> Void) {
         request.running.toggle()
         // URL
         guard let url = URL(string: request.wrappedURL) else {
-            return completion(false)
+            return completion(.failure(.badUrl))
         }
         
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
@@ -25,7 +29,7 @@ struct RequestLoader {
         urlComponents?.queryItems = getUrlQueryItems()
         
         guard let finalUrl = urlComponents?.url else {
-            return completion(false)
+            return completion(.failure(.badUrl))
         }
         
         var request = URLRequest(url: finalUrl)
@@ -58,7 +62,8 @@ struct RequestLoader {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.request.running.toggle()
-                completion(true)
+                let responseDataPackage = ResponseDataPackage(response: response, data: data)
+                completion(.success(responseDataPackage))
             }
         }
         

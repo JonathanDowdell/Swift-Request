@@ -14,7 +14,7 @@ extension RunRequestView {
         Section {
             HStack {
                 Image(systemName: "pencil")
-                    .padding(.trailing, 10)
+                    .padding(.trailing, 18)
                     .foregroundColor(vm.title.isEmpty ? Color.gray : Color.accentColor)
                 Text("Title")
                     .foregroundColor(Color.gray)

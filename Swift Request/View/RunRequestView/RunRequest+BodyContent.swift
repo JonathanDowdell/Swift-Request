@@ -39,7 +39,18 @@ extension RunRequestView {
             case .FormURLEncoded, .MultipartFormData:
                 bodyParamsSection
             case .JSON:
-                Text("JSON")
+                NavigationLink {
+                    JsonViewer(self.url)
+                } label: {
+                    HStack {
+                        Image(systemName: "curlybraces")
+                            .padding(.trailing, 15)
+                        Text("Modify JSON")
+                            .foregroundColor(.gray)
+                        Spacer()
+                    }
+                }
+
             case .XML:
                 Text("XML")
             case .Binary:
@@ -48,14 +59,16 @@ extension RunRequestView {
                 Text("Raw")
             }
             
-            Button(action: addBodyParam) {
-                HStack {
-                    Image(systemName: "plus.circle.fill")
-                    Spacer()
-                    Text("Add \(vm.bodyContentType.rawValue) Param")
+            if vm.bodyContentType != .JSON {
+                Button(action: addBodyParam) {
+                    HStack {
+                        Image(systemName: "plus.circle.fill")
+                        Spacer()
+                        Text("Add \(vm.bodyContentType.rawValue) Param")
+                    }
+                    .foregroundColor(.blue)
+                    .padding(.trailing, 10)
                 }
-                .foregroundColor(.blue)
-                .padding(.trailing, 10)
             }
             
         } header: {
