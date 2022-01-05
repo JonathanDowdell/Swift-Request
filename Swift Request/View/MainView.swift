@@ -53,9 +53,7 @@ class MainViewModel: RequestsManagement {
     func deleteRequest(_ offSet: IndexSet) {
         for index in offSet {
             let request = requests.sorted { $0.wrappedCreationDate > $1.wrappedCreationDate }[index]
-            print(request.wrappedTitle)
             context.delete(request)
-//            context.delete(request)
         }
         try? context.save()
         reload()
