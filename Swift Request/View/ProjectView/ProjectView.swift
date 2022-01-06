@@ -153,9 +153,6 @@ struct ProjectView: View {
                               previousVm: MainViewModel(context: moc))
         })
         .navigationTitle(vm.project.wrappedName)
-        .onAppear {
-            vm.requests.forEach { print($0.order) }
-        }
     }
 }
 
