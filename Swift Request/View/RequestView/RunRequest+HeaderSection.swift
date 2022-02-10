@@ -39,7 +39,7 @@ extension RunRequestView {
     
     private func addHeaderParam() {
         let queryParam = ParamEntity(context: moc)
-        queryParam.type = ParamType.Header.rawValue
+        queryParam.raw_type = ParamType.Header.rawValue
         queryParam.active = true
         withAnimation {
             vm.headerParams.append(queryParam)

@@ -9,30 +9,30 @@ import SwiftUI
 
 struct ParamItem: View {
     
-    private var queryParam: ParamEntity
+    private var queryParamEntity: ParamEntity
     
     @State private var active: Bool
     
     @Environment(\.managedObjectContext) var moc
     
     init(_ queryParam: ParamEntity) {
-        self.queryParam = queryParam
+        self.queryParamEntity = queryParam
         self.active = queryParam.active
     }
     
     private var key: Binding<String> {
         .init {
-            return queryParam.wrappedKey
+            return queryParamEntity.key
         } set: { newValue in
-            queryParam.key = newValue
+            queryParamEntity.key = newValue
         }
     }
     
     private var value: Binding<String> {
         .init {
-            return queryParam.wrappedValue
+            return queryParamEntity.value
         } set: { newValue in
-            queryParam.value = newValue
+            queryParamEntity.value = newValue
         }
     }
     
@@ -40,7 +40,7 @@ struct ParamItem: View {
         HStack {
             Button {
                 withAnimation {
-                    queryParam.active.toggle()
+                    queryParamEntity.active.toggle()
                     active.toggle()
                 }
             } label: {

@@ -38,11 +38,6 @@ extension RunRequestView {
                     .padding(.trailing, 10)
                     .autocapitalization(.none)
                     .accessibilityIdentifier("urlTextField")
-                    .toolbar {
-                        ToolbarItem(placement: .keyboard) {
-                            KeyboardToolBar()
-                        }
-                    }
             }
             Picker(selection: $vm.methodType) {
                 ForEach(MethodType.allCases, id: \.self) {
@@ -83,7 +78,7 @@ extension RunRequestView {
     
     private func addURLQueryParam() {
         let queryParam = ParamEntity(context: moc)
-        queryParam.type = ParamType.URL.rawValue
+        queryParam.raw_type = ParamType.URL.rawValue
         queryParam.active = true
         withAnimation {
             vm.urlParams.append(queryParam)

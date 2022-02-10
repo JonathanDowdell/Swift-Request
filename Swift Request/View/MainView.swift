@@ -30,8 +30,8 @@ class MainViewModel: RequestsManagement {
     
     var requestHistory: [FetchedResults<RequestEntity>.Element] {
         return requests.filter { $0.project == nil }
-        .filter { searchText.isEmpty ? true : $0.wrappedTitle.lowercased().contains(searchText.lowercased()) }
-        .sorted { $0.wrappedCreationDate > $1.wrappedCreationDate }
+        .filter { searchText.isEmpty ? true : $0.title.lowercased().contains(searchText.lowercased()) }
+        .sorted { $0.creationDate > $1.creationDate }
     }
     
     let context: NSManagedObjectContext
@@ -52,7 +52,7 @@ class MainViewModel: RequestsManagement {
     
     func deleteRequest(_ offSet: IndexSet) {
         for index in offSet {
-            let request = requests.sorted { $0.wrappedCreationDate > $1.wrappedCreationDate }[index]
+            let request = requests.sorted { $0.creationDate > $1.creationDate }[index]
             context.delete(request)
         }
         try? context.save()
@@ -143,12 +143,11 @@ struct MainView: View {
                     ToolbarItem(placement: viewModel.toolbarItemLeadingPlacement) {
                         HStack {
                             Button {
-                                
                                 withAnimation {
                                     viewModel.reload()
                                 }
                             } label: {
-                                Image(systemName: "line.3.horizontal.decrease.circle")
+                                Image(systemName: "gearshape.fill")
                             }
                             
                             if viewModel.layout == .bottom {

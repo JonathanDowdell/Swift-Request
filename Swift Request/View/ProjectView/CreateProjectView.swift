@@ -86,6 +86,30 @@ struct CreateProjectView: View {
     
     @Environment(\.presentationMode) private var presentationMode
     
+    var assignedRequests: [RequestEntity] {
+        let request: [RequestEntity] = vm.projectRequests
+        let requestUnSorted = request.allSatisfy { $0.order == 0 }
+        return request.sorted {
+            if requestUnSorted {
+                return $0.creationDate > $1.creationDate
+            } else {
+                return $0.order < $1.order
+            }
+        }
+    }
+    
+    var unassignedRequests: [RequestEntity] {
+        let request: [RequestEntity] = vm.unassignedRequests
+        let requestUnSorted = request.allSatisfy { $0.order == 0 }
+        return request.sorted {
+            if requestUnSorted {
+                return $0.creationDate > $1.creationDate
+            } else {
+                return $0.order < $1.order
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -133,7 +157,7 @@ struct CreateProjectView: View {
                 }
                 
                 Section {
-                    ForEach(vm.projectRequests, id: \.self) { request in
+                    ForEach(assignedRequests, id: \.self) { request in
                         Button {
                             vm.removeRequestFromProject(request: request)
                         } label: {
@@ -149,7 +173,7 @@ struct CreateProjectView: View {
                 }
                 
                 Section {
-                    ForEach(vm.unassignedRequests, id: \.self) { request in
+                    ForEach(unassignedRequests, id: \.self) { request in
                         Button {
                             vm.moveRequestToProject(request: request)
                         } label: {

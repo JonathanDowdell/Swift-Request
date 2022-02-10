@@ -37,7 +37,7 @@ class ProjectViewModel: RequestsManagement {
         let requestUnSorted = request.allSatisfy { $0.order == 0 }
         return request.sorted {
             if requestUnSorted {
-                return $0.wrappedCreationDate > $1.wrappedCreationDate
+                return $0.creationDate > $1.creationDate
             } else {
                 return $0.order < $1.order
             }
@@ -68,7 +68,7 @@ class ProjectViewModel: RequestsManagement {
     
     func runRequestSequentially() {
         requestLoaderQueue.removeAll()
-        requestLoaderQueue.append(contentsOf: requests.map { RequestLoader(request: $0) })
+        requestLoaderQueue.append(contentsOf: requests.map { RequestLoader(request: $0, context: context) })
         runningSequentialRequest = true
         runAll()
     }
@@ -78,9 +78,32 @@ class ProjectViewModel: RequestsManagement {
             runningSequentialRequest = false
             return
         }
-        requestLoader.load { [weak self] value in
+        requestLoader.load { [weak self] results in
+            if let package = try? results.get() {
+                self?.handleResponseDataPackage(package, with: requestLoader.request)
+            }
             self?.runAll()
         }
+    }
+    
+    func handleResponseDataPackage(_ responseDataPackage: ResponseDataPackage, with request: RequestEntity) {
+        let responseEntity = ResponseEntity(context: context)
+        if let response = responseDataPackage.response as? HTTPURLResponse {
+            responseEntity.statusCode = Int64(response.statusCode)
+            responseEntity.url = response.url?.absoluteString ?? ""
+            response.allHeaderFields.forEach { header in
+                let headerEntity = HeaderEntity(context: context)
+                headerEntity.type = ParamType.Response
+                headerEntity.key = header.key.description
+                headerEntity.value = "\(header.value)"
+                responseEntity.addHeader(headerEntity)
+            }
+        }
+        responseEntity.responseTime = Int64(responseDataPackage.responseTime)
+        responseEntity.creationDate = Date()
+        responseEntity.body = responseDataPackage.data
+        request.addResponses(responseEntity)
+        try? context.save()
     }
 }
 

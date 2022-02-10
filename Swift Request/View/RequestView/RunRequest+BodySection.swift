@@ -1,5 +1,5 @@
 //
-//  RunRequest+BodyContent.swift
+//  RunRequest+BodySection.swift
 //  Swift Request
 //
 //  Created by Jonathan Dowdell on 12/21/21.
@@ -9,7 +9,7 @@ import SwiftUI
 
 extension RunRequestView {
     
-    var bodyContentSection: some View {
+    var bodySection: some View {
         Section {
             Picker(selection: $vm.bodyContentType) {
                 ForEach(BodyType.allCases, id: \.self) {
@@ -40,7 +40,8 @@ extension RunRequestView {
                 bodyParamsSection
             case .JSON:
                 NavigationLink {
-                    JsonViewer(self.url)
+//                    JsonViewer(self.url)
+                    EmptyView()
                 } label: {
                     HStack {
                         Image(systemName: "curlybraces")
@@ -85,7 +86,7 @@ extension RunRequestView {
     
     private func addBodyParam() {
         let queryParam = ParamEntity(context: moc)
-        queryParam.type = ParamType.Body.rawValue
+        queryParam.raw_type = ParamType.Body.rawValue
         queryParam.active = true
         withAnimation {
             switch vm.bodyContentType {
@@ -110,16 +111,6 @@ extension RunRequestView {
         }
         vm.bodyQueryParams.remove(atOffsets: offSet)
         try? moc.save()
-//        guard let element = offSet.first else { return }
-//        switch vm.bodyContentType {
-//        case .FormURLEncoded:
-//            let param = vm.bodyQueryParams[element]
-//            moc.delete(param)
-//            vm.bodyQueryParams.remove(at: element)
-//        default:
-//            print("")
-//        }
-//        try? moc.save()
     }
 }
 

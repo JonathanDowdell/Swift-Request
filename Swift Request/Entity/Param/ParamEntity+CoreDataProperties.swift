@@ -17,21 +17,33 @@ extension ParamEntity {
     }
 
     @NSManaged public var active: Bool
-    @NSManaged public var key: String?
-    @NSManaged public var type: String?
-    @NSManaged public var value: String?
+    @NSManaged public var raw_key: String?
+    @NSManaged public var raw_type: String?
+    @NSManaged public var raw_value: String?
     @NSManaged public var request: RequestEntity?
 
-    var wrappedValue: String {
-        value ?? ""
+    var key: String {
+        get {
+            raw_key ?? ""
+        } set {
+            raw_key = newValue
+        }
     }
     
-    var wrappedKey: String {
-        key ?? ""
+    var value: String {
+        get {
+            raw_value ?? ""
+        } set {
+            raw_value = newValue
+        }
     }
     
-    var wrappedType: ParamType {
-        return ParamType.init(type ?? "URL")
+    var type: ParamType {
+        get {
+            ParamType.init(raw_type ?? "URL")
+        } set {
+            raw_type = newValue.rawValue
+        }
     }
 }
 

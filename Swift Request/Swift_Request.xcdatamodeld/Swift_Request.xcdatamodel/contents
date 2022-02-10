@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HeaderEntity" representedClassName="HeaderEntity" parentEntity="ParamEntity" syncable="YES">
+        <relationship name="response" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ResponseEntity" inverseName="raw_headers" inverseEntity="ResponseEntity"/>
+    </entity>
     <entity name="ParamEntity" representedClassName="ParamEntity" syncable="YES">
         <attribute name="active" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="key" optional="YES" attributeType="String"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
-        <attribute name="value" optional="YES" attributeType="String"/>
-        <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="params" inverseEntity="RequestEntity"/>
+        <attribute name="raw_key" optional="YES" attributeType="String"/>
+        <attribute name="raw_type" optional="YES" attributeType="String"/>
+        <attribute name="raw_value" optional="YES" attributeType="String"/>
+        <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="raw_params" inverseEntity="RequestEntity"/>
     </entity>
     <entity name="ProjectEntity" representedClassName="ProjectEntity" syncable="YES">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -16,19 +19,31 @@
         <relationship name="requests" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="project" inverseEntity="RequestEntity"/>
     </entity>
     <entity name="RequestEntity" representedClassName="RequestEntity" syncable="YES">
-        <attribute name="contentType" optional="YES" attributeType="String"/>
-        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="method" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="raw_contentType" optional="YES" attributeType="String"/>
+        <attribute name="raw_creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="raw_method" optional="YES" attributeType="String"/>
+        <attribute name="raw_title" optional="YES" attributeType="String"/>
+        <attribute name="raw_url" optional="YES" attributeType="String"/>
         <attribute name="running" optional="YES" transient="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="url" optional="YES" attributeType="String"/>
-        <relationship name="params" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ParamEntity" inverseName="request" inverseEntity="ParamEntity"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProjectEntity" inverseName="requests" inverseEntity="ProjectEntity"/>
+        <relationship name="raw_params" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ParamEntity" inverseName="request" inverseEntity="ParamEntity"/>
+        <relationship name="raw_responses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ResponseEntity" inverseName="request" inverseEntity="ResponseEntity"/>
+    </entity>
+    <entity name="ResponseEntity" representedClassName="ResponseEntity" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="Binary"/>
+        <attribute name="raw_creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="raw_url" optional="YES" attributeType="String"/>
+        <attribute name="responseTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="statusCode" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="raw_headers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HeaderEntity" inverseName="response" inverseEntity="HeaderEntity"/>
+        <relationship name="request" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RequestEntity" inverseName="raw_responses" inverseEntity="RequestEntity"/>
     </entity>
     <elements>
+        <element name="HeaderEntity" positionX="-135" positionY="-414" width="128" height="44"/>
         <element name="ParamEntity" positionX="18" positionY="-72" width="128" height="118"/>
         <element name="ProjectEntity" positionX="-308.82421875" positionY="-589.38671875" width="128" height="119"/>
-        <element name="RequestEntity" positionX="-220.15625" positionY="-436.73828125" width="128" height="164"/>
+        <element name="RequestEntity" positionX="-220.15625" positionY="-436.73828125" width="128" height="179"/>
+        <element name="ResponseEntity" positionX="-144" positionY="-432" width="128" height="134"/>
     </elements>
 </model>

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 enum NetworkError: Error {
     case badUrl
@@ -16,11 +17,15 @@ struct RequestLoader {
     var session = URLSession.shared
     var decoder = JSONDecoder()
     var request: RequestEntity
+    var context: NSManagedObjectContext
     
     func load(completion: @escaping (Result<ResponseDataPackage, NetworkError>) -> Void) {
+        
+        // Running
         request.running.toggle()
+        
         // URL
-        guard let url = URL(string: request.wrappedURL) else {
+        guard let url = URL(string: request.url) else {
             return completion(.failure(.badUrl))
         }
         
@@ -34,20 +39,20 @@ struct RequestLoader {
         
         var request = URLRequest(url: finalUrl)
         
-        request.httpMethod = self.request.wrappedMethod
+        request.httpMethod = self.request.method
         
         // Header
         request.addValue(getContentType(), forHTTPHeaderField: "Content-Type")
-        let headerParams = self.request.wrappedParams
-            .filter { ($0.wrappedType == .Header) && $0.active }
-        headerParams.forEach { request.addValue($0.wrappedValue, forHTTPHeaderField: $0.wrappedKey) }
+        let headerParams = self.request.params
+            .filter { ($0.type == .Header) && $0.active }
+        headerParams.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
         
         // Body
-        if self.request.wrappedContentType == .FormURLEncoded {
+        if self.request.contentType == .FormURLEncoded {
             request.httpBody = getFormUrlEncodedParam()
         }
         
-        if self.request.wrappedContentType == .MultipartFormData {
+        if self.request.contentType == .MultipartFormData {
             let boundary = "Boundary-\(UUID().uuidString)"
             
             let multipartFormData = getMultipartFormDataParam(boundary: boundary)?.data(using: .utf8)
@@ -56,22 +61,24 @@ struct RequestLoader {
             request.httpBody = multipartFormData
         }
         
+        let methodStart = Date()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                print(String(data: data, encoding: .utf8) ?? "Unknown")
-            }
+            let methodFinish = Date()
+            let executionTime = (methodFinish.timeIntervalSince(methodStart) * 1000).rounded()
+            print("Execution time: \(executionTime)")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.request.running.toggle()
-                let responseDataPackage = ResponseDataPackage(response: response, data: data)
+                let responseDataPackage = ResponseDataPackage(response: response, responseTime: Int(executionTime), data: data)
                 completion(.success(responseDataPackage))
             }
         }
+        
         
         task.resume()
     }
     
     func getContentType() -> String {
-        switch request.wrappedContentType {
+        switch request.contentType {
         case .FormURLEncoded:
             return "application/x-www-form-urlencoded"
         case .JSON:
@@ -88,30 +95,30 @@ struct RequestLoader {
     }
     
     func getUrlQueryItems() -> [URLQueryItem] {
-        return self.request.wrappedParams
-            .filter { ($0.wrappedType == .URL) && $0.active }
-            .map { URLQueryItem(name: $0.wrappedKey, value: $0.wrappedValue) }
+        return self.request.params
+            .filter { ($0.type == .URL) && $0.active }
+            .map { URLQueryItem(name: $0.key, value: $0.value) }
     }
     
     func getFormUrlEncodedParam() -> Data? {
-        let bodyParams = self.request.wrappedParams
-            .filter { ($0.wrappedType == .Body) && $0.active }
+        let bodyParams = self.request.params
+            .filter { ($0.type == .Body) && $0.active }
         
         guard bodyParams.hasContent else {
             return nil
         }
         
         var dictionary = [String: Any]()
-        bodyParams.forEach { dictionary[$0.wrappedKey] = $0.wrappedValue }
+        bodyParams.forEach { dictionary[$0.key] = $0.value }
         let jsonString = dictionary.reduce("") { "\($0)\($1.0)=\($1.1)&" }.dropLast()
         return jsonString.data(using: .utf8, allowLossyConversion: false)
     }
     
     func getMultipartFormDataParam(boundary: String) -> String? {
-        let bodyParams = self.request.wrappedParams
-            .filter { ($0.wrappedType == .Body) && $0.active }
+        let bodyParams = self.request.params
+            .filter { ($0.type == .Body) && $0.active }
         
-        let parameters: [[String : Any]] = bodyParams.map { ["key": $0.wrappedKey, "value":$0.wrappedValue, "type": "text"] }
+        let parameters: [[String : Any]] = bodyParams.map { ["key": $0.key, "value":$0.value, "type": "text"] }
         
         var body = ""
         for param in parameters {
@@ -138,4 +145,17 @@ struct RequestLoader {
         body += "--\(boundary)--\r\n"
         return body
     }
+}
+
+func measureInMilliseconds(_ block: () -> ()) -> UInt64 {
+    let start = DispatchTime.now()
+    block()
+    let end = DispatchTime.now()
+
+    // Difference in nano seconds (UInt64)
+    let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds
+    
+    // Technically could overflow for long running tests
+    let timeInterval = nanoTime / 1_000_000
+    return timeInterval
 }

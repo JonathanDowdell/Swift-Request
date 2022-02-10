@@ -19,7 +19,7 @@ struct RequestItem<Label: View>: View {
     }
     
     private var primaryColor: Color {
-        if let method = MethodType.init(rawValue: request.wrappedMethod) {
+        if let method = MethodType.init(rawValue: request.method) {
             return method.color().primary
         } else {
             return Color.cyan
@@ -27,7 +27,7 @@ struct RequestItem<Label: View>: View {
     }
     
     private var secondaryColor: Color {
-        if let method = MethodType.init(rawValue: request.wrappedMethod) {
+        if let method = MethodType.init(rawValue: request.method) {
             return method.color().secondary
         } else {
             return Color.cyan.opacity(0.15)
@@ -35,7 +35,7 @@ struct RequestItem<Label: View>: View {
     }
     
     private var fontSize: Font {
-        if let method = MethodType.init(rawValue: request.wrappedMethod) {
+        if let method = MethodType.init(rawValue: request.method) {
             switch method {
             case .GET, .POST, .PUT, .HEAD:
                 return .caption2
@@ -50,7 +50,7 @@ struct RequestItem<Label: View>: View {
         VStack {
             HStack {
                 ZStack {
-                    Text(request.wrappedMethod.uppercased())
+                    Text(request.method.uppercased())
                         .font(fontSize)
                         .bold()
                         .padding(5)
@@ -60,8 +60,8 @@ struct RequestItem<Label: View>: View {
                 .background(secondaryColor)
                 .cornerRadius(10)
                 VStack(alignment: .leading) {
-                    Text(request.wrappedTitle)
-                    Text(request.wrappedURL)
+                    Text(request.title)
+                    Text(request.url)
                         .font(.caption2)
                         .foregroundColor(Color.gray)
                         .tint(Color.gray)

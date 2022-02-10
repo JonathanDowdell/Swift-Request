@@ -9,5 +9,6 @@ import Foundation
 
 struct ResponseDataPackage {
     let response: URLResponse?
+    let responseTime: Int
     let data: Data?
 }

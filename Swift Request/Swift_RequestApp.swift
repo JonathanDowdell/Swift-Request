@@ -13,9 +13,11 @@ struct Swift_RequestApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            MainView(viewModel: MainViewModel())
             MainView(viewModel: MainViewModel(context: persistenceController.container.viewContext))
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { output in
+                    try? persistenceController.container.viewContext.save()
+                }
         }
     }
 }

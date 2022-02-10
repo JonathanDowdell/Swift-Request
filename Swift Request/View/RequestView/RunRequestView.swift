@@ -8,7 +8,12 @@
 import SwiftUI
 import CoreData
 
-class RunRequestViewModel: ObservableObject {
+protocol ResponseProtocol: ObservableObject {
+    var responses: [ResponseEntity] { get set }
+    func removeResponse(_ response: ResponseEntity)
+}
+
+class RunRequestViewModel: ObservableObject, ResponseProtocol {
     
     // MARK: URL
     @Published var title = ""
@@ -28,6 +33,9 @@ class RunRequestViewModel: ObservableObject {
     @Published var projects = [ProjectEntity]()
     @Published var selectedProject: ProjectEntity?
     
+    // MARK: Responses
+    @Published var responses = [ResponseEntity]()
+    
     var shouldUpdate = false
     var savedRequest: RequestEntity?
     
@@ -41,22 +49,23 @@ class RunRequestViewModel: ObservableObject {
     convenience init(request: RequestEntity, context: NSManagedObjectContext) {
         self.init(context: context)
         self.savedRequest = request
-        self.title = request.wrappedTitle
-        self.url = request.wrappedURL
-        self.methodType = request.wrappedMethodType
-        self.bodyContentType = request.wrappedContentType
-        let urlParams = request.wrappedParams.filter { return $0.wrappedType == .URL }
-        let headerParams = request.wrappedParams.filter { return $0.wrappedType == .Header }
-        let bodyQueryParams = request.wrappedParams.filter { return $0.wrappedType == .Body }
-        
+        self.title = request.title
+        self.url = request.url
+        self.methodType = request.methodType
+        self.bodyContentType = request.contentType
+        let urlParams = request.params.filter { return $0.type == .URL }
+        let headerParams = request.params.filter { return $0.type == .Header }
+        let bodyQueryParams = request.params.filter { return $0.type == .Body }
         
         self.urlParams = urlParams
         self.headerParams = headerParams
         self.bodyQueryParams = bodyQueryParams
         self.selectedProject = request.project
+        self.responses = request.responses
+        
     }
     
-    func saveRequest() -> RequestEntity? {
+    private func saveRequest() -> RequestEntity? {
         var params = [ParamEntity]()
         params.append(contentsOf: urlParams)
         params.append(contentsOf: headerParams)
@@ -78,9 +87,9 @@ class RunRequestViewModel: ObservableObject {
         savedRequest?.url = url
         savedRequest?.title = title
         savedRequest?.creationDate = savedRequest?.creationDate ?? Date()
-        savedRequest?.contentType = bodyContentType.rawValue 
+        savedRequest?.contentType = bodyContentType 
         for param in params {
-            savedRequest?.addToParams(param)
+            savedRequest?.addToRaw_params(param)
         }
         
         try? context.save()
@@ -93,7 +102,7 @@ class RunRequestViewModel: ObservableObject {
     func runRequest() {
         _ = saveRequest()
         guard let request = self.savedRequest else { return }
-        let requestLoader = RequestLoader(request: request)
+        let requestLoader = RequestLoader(request: request, context: context)
         requestLoader.load { [weak self] result in
             switch result {
             case .success(let responseDataPackage):
@@ -109,9 +118,34 @@ class RunRequestViewModel: ObservableObject {
         try? context.save()
     }
     
-    func handleResponseDataPackage(_ responseDataPackage: ResponseDataPackage) {
-        guard let response = responseDataPackage.response as? HTTPURLResponse else { return }
-        print(response)
+    private func handleResponseDataPackage(_ responseDataPackage: ResponseDataPackage) {
+        let responseEntity = ResponseEntity(context: context)
+        if let response = responseDataPackage.response as? HTTPURLResponse {
+            responseEntity.statusCode = Int64(response.statusCode)
+            responseEntity.raw_url = response.url?.absoluteString
+            response.allHeaderFields.forEach { header in
+                let headerEntity = HeaderEntity(context: context)
+                headerEntity.type = ParamType.Response
+                headerEntity.key = header.key.description
+                headerEntity.raw_value = "\(header.value)"
+                responseEntity.addHeader(headerEntity)
+            }
+        }
+        responseEntity.responseTime = Int64(responseDataPackage.responseTime)
+        responseEntity.creationDate = Date()
+        responseEntity.body = responseDataPackage.data
+        savedRequest?.addResponses(responseEntity)
+        try? context.save()
+        withAnimation {
+            self.responses.append(responseEntity)
+        }
+    }
+    
+    func removeResponse(_ response: ResponseEntity) {
+        guard let index = responses.firstIndex(of: response) else { return }
+        responses.remove(at: index)
+        context.delete(response)
+        try? context.save()
     }
     
     func handleNetworkError(_ error: NetworkError) {
@@ -130,45 +164,20 @@ struct RunRequestView<RequestManager>: View where RequestManager: RequestsManage
     
     @Environment(\.managedObjectContext) var moc
     
-    let url: URL = Bundle.main.url(forResource: "appStore-receipt", withExtension: "json")!
     
     var body: some View {
         List {
+            
             urlSection
             
             headerSection
             
-            bodyContentSection
+            bodySection
             
-            let name = vm.selectedProject?.wrappedName ?? ""
+            responseSection
             
-            NavigationLink {
-                CreateRequestProjectView(selectedProject: $vm.selectedProject)
-                    .onAppear {
-                        vm.shouldUpdate = false
-                    }
-                    .onDisappear {
-                        vm.shouldUpdate = true
-                    }
-            } label: {
-                HStack {
-                    Image(systemName: "folder")
-                        .padding(.trailing, 14)
-                        .foregroundColor(vm.selectedProject == nil ? .gray : .accentColor)
-                    Text("Project")
-                        .foregroundColor(.gray)
-                    Spacer()
-                    Text(name)
-                        .foregroundColor(.accentColor)
-                }
-                .tint(Color.accentColor)
-            }
-            .accessibilityIdentifier("projectSelectionBtn")
-            
-            
-            
-            Section("Response") {
-            }
+            projectSection
+
         }
         .listStyle(.sidebar)
         .toolbar {
