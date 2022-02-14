@@ -26,6 +26,10 @@ extension RequestEntity {
     @NSManaged public var raw_params: NSSet?
     @NSManaged public var project: ProjectEntity?
     @NSManaged public var raw_responses: NSSet?
+    @NSManaged public var raw_json: Data?
+    @NSManaged public var raw_xml: Data?
+    @NSManaged public var raw_text: String?
+    
     
     var title: String {
         get {

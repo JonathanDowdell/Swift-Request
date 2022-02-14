@@ -20,17 +20,20 @@ struct ProjectItem<Label: View>: View {
     
     var body: some View {
         HStack {
-            Image(systemName: project.wrappedSystemIcon)
+            let systemIcon = project.systemIcon
+            Image(systemName: systemIcon)
                 .padding(.horizontal, 11)
                 .padding(.vertical, 10)
                 .foregroundColor(Color.cyan)
                 .background(Color.cyan.opacity(0.15))
                 .cornerRadius(10)
             
+            let name = project.name
+            let version = project.version
             VStack(alignment: .leading) {
-                Text(project.wrappedName)
+                Text(name)
                     .foregroundColor(.primary)
-                Text(project.wrappedVersion)
+                Text(version)
                     .font(.footnote)
                     .foregroundColor(Color.gray)
                     .tint(Color.gray)

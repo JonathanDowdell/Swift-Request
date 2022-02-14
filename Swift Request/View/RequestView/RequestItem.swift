@@ -47,10 +47,16 @@ struct RequestItem<Label: View>: View {
     }
     
     var body: some View {
+        
+        let methodName: String = request.method.uppercased()
+        let title = request.title
+        let url = request.url
+        let requestRunning = request.running
+        
         VStack {
             HStack {
                 ZStack {
-                    Text(request.method.uppercased())
+                    Text(methodName)
                         .font(fontSize)
                         .bold()
                         .padding(5)
@@ -60,15 +66,16 @@ struct RequestItem<Label: View>: View {
                 .background(secondaryColor)
                 .cornerRadius(10)
                 VStack(alignment: .leading) {
-                    Text(request.title)
-                    Text(request.url)
+                    
+                    Text(title)
+                    Text(url)
                         .font(.caption2)
                         .foregroundColor(Color.gray)
                         .tint(Color.gray)
                 }
                 .clipped()
                 Spacer()
-                if request.running {
+                if requestRunning {
                     ProgressView()
                 } else {
                     label

@@ -6,77 +6,6 @@
 //
 
 import SwiftUI
-import CoreData
-
-class CreateProjectViewModel: ObservableObject {
-    @Published var name = ""
-    @Published var version = ""
-    @Published var shouldPresentIcons = false
-    @Published var projectIcon = "network"
-    
-    @Published var projectRequests = [RequestEntity]()
-    
-    @Published var unassignedRequests = [RequestEntity]()
-    
-    @Published var project: ProjectEntity?
-    
-    private let moc: NSManagedObjectContext
-    
-    let title: String
-    
-    
-    init(project: ProjectEntity? = nil, moc: NSManagedObjectContext) {
-        if let project = project {
-            self.name = project.wrappedName
-            self.version = project.wrappedVersion
-            self.project = project
-            self.title = "Edit Project"
-            self.projectRequests = project.wrappedRequests
-        } else {
-            self.title = "Create Project"
-        }
-        
-        self.moc = moc
-        
-        do {
-            let requests: [RequestEntity] = try moc.fetch(RequestEntity.fetchRequest())
-            unassignedRequests = requests.filter { $0.project == nil }
-        } catch {
-            print(error)
-        }
-    }
-    
-    fileprivate func removeRequestFromProject(request: RequestEntity) {
-        guard let requestIndex = projectRequests.firstIndex(of: request) else { return }
-        projectRequests.remove(at: requestIndex)
-        unassignedRequests.append(request)
-    }
-    
-    fileprivate func moveRequestToProject(request: RequestEntity) {
-        guard let requestIndex = unassignedRequests.firstIndex(of: request) else { return }
-        unassignedRequests.remove(at: requestIndex)
-        projectRequests.append(request)
-    }
-    
-    fileprivate func saveProject(presentationMode: Binding<PresentationMode>) {
-        let project = self.project ?? ProjectEntity(context: moc)
-        project.name = self.name
-        project.creationDate = Date()
-        project.systemIcon = self.projectIcon
-        project.version = self.version.isEmpty ? "Version 1.0" : self.version
-        project.wrappedRequests.forEach {
-            $0.order = 0
-            project.removeFromRequests($0)
-        }
-        for projectRequest in projectRequests {
-            project.addToRequests(projectRequest)
-            projectRequest.project = project
-        }
-        try? moc.save()
-        presentationMode.wrappedValue.dismiss()
-    }
-    
-}
 
 struct CreateProjectView: View {
     
@@ -112,12 +41,18 @@ struct CreateProjectView: View {
     
     var body: some View {
         NavigationView {
+            
+            let viewTitle: String = vm.title
+            let projectName = $vm.name
+            let projectVersion = $vm.version
+            let projectIcon = vm.projectIcon
+            
             List {
                 Section {
                     HStack {
                         Text("Name")
                         Spacer()
-                        TextField("Fancy Project Name", text: $vm.name)
+                        TextField("Fancy Project Name", text: projectName)
                             .multilineTextAlignment(.trailing)
                             .accessibilityIdentifier("projectNameTextField")
                     }
@@ -125,7 +60,8 @@ struct CreateProjectView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        TextField("Version 1.0", text: $vm.version)
+                        
+                        TextField("Version 1.0", text: projectVersion)
                             .multilineTextAlignment(.trailing)
                             .accessibilityIdentifier("versionTextField")
                     }
@@ -134,7 +70,7 @@ struct CreateProjectView: View {
                         Button {
                             vm.shouldPresentIcons = true
                         } label: {
-                            Image(systemName: vm.projectIcon)
+                            Image(systemName: projectIcon)
                                 .padding(.horizontal, 11)
                                 .padding(.vertical, 10)
                                 .foregroundColor(Color.cyan)
@@ -145,9 +81,9 @@ struct CreateProjectView: View {
 
                         
                         VStack(alignment: .leading) {
-                            Text(vm.name)
+                            Text(projectName.wrappedValue)
                                 .foregroundColor(.primary)
-                            Text(vm.version)
+                            Text(projectVersion.wrappedValue)
                                 .font(.footnote)
                                 .foregroundColor(Color.gray)
                                 .tint(Color.gray)
@@ -191,8 +127,7 @@ struct CreateProjectView: View {
                 
             }
             .accessibilityIdentifier("addProjectionList")
-            
-            .navigationTitle(vm.title)
+            .navigationTitle(viewTitle)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {

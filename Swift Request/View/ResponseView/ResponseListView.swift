@@ -17,7 +17,8 @@ struct ResponseListView<ViewModel: ResponseProtocol>: View {
     
     var body: some View {
         List {
-            if responses.hasContent {
+            let hasContent = responses.hasContent
+            if hasContent {
                 ForEach(responses, id: \.self) { response in
                     NavigationLink {
                         ResponseView(response: response)

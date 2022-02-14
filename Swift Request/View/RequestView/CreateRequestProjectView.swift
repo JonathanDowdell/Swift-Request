@@ -30,24 +30,26 @@ struct CreateRequestProjectView: View {
     
     @Environment(\.managedObjectContext) var moc
     
+    @Binding var request: RequestEntity?
+    
     @Binding var selectedProject: ProjectEntity?
     
-    @StateObject var viewModel = CreateRequestProjectViewModel()
+    @StateObject var vm = CreateRequestProjectViewModel()
     
     @FetchRequest(entity: ProjectEntity.entity(), sortDescriptors: []) private var projects: FetchedResults<ProjectEntity>
     
     @Environment(\.presentationMode) var presentationMode
     
     fileprivate func wiggleIcon() {
-        self.viewModel.wiggling.toggle()
+        self.vm.wiggling.toggle()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            self.viewModel.wiggling.toggle()
+            self.vm.wiggling.toggle()
         }
     }
     
     fileprivate func showCreateProjectSection() {
         withAnimation(.easeInOut(duration: 0.2)) {
-            viewModel.creating = true
+            vm.creating = true
             selectedProject = nil
         }
     }
@@ -59,32 +61,34 @@ struct CreateRequestProjectView: View {
             } else {
                 selectedProject = project
             }
-            viewModel.creating = false
+            vm.creating = false
         }
+        request?.project = selectedProject
     }
     
     fileprivate func showIconSelection() {
-        viewModel.slideOverCard = true
+        vm.slideOverCard = true
     }
     
     var body: some View {
         List {
-            if !viewModel.creating {
+            let isCreatingProject = !vm.creating
+            if isCreatingProject {
                 Button {
                     withAnimation {
-                        viewModel.creating = true
+                        vm.creating = true
                     }
                 } label: {
                     Text("New")
                 }
             }
             
-            if viewModel.creating {
+            if vm.creating {
                 Section {
                     HStack {
                         Text("Name")
                         Spacer()
-                        TextField("Fancy Project Name", text: $viewModel.name)
+                        TextField("Fancy Project Name", text: $vm.name)
                             .multilineTextAlignment(.trailing)
                     }
                     .onTapGesture(perform: wiggleIcon)
@@ -92,7 +96,7 @@ struct CreateRequestProjectView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        TextField("Version 1.0", text: $viewModel.version)
+                        TextField("Version 1.0", text: $vm.version)
                             .multilineTextAlignment(.trailing)
                     }
                     .onTapGesture(perform: wiggleIcon)
@@ -112,14 +116,14 @@ struct CreateRequestProjectView: View {
                                     .cornerRadius(10)
                             }
                             .buttonStyle(PlainButtonStyle())
-                            .rotationEffect(.degrees(viewModel.wiggling ? 3.5 : 1))
-                            .scaleEffect(viewModel.wiggling ? 1.2 : 1)
-                            .animation(Animation.easeInOut(duration: 0.6).repeatCount(3, autoreverses: true), value: viewModel.wiggling)
+                            .rotationEffect(.degrees(vm.wiggling ? 3.5 : 1))
+                            .scaleEffect(vm.wiggling ? 1.2 : 1)
+                            .animation(Animation.easeInOut(duration: 0.6).repeatCount(3, autoreverses: true), value: vm.wiggling)
                             
                             VStack(alignment: .leading) {
-                                Text(viewModel.name.isEmpty ? "Fancy Project Name" : viewModel.name)
+                                Text(vm.name.isEmpty ? "Fancy Project Name" : vm.name)
                                     .foregroundColor(.primary)
-                                Text(viewModel.version.isEmpty ? "Version 1.0" : viewModel.version)
+                                Text(vm.version.isEmpty ? "Version 1.0" : vm.version)
                                     .font(.footnote)
                                     .foregroundColor(Color.gray)
                                     .tint(Color.gray)
@@ -147,7 +151,7 @@ struct CreateRequestProjectView: View {
                     } label: {
                         HStack {
                             ProjectItem(project: project) {
-                                if selectedProject == project && !viewModel.creating {
+                                if selectedProject == project && !vm.creating {
                                     Spacer()
                                     
                                     Image(systemName: "checkmark")
@@ -160,19 +164,23 @@ struct CreateRequestProjectView: View {
                 
             } header: {}
         }
-        .popover(isPresented: $viewModel.slideOverCard) {
-            IconsView(projectIcon: $viewModel.projectIcon)
+        .popover(isPresented: $vm.slideOverCard) {
+            IconsView(projectIcon: $vm.projectIcon)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                if viewModel.creating {
+                if vm.creating {
                     PillButton {
                         let project = ProjectEntity(context: moc)
-                        project.creationDate = Date()
-                        project.name = viewModel.name
-                        project.systemIcon = viewModel.projectIcon
-                        project.version = viewModel.version
+                        project.raw_creation_date = Date()
+                        project.raw_name = vm.name
+                        project.raw_system_icon = vm.projectIcon
+                        project.raw_version = vm.version
                         self.selectedProject = project
+                        if let request = request {
+                            self.selectedProject?.addToRequests(request)
+                        }
+                        try? moc.save()
                         self.presentationMode.wrappedValue.dismiss()
                     } content: {
                         Text("Save")
@@ -190,7 +198,7 @@ struct CreateRequestProjectView: View {
 struct CreateRequestProjectView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            CreateRequestProjectView(selectedProject: .constant(nil))
+            CreateRequestProjectView(request: .constant(nil), selectedProject: .constant(nil))
         }
     }
 }

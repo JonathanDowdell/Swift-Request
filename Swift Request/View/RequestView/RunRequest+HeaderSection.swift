@@ -11,13 +11,17 @@ import SwiftUI
 extension RunRequestView {
     
     var headerSection: some View {
+        
         Section {
-            ForEach(vm.headerParams, id: \.self) {
+            
+            let headerParams = vm.headerParams
+            
+            ForEach(headerParams, id: \.self) {
                 ParamItem($0)
             }
-            .onDelete(perform: removeHeaderParam)
+            .onDelete(perform: vm.removeHeaderParam)
             
-            Button(action: addHeaderParam) {
+            Button(action: vm.addHeaderParam) {
                 HStack {
                     Image(systemName: "plus.circle.fill")
                     
@@ -35,20 +39,6 @@ extension RunRequestView {
                 Text("Header")
             }
         }
-    }
-    
-    private func addHeaderParam() {
-        let queryParam = ParamEntity(context: moc)
-        queryParam.raw_type = ParamType.Header.rawValue
-        queryParam.active = true
-        withAnimation {
-            vm.headerParams.append(queryParam)
-        }
-    }
-    
-    private func removeHeaderParam(_ offSet: IndexSet) {
-        guard let element = offSet.first else { return }
-        vm.headerParams.remove(at: element)
     }
 }
 

@@ -52,6 +52,10 @@ struct RequestLoader {
             request.httpBody = getFormUrlEncodedParam()
         }
         
+        if self.request.contentType == .JSON {
+            request.httpBody = self.request.raw_json
+        }
+        
         if self.request.contentType == .MultipartFormData {
             let boundary = "Boundary-\(UUID().uuidString)"
             

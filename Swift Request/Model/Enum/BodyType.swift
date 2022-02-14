@@ -8,7 +8,12 @@
 import SwiftUI
 
 enum BodyType: String, CaseIterable {
-    case FormURLEncoded, MultipartFormData, JSON, XML, Raw, Binary
+    case FormURLEncoded = "Form URL Encoded"
+    case MultipartFormData = "Multipart Form Data"
+    case JSON = "JSON"
+    case XML = "XML"
+    case Raw = "Raw"
+    case Binary = "Binary"
     
     func color() -> (primary: Color, secondary: Color) {
         switch self {

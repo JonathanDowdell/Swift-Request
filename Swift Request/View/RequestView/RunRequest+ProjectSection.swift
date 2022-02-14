@@ -10,19 +10,22 @@ import SwiftUI
 extension RunRequestView {
     var projectSection: some View {
         NavigationLink {
-            CreateRequestProjectView(selectedProject: $vm.selectedProject)
+            CreateRequestProjectView(request: $vm.savedRequest, selectedProject: $vm.selectedProject)
                 .onAppear {
-                    vm.shouldUpdate = false
-                }
-                .onDisappear {
                     vm.shouldUpdate = true
                 }
+                .onDisappear {
+                    vm.shouldUpdate = false
+                }
         } label: {
-            let name = vm.selectedProject?.wrappedName ?? ""
+            
+            let name = vm.selectedProject?.name ?? ""
+            let folderIconColor: Color = vm.selectedProject == nil ? .gray : .accentColor
+            
             HStack {
                 Image(systemName: "folder")
                     .padding(.trailing, 14)
-                    .foregroundColor(vm.selectedProject == nil ? .gray : .accentColor)
+                    .foregroundColor(folderIconColor)
                 Text("Project")
                     .foregroundColor(.gray)
                 Spacer()

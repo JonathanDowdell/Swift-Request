@@ -10,10 +10,10 @@ import SwiftUI
 extension RunRequestView {
     var responseSection: some View {
         Group {
-            if let response = vm.responses.sorted(by: { $0.creationDate > $1.creationDate }).first {
+            if let firstSortedResponse = vm.responses.sorted(by: { $0.creationDate > $1.creationDate }).first {
                 Section {
                     NavigationLink {
-                        ResponseView(response: response)
+                        ResponseView(response: firstSortedResponse)
                             .onAppear {
                                 vm.shouldUpdate = false
                             }
@@ -21,13 +21,13 @@ extension RunRequestView {
                                 vm.shouldUpdate = true
                             }
                     } label: {
-                        ResponseItem(response: response)
+                        ResponseItem(response: firstSortedResponse)
                     }
                     .foregroundColor(.gray)
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button {
                             withAnimation {
-                                vm.removeResponse(response)
+                                vm.removeResponse(firstSortedResponse)
                             }
                         } label: {
                             Text("Delete")
@@ -36,7 +36,9 @@ extension RunRequestView {
 
                     }
                     
-                    if vm.responses.count > 1 {
+                    let moreThanOneResponse: Bool = vm.responses.count > 1
+                    
+                    if moreThanOneResponse {
                         NavigationLink {
                             ResponseListView(vm: vm)
                                 .onAppear {
