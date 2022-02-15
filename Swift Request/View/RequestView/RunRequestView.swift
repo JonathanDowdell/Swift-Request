@@ -37,7 +37,11 @@ struct RunRequestView<RequestManager>: View where RequestManager: RequestsManage
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: runRequest) {
-                    Image(systemName: "play.fill")
+                    if vm.isSendingRequest {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "play.fill")
+                    }
                 }
                 .accessibilityIdentifier("runRequestBtn")
             }

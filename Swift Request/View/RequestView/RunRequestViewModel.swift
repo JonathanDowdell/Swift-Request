@@ -38,6 +38,9 @@ class RunRequestViewModel: ObservableObject, ResponseProtocol {
     // MARK: Responses
     @Published var responses = [ResponseEntity]()
     
+    // MARK: Toolbar
+    @Published var isSendingRequest = false
+    
     var shouldUpdate = false
     var savedRequest: RequestEntity?
     
@@ -73,7 +76,13 @@ class RunRequestViewModel: ObservableObject, ResponseProtocol {
         _ = saveRequest()
         guard let request = self.savedRequest else { return }
         let requestLoader = RequestLoader(request: request, context: context)
+        withAnimation {
+            self.isSendingRequest = true
+        }
         requestLoader.load { [weak self] result in
+            withAnimation {
+                self?.isSendingRequest = false
+            }
             switch result {
             case .success(let responseDataPackage):
                 self?.handleResponseDataPackage(responseDataPackage)
