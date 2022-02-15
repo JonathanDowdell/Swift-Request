@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct Swift_RequestApp: App {
     let persistenceController = PersistenceController.shared
-    let accentColor = AccentColor.shared
 
     var body: some Scene {
         WindowGroup {

@@ -43,9 +43,7 @@
 		24E0031E27BAC5B0009E5332 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0031D27BAC5B0009E5332 /* MainViewModel.swift */; };
 		24E0032027BAC685009E5332 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0031F27BAC685009E5332 /* ProjectViewModel.swift */; };
 		24E0032227BAC6B9009E5332 /* CreateProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032127BAC6B9009E5332 /* CreateProjectViewModel.swift */; };
-		24E0032727BAFB05009E5332 /* AccentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032627BAFB05009E5332 /* AccentColor.swift */; };
 		24E0032927BBCBC3009E5332 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032827BBCBC3009E5332 /* SettingsView.swift */; };
-		24E0032B27BBE8C6009E5332 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032A27BBE8C6009E5332 /* ThemeColor.swift */; };
 		24E0033027BC27ED009E5332 /* UserDefault in Frameworks */ = {isa = PBXBuildFile; productRef = 24E0032F27BC27ED009E5332 /* UserDefault */; };
 		24E0033927BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0033727BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift */; };
 		24E0033A27BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0033827BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift */; };
@@ -123,9 +121,7 @@
 		24E0031D27BAC5B0009E5332 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		24E0031F27BAC685009E5332 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		24E0032127BAC6B9009E5332 /* CreateProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewModel.swift; sourceTree = "<group>"; };
-		24E0032627BAFB05009E5332 /* AccentColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentColor.swift; sourceTree = "<group>"; };
 		24E0032827BBCBC3009E5332 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		24E0032A27BBE8C6009E5332 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
 		24E0033727BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		24E0033827BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		24E0033B27BC3F79009E5332 /* GlobalThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalThemeView.swift; sourceTree = "<group>"; };
@@ -226,8 +222,6 @@
 				2440A550276F9A2300943B06 /* Swift_Request.xcdatamodeld */,
 				24EED9972780083500FC5CDA /* Swift-Request-Info.plist */,
 				2440A54B276F9A2300943B06 /* Preview Content */,
-				24E0032627BAFB05009E5332 /* AccentColor.swift */,
-				24E0032A27BBE8C6009E5332 /* ThemeColor.swift */,
 			);
 			path = "Swift Request";
 			sourceTree = "<group>";
@@ -553,10 +547,8 @@
 				24E0032227BAC6B9009E5332 /* CreateProjectViewModel.swift in Sources */,
 				24E0031E27BAC5B0009E5332 /* MainViewModel.swift in Sources */,
 				2440A54F276F9A2300943B06 /* Persistence.swift in Sources */,
-				24E0032B27BBE8C6009E5332 /* ThemeColor.swift in Sources */,
 				2429F1BC27B2359600CE8E35 /* StatusCodeItem.swift in Sources */,
 				2429F1CB27B5309400CE8E35 /* ResponseView.swift in Sources */,
-				24E0032727BAFB05009E5332 /* AccentColor.swift in Sources */,
 				24E0032027BAC685009E5332 /* ProjectViewModel.swift in Sources */,
 				24EED999278118A000FC5CDA /* KeyboardToolBar.swift in Sources */,
 				244CC7B32770FACE008EA7AD /* ParamItem.swift in Sources */,
