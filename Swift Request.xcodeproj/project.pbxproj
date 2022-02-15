@@ -44,7 +44,6 @@
 		24E0032027BAC685009E5332 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0031F27BAC685009E5332 /* ProjectViewModel.swift */; };
 		24E0032227BAC6B9009E5332 /* CreateProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032127BAC6B9009E5332 /* CreateProjectViewModel.swift */; };
 		24E0032927BBCBC3009E5332 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032827BBCBC3009E5332 /* SettingsView.swift */; };
-		24E0033027BC27ED009E5332 /* UserDefault in Frameworks */ = {isa = PBXBuildFile; productRef = 24E0032F27BC27ED009E5332 /* UserDefault */; };
 		24E0033927BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0033727BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift */; };
 		24E0033A27BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0033827BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift */; };
 		24E0033C27BC3F79009E5332 /* GlobalThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0033B27BC3F79009E5332 /* GlobalThemeView.swift */; };
@@ -153,7 +152,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24E0033027BC27ED009E5332 /* UserDefault in Frameworks */,
 				24EED992277FF06B00FC5CDA /* Collections in Frameworks */,
 				24EED994277FF06B00FC5CDA /* DequeModule in Frameworks */,
 				24EED996277FF06B00FC5CDA /* OrderedCollections in Frameworks */,
@@ -452,7 +450,6 @@
 				24EED993277FF06B00FC5CDA /* DequeModule */,
 				24EED995277FF06B00FC5CDA /* OrderedCollections */,
 				2429F1D127B5CD0E00CE8E35 /* CodeViewer */,
-				24E0032F27BC27ED009E5332 /* UserDefault */,
 			);
 			productName = "Swift Request";
 			productReference = 2440A542276F9A2200943B06 /* Swift Request.app */;
@@ -507,7 +504,6 @@
 			packageReferences = (
 				24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */,
 				2429F1D027B5CD0E00CE8E35 /* XCRemoteSwiftPackageReference "CodeViewer" */,
-				24E0032E27BC27ED009E5332 /* XCRemoteSwiftPackageReference "UserDefault" */,
 			);
 			productRefGroup = 2440A543276F9A2200943B06 /* Products */;
 			projectDirPath = "";
@@ -872,14 +868,6 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		24E0032E27BC27ED009E5332 /* XCRemoteSwiftPackageReference "UserDefault" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/strawb3rryx7/UserDefault.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -895,11 +883,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2429F1D027B5CD0E00CE8E35 /* XCRemoteSwiftPackageReference "CodeViewer" */;
 			productName = CodeViewer;
-		};
-		24E0032F27BC27ED009E5332 /* UserDefault */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24E0032E27BC27ED009E5332 /* XCRemoteSwiftPackageReference "UserDefault" */;
-			productName = UserDefault;
 		};
 		24EED991277FF06B00FC5CDA /* Collections */ = {
 			isa = XCSwiftPackageProductDependency;
