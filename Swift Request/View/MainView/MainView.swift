@@ -11,17 +11,7 @@ struct MainView: View {
     
     @StateObject var vm: MainViewModel
     
-    @FetchRequest(sortDescriptors: [], animation: .default) var settings: FetchedResults<SettingEntity>
-    
     @Environment(\.managedObjectContext) var moc
-    
-    var setting: SettingEntity {
-        if let setting = settings.first {
-            return setting
-        } else {
-            return SettingEntity(context: moc)
-        }
-    }
     
     var projectSection: some View {
         Section {
