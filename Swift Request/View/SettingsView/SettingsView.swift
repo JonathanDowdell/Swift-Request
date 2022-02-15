@@ -49,6 +49,8 @@ struct SettingsView: View {
     
     @ObservedObject var setting: SettingEntity
     
+    @State private var showShareSheet = false
+    
     var appearanceSection: some View {
         Section("Appearance") {
             Picker(selection: .init(get: {
@@ -83,9 +85,8 @@ struct SettingsView: View {
     
     var supportSection: some View {
         Section("Support") {
-            
             Button {
-                
+                showShareSheet = true
             } label: {
                 HStack {
                     Text("Share")
@@ -98,7 +99,14 @@ struct SettingsView: View {
             }
             
             Button {
-                
+                let email = "appman8872@gmail.com"
+                if let url = URL(string: "mailto:\(email)") {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
             } label: {
                 HStack {
                     Text("Feedback")
@@ -111,7 +119,14 @@ struct SettingsView: View {
             }
             
             Button {
-                
+                let web = "https://www.hackingwithswift.com"
+                if let url = URL(string: web) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url)
+                    } else {
+                        UIApplication.shared.openURL(url)
+                    }
+                }
             } label: {
                 HStack {
                     Text("Help")
@@ -144,6 +159,7 @@ struct SettingsView: View {
             Text("About")
         } footer: {
             Text("Made with ❤️ by Jonathan D.")
+                .padding(.top, 20)
         }
     }
     
@@ -157,6 +173,13 @@ struct SettingsView: View {
                 aboutSection
             }
             .navigationTitle("Settings")
+            .sheet(isPresented: $showShareSheet, content: {
+                if let urlShare = URL(string: "https://developer.apple.com/xcode/swiftui/") {
+                    ActivityViewController(itemsToShare: [urlShare])
+                } else {
+                    EmptyView()
+                }
+            })
         }
     }
 }
@@ -175,4 +198,15 @@ extension String {
     mutating func capitalizeFirstLetter() {
       self = self.capitalizingFirstLetter()
     }
+}
+
+struct ActivityViewController: UIViewControllerRepresentable {
+    var itemsToShare: [Any]
+    var servicesToShareItem: [UIActivity]? = nil
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: itemsToShare, applicationActivities: servicesToShareItem)
+        return controller
+    }
+    func updateUIViewController(_ uiViewController: UIActivityViewController,
+                                context: UIViewControllerRepresentableContext<ActivityViewController>) {}
 }
