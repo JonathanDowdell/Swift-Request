@@ -21,12 +21,15 @@ struct ProjectItem<Label: View>: View {
     var body: some View {
         HStack {
             let systemIcon = project.systemIcon
-            Image(systemName: systemIcon)
-                .padding(.horizontal, 11)
-                .padding(.vertical, 10)
-                .foregroundColor(Color.cyan)
-                .background(Color.cyan.opacity(0.15))
-                .cornerRadius(10)
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color.accentColor.opacity(0.15))
+                    .cornerRadius(10)
+                    .frame(width: 40, height: 40, alignment: .center)
+                
+                Image(systemName: systemIcon)
+                    .foregroundColor(Color.accentColor)
+            }
             
             let name = project.name
             let version = project.version

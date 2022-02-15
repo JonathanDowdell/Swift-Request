@@ -14,6 +14,7 @@ protocol RequestsManagement: ObservableObject {
 
 class MainViewModel: RequestsManagement {
     @Published var searchText = ""
+    @Published var shouldPopOverSettings = false
     @Published var shouldPresentCompose = false
     @Published var shouldPresentNewProject = false
     @Published var toolbarItemLeadingPlacement: ToolbarItemPlacement = .bottomBar
@@ -36,7 +37,7 @@ class MainViewModel: RequestsManagement {
     
     let context: NSManagedObjectContext
     
-    init(context: NSManagedObjectContext) {
+    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
         self.context = context
         
         reload()

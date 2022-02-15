@@ -10,10 +10,11 @@ import SwiftUI
 @main
 struct Swift_RequestApp: App {
     let persistenceController = PersistenceController.shared
+    let accentColor = AccentColor.shared
 
     var body: some Scene {
         WindowGroup {
-            MainView(vm: MainViewModel(context: persistenceController.container.viewContext))
+            GlobalThemeView(mainViewModel: MainViewModel(context: persistenceController.container.viewContext))
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { output in
                     try? persistenceController.container.viewContext.save()

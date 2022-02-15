@@ -20,7 +20,6 @@
 		2429F1CD27B530F700CE8E35 /* ResponseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1CC27B530F700CE8E35 /* ResponseListView.swift */; };
 		2429F1CF27B534D400CE8E35 /* ResponseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1CE27B534D400CE8E35 /* ResponseItem.swift */; };
 		2429F1D227B5CD0E00CE8E35 /* CodeViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 2429F1D127B5CD0E00CE8E35 /* CodeViewer */; };
-		2429F1D427B5CD3100CE8E35 /* CodeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1D327B5CD3100CE8E35 /* CodeEditor.swift */; };
 		2429F1D627B6EDCD00CE8E35 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1D527B6EDCD00CE8E35 /* CodeEditorView.swift */; };
 		2429F1D927B86CF600CE8E35 /* ProjectEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1D727B86CF600CE8E35 /* ProjectEntity+CoreDataClass.swift */; };
 		2429F1DA27B86CF600CE8E35 /* ProjectEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1D827B86CF600CE8E35 /* ProjectEntity+CoreDataProperties.swift */; };
@@ -44,6 +43,13 @@
 		24E0031E27BAC5B0009E5332 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0031D27BAC5B0009E5332 /* MainViewModel.swift */; };
 		24E0032027BAC685009E5332 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0031F27BAC685009E5332 /* ProjectViewModel.swift */; };
 		24E0032227BAC6B9009E5332 /* CreateProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032127BAC6B9009E5332 /* CreateProjectViewModel.swift */; };
+		24E0032727BAFB05009E5332 /* AccentColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032627BAFB05009E5332 /* AccentColor.swift */; };
+		24E0032927BBCBC3009E5332 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032827BBCBC3009E5332 /* SettingsView.swift */; };
+		24E0032B27BBE8C6009E5332 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0032A27BBE8C6009E5332 /* ThemeColor.swift */; };
+		24E0033027BC27ED009E5332 /* UserDefault in Frameworks */ = {isa = PBXBuildFile; productRef = 24E0032F27BC27ED009E5332 /* UserDefault */; };
+		24E0033927BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0033727BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift */; };
+		24E0033A27BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0033827BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift */; };
+		24E0033C27BC3F79009E5332 /* GlobalThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E0033B27BC3F79009E5332 /* GlobalThemeView.swift */; };
 		24EED98F277FEA9700FC5CDA /* RequestLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EED98E277FEA9700FC5CDA /* RequestLoader.swift */; };
 		24EED992277FF06B00FC5CDA /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 24EED991277FF06B00FC5CDA /* Collections */; };
 		24EED994277FF06B00FC5CDA /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 24EED993277FF06B00FC5CDA /* DequeModule */; };
@@ -92,7 +98,6 @@
 		2429F1CA27B5309400CE8E35 /* ResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseView.swift; sourceTree = "<group>"; };
 		2429F1CC27B530F700CE8E35 /* ResponseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseListView.swift; sourceTree = "<group>"; };
 		2429F1CE27B534D400CE8E35 /* ResponseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseItem.swift; sourceTree = "<group>"; };
-		2429F1D327B5CD3100CE8E35 /* CodeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditor.swift; sourceTree = "<group>"; };
 		2429F1D527B6EDCD00CE8E35 /* CodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditorView.swift; sourceTree = "<group>"; };
 		2429F1D727B86CF600CE8E35 /* ProjectEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2429F1D827B86CF600CE8E35 /* ProjectEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -118,6 +123,12 @@
 		24E0031D27BAC5B0009E5332 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		24E0031F27BAC685009E5332 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		24E0032127BAC6B9009E5332 /* CreateProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewModel.swift; sourceTree = "<group>"; };
+		24E0032627BAFB05009E5332 /* AccentColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccentColor.swift; sourceTree = "<group>"; };
+		24E0032827BBCBC3009E5332 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		24E0032A27BBE8C6009E5332 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
+		24E0033727BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		24E0033827BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		24E0033B27BC3F79009E5332 /* GlobalThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalThemeView.swift; sourceTree = "<group>"; };
 		24EED98E277FEA9700FC5CDA /* RequestLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLoader.swift; sourceTree = "<group>"; };
 		24EED9972780083500FC5CDA /* Swift-Request-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Swift-Request-Info.plist"; sourceTree = SOURCE_ROOT; };
 		24EED998278118A000FC5CDA /* KeyboardToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolBar.swift; sourceTree = "<group>"; };
@@ -146,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24E0033027BC27ED009E5332 /* UserDefault in Frameworks */,
 				24EED992277FF06B00FC5CDA /* Collections in Frameworks */,
 				24EED994277FF06B00FC5CDA /* DequeModule in Frameworks */,
 				24EED996277FF06B00FC5CDA /* OrderedCollections in Frameworks */,
@@ -214,6 +226,8 @@
 				2440A550276F9A2300943B06 /* Swift_Request.xcdatamodeld */,
 				24EED9972780083500FC5CDA /* Swift-Request-Info.plist */,
 				2440A54B276F9A2300943B06 /* Preview Content */,
+				24E0032627BAFB05009E5332 /* AccentColor.swift */,
+				24E0032A27BBE8C6009E5332 /* ThemeColor.swift */,
 			);
 			path = "Swift Request";
 			sourceTree = "<group>";
@@ -243,8 +257,9 @@
 				24F77089277272FC001C94A9 /* RequestView */,
 				2429F1C927B5305F00CE8E35 /* ResponseView */,
 				24F770BD277A1D4C001C94A9 /* ProjectView */,
+				24E0032327BAEA23009E5332 /* SettingsView */,
 				24F7709627732AAD001C94A9 /* Misc */,
-				2429F1D327B5CD3100CE8E35 /* CodeEditor.swift */,
+				24E0033B27BC3F79009E5332 /* GlobalThemeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -252,6 +267,7 @@
 		2440A573276FEA1D00943B06 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				24E0033627BC2B9D009E5332 /* Setting */,
 				244CC7B8277253BB008EA7AD /* Project */,
 				2440A57C276FEAC400943B06 /* Request */,
 				2486706E27B16B8700E0A3F9 /* Response */,
@@ -323,6 +339,23 @@
 				24E0031D27BAC5B0009E5332 /* MainViewModel.swift */,
 			);
 			path = MainView;
+			sourceTree = "<group>";
+		};
+		24E0032327BAEA23009E5332 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				24E0032827BBCBC3009E5332 /* SettingsView.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		24E0033627BC2B9D009E5332 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				24E0033727BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift */,
+				24E0033827BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		24F7708427727164001C94A9 /* Enum */ = {
@@ -425,6 +458,7 @@
 				24EED993277FF06B00FC5CDA /* DequeModule */,
 				24EED995277FF06B00FC5CDA /* OrderedCollections */,
 				2429F1D127B5CD0E00CE8E35 /* CodeViewer */,
+				24E0032F27BC27ED009E5332 /* UserDefault */,
 			);
 			productName = "Swift Request";
 			productReference = 2440A542276F9A2200943B06 /* Swift Request.app */;
@@ -479,6 +513,7 @@
 			packageReferences = (
 				24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */,
 				2429F1D027B5CD0E00CE8E35 /* XCRemoteSwiftPackageReference "CodeViewer" */,
+				24E0032E27BC27ED009E5332 /* XCRemoteSwiftPackageReference "UserDefault" */,
 			);
 			productRefGroup = 2440A543276F9A2200943B06 /* Products */;
 			projectDirPath = "";
@@ -518,8 +553,10 @@
 				24E0032227BAC6B9009E5332 /* CreateProjectViewModel.swift in Sources */,
 				24E0031E27BAC5B0009E5332 /* MainViewModel.swift in Sources */,
 				2440A54F276F9A2300943B06 /* Persistence.swift in Sources */,
+				24E0032B27BBE8C6009E5332 /* ThemeColor.swift in Sources */,
 				2429F1BC27B2359600CE8E35 /* StatusCodeItem.swift in Sources */,
 				2429F1CB27B5309400CE8E35 /* ResponseView.swift in Sources */,
+				24E0032727BAFB05009E5332 /* AccentColor.swift in Sources */,
 				24E0032027BAC685009E5332 /* ProjectViewModel.swift in Sources */,
 				24EED999278118A000FC5CDA /* KeyboardToolBar.swift in Sources */,
 				244CC7B32770FACE008EA7AD /* ParamItem.swift in Sources */,
@@ -539,28 +576,31 @@
 				2486708B27B2316000E0A3F9 /* RequestEntity+CoreDataProperties.swift in Sources */,
 				24F7709827732B84001C94A9 /* PillButton.swift in Sources */,
 				24F77083277270F2001C94A9 /* MethodItem.swift in Sources */,
+				24E0032927BBCBC3009E5332 /* SettingsView.swift in Sources */,
 				24F770862772716C001C94A9 /* BodyType.swift in Sources */,
 				2440A546276F9A2200943B06 /* Swift_RequestApp.swift in Sources */,
 				2403EFFF2783A06700ECE984 /* JsonTreeView.swift in Sources */,
 				244CF92F278666170055FB02 /* ParamEntity+CoreDataClass.swift in Sources */,
 				2486708A27B2316000E0A3F9 /* RequestEntity+CoreDataClass.swift in Sources */,
 				24F7709C277359B5001C94A9 /* IconsView.swift in Sources */,
+				24E0033C27BC3F79009E5332 /* GlobalThemeView.swift in Sources */,
 				2429F1C627B441A000CE8E35 /* RunRequest+ProjectSection.swift in Sources */,
 				2429F1DA27B86CF600CE8E35 /* ProjectEntity+CoreDataProperties.swift in Sources */,
 				2429F1CD27B530F700CE8E35 /* ResponseListView.swift in Sources */,
 				24F7708D2772737F001C94A9 /* RunRequest+HeaderSection.swift in Sources */,
 				24F770BC27785CC0001C94A9 /* MainView.swift in Sources */,
 				24F770C2277B0708001C94A9 /* Array+Etx.swift in Sources */,
+				24E0033A27BC2BC0009E5332 /* SettingEntity+CoreDataProperties.swift in Sources */,
 				24F770BF277A1D5E001C94A9 /* ProjectView.swift in Sources */,
 				2429F1BF27B23B9900CE8E35 /* ResponseEntity+CoreDataClass.swift in Sources */,
 				24F770B12774D840001C94A9 /* TestData.swift in Sources */,
 				2429F1CF27B534D400CE8E35 /* ResponseItem.swift in Sources */,
 				24F7709A277331F2001C94A9 /* CreateRequestProjectView.swift in Sources */,
 				24F7708B27727331001C94A9 /* RunRequest+UrlSection.swift in Sources */,
+				24E0033927BC2BC0009E5332 /* SettingEntity+CoreDataClass.swift in Sources */,
 				2440A552276F9A2300943B06 /* Swift_Request.xcdatamodeld in Sources */,
 				244CF930278666170055FB02 /* ParamEntity+CoreDataProperties.swift in Sources */,
 				2486708727B2260B00E0A3F9 /* HeaderEntity+CoreDataProperties.swift in Sources */,
-				2429F1D427B5CD3100CE8E35 /* CodeEditor.swift in Sources */,
 				24F7708827727192001C94A9 /* MethodType.swift in Sources */,
 				2403EFFC27839DBF00ECE984 /* JsonViewer.swift in Sources */,
 				2429F1C827B4603900CE8E35 /* RunRequest+ResponseSection.swift in Sources */,
@@ -840,6 +880,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		24E0032E27BC27ED009E5332 /* XCRemoteSwiftPackageReference "UserDefault" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/strawb3rryx7/UserDefault.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		24EED990277FF06B00FC5CDA /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
@@ -855,6 +903,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2429F1D027B5CD0E00CE8E35 /* XCRemoteSwiftPackageReference "CodeViewer" */;
 			productName = CodeViewer;
+		};
+		24E0032F27BC27ED009E5332 /* UserDefault */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24E0032E27BC27ED009E5332 /* XCRemoteSwiftPackageReference "UserDefault" */;
+			productName = UserDefault;
 		};
 		24EED991277FF06B00FC5CDA /* Collections */ = {
 			isa = XCSwiftPackageProductDependency;
