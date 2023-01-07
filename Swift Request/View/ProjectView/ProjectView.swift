@@ -59,6 +59,7 @@ struct ProjectView: View {
                             }
                         } label: {
                             Text(editOrDoneText)
+                                .font(.caption)
                         }
                         
                         Button {
