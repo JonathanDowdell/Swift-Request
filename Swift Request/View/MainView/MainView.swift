@@ -53,6 +53,7 @@ struct MainView: View {
                                    requestsManager: vm)
                 } label: {
                     RequestItem(request: request)
+                        .padding(.vertical, 8)
                 }
             }
             .onDelete { offSet in
