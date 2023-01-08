@@ -56,7 +56,6 @@ struct CreateRequestProjectView: View {
             } else {
                 projectToSet = project
             }
-            
             creating = false
         }
     }
@@ -116,6 +115,9 @@ struct CreateRequestProjectView: View {
             }
         }
         .navigationTitle("Projects")
+        .onAppear {
+            self.projectToSet = selectedProject
+        }
         .onDisappear {
             if let projectToSet = projectToSet {
                 request?.project = projectToSet
@@ -201,7 +203,7 @@ extension CreateRequestProjectView {
                 } label: {
                     HStack {
                         ProjectItem(project: project) {
-                            if (selectedProject == project || projectToSet == project) && !creating {
+                            if (projectToSet == project) && !creating {
                                 Spacer()
                                 
                                 Image(systemName: "checkmark")
