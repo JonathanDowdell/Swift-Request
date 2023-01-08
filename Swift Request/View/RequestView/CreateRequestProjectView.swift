@@ -6,89 +6,84 @@
 //
 
 import SwiftUI
-import CoreData
-
-class CreateRequestProjectViewModel: ObservableObject {
-    
-    @Published var creating = false
-    
-    @Published var name = ""
-    
-    @Published var version = ""
-    
-    @Published var projectIcon = "network"
-    
-    @Published var wiggling = false
-    
-    @Published var color = Color.cyan
-    
-    @Published var slideOverCard = false
-    
-}
 
 struct CreateRequestProjectView: View {
     
     @Environment(\.managedObjectContext) var moc
     
-    @Binding var request: RequestEntity?
-    
-    @Binding var selectedProject: ProjectEntity?
-    
-    @StateObject var vm = CreateRequestProjectViewModel()
+    @Environment(\.presentationMode) var presentationMode
     
     @FetchRequest(entity: ProjectEntity.entity(), sortDescriptors: []) private var projects: FetchedResults<ProjectEntity>
     
-    @Environment(\.presentationMode) var presentationMode
+    @Binding private(set) var request: RequestEntity?
     
-    fileprivate func wiggleIcon() {
-        self.vm.wiggling.toggle()
+    @Binding private(set) var selectedProject: ProjectEntity?
+    
+    @State private var projectToSet: ProjectEntity?
+    
+    @State private var creating = false
+    
+    @State private var name = ""
+    
+    @State private var version = ""
+    
+    @State private var projectIcon = "network"
+    
+    @State private var wiggling = false
+    
+    @State private var color = Color.cyan
+    
+    @State private var slideOverCard = false
+    
+    private func wiggleIcon() {
+        self.wiggling.toggle()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            self.vm.wiggling.toggle()
+            self.wiggling.toggle()
         }
     }
     
-    fileprivate func showCreateProjectSection() {
+    private func showCreateProjectSection() {
         withAnimation(.easeInOut(duration: 0.2)) {
-            vm.creating = true
+            creating = true
             selectedProject = nil
         }
     }
     
-    fileprivate func showProjects(project: ProjectEntity) {
+    private func selectProject(project: ProjectEntity) {
         withAnimation {
-            if selectedProject == project {
-                selectedProject = nil
+            if projectToSet == project {
+                projectToSet = nil
             } else {
-                selectedProject = project
+                projectToSet = project
             }
-            vm.creating = false
+            
+            creating = false
         }
-        request?.project = selectedProject
     }
     
-    fileprivate func showIconSelection() {
-        vm.slideOverCard = true
+    private func showIconSelection() {
+        slideOverCard = true
     }
     
     var body: some View {
         List {
-            let isCreatingProject = !vm.creating
+            let isCreatingProject = !creating
             if isCreatingProject {
                 Button {
                     withAnimation {
-                        vm.creating = true
+                        creating = true
                     }
                 } label: {
                     Text("New")
                 }
             }
             
-            if vm.creating {
+            if creating {
                 Section {
                     HStack {
                         Text("Name")
                         Spacer()
-                        TextField("Fancy Project Name", text: $vm.name)
+                        TextField("Fancy Project Name", text: $name)
                             .multilineTextAlignment(.trailing)
                     }
                     .onTapGesture(perform: wiggleIcon)
@@ -96,7 +91,7 @@ struct CreateRequestProjectView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        TextField("Version 1.0", text: $vm.version)
+                        TextField("Version 1.0", text: $version)
                             .multilineTextAlignment(.trailing)
                     }
                     .onTapGesture(perform: wiggleIcon)
@@ -116,14 +111,14 @@ struct CreateRequestProjectView: View {
                                     .cornerRadius(10)
                             }
                             .buttonStyle(PlainButtonStyle())
-                            .rotationEffect(.degrees(vm.wiggling ? 3.5 : 1))
-                            .scaleEffect(vm.wiggling ? 1.2 : 1)
-                            .animation(Animation.easeInOut(duration: 0.6).repeatCount(3, autoreverses: true), value: vm.wiggling)
+                            .rotationEffect(.degrees(wiggling ? 3.5 : 1))
+                            .scaleEffect(wiggling ? 1.2 : 1)
+                            .animation(Animation.easeInOut(duration: 0.6).repeatCount(3, autoreverses: true), value: wiggling)
                             
                             VStack(alignment: .leading) {
-                                Text(vm.name.isEmpty ? "Fancy Project Name" : vm.name)
+                                Text(name.isEmpty ? "Fancy Project Name" : name)
                                     .foregroundColor(.primary)
-                                Text(vm.version.isEmpty ? "Version 1.0" : vm.version)
+                                Text(version.isEmpty ? "Version 1.0" : version)
                                     .font(.footnote)
                                     .foregroundColor(Color.gray)
                                     .tint(Color.gray)
@@ -147,11 +142,11 @@ struct CreateRequestProjectView: View {
             Section {
                 ForEach(projects, id: \.self) { project in
                     Button {
-                        showProjects(project: project)
+                        selectProject(project: project)
                     } label: {
                         HStack {
                             ProjectItem(project: project) {
-                                if selectedProject == project && !vm.creating {
+                                if (selectedProject == project || projectToSet == project) && !creating {
                                     Spacer()
                                     
                                     Image(systemName: "checkmark")
@@ -164,18 +159,18 @@ struct CreateRequestProjectView: View {
                 
             } header: {}
         }
-        .popover(isPresented: $vm.slideOverCard) {
-            IconsView(projectIcon: $vm.projectIcon)
+        .popover(isPresented: $slideOverCard) {
+            IconsView(projectIcon: $projectIcon)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                if vm.creating {
+                if creating {
                     PillButton {
                         let project = ProjectEntity(context: moc)
                         project.raw_creation_date = Date()
-                        project.raw_name = vm.name
-                        project.raw_system_icon = vm.projectIcon
-                        project.raw_version = vm.version
+                        project.raw_name = name
+                        project.raw_system_icon = projectIcon
+                        project.raw_version = version
                         self.selectedProject = project
                         if let request = request {
                             self.selectedProject?.addToRequests(request)
@@ -192,6 +187,12 @@ struct CreateRequestProjectView: View {
             }
         }
         .navigationTitle("Projects")
+        .onDisappear {
+            if let projectToSet = projectToSet {
+                request?.project = projectToSet
+                selectedProject = projectToSet
+            }
+        }
     }
 }
 
