@@ -65,6 +65,20 @@ struct CreateRequestProjectView: View {
         slideOverCard = true
     }
     
+    private func saveProject() {
+        let project = ProjectEntity(context: moc)
+        project.raw_creation_date = Date()
+        project.raw_name = name
+        project.raw_system_icon = projectIcon
+        project.raw_version = version
+        self.selectedProject = project
+        if let request = request {
+            self.selectedProject?.addToRequests(request)
+        }
+        try? moc.save()
+        self.presentationMode.wrappedValue.dismiss()
+    }
+    
     var body: some View {
         List {
             let isCreatingProject = !creating
@@ -79,85 +93,10 @@ struct CreateRequestProjectView: View {
             }
             
             if creating {
-                Section {
-                    HStack {
-                        Text("Name")
-                        Spacer()
-                        TextField("Fancy Project Name", text: $name)
-                            .multilineTextAlignment(.trailing)
-                    }
-                    .onTapGesture(perform: wiggleIcon)
-                    
-                    HStack {
-                        Text("Version")
-                        Spacer()
-                        TextField("Version 1.0", text: $version)
-                            .multilineTextAlignment(.trailing)
-                    }
-                    .onTapGesture(perform: wiggleIcon)
-                    
-                    Button {
-                        showCreateProjectSection()
-                    } label: {
-                        HStack {
-                            Button {
-                                showIconSelection()
-                            } label: {
-                                Image(systemName: "network")
-                                    .padding(.horizontal, 11)
-                                    .padding(.vertical, 10)
-                                    .foregroundColor(Color.cyan)
-                                    .background(Color.cyan.opacity(0.15))
-                                    .cornerRadius(10)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .rotationEffect(.degrees(wiggling ? 3.5 : 1))
-                            .scaleEffect(wiggling ? 1.2 : 1)
-                            .animation(Animation.easeInOut(duration: 0.6).repeatCount(3, autoreverses: true), value: wiggling)
-                            
-                            VStack(alignment: .leading) {
-                                Text(name.isEmpty ? "Fancy Project Name" : name)
-                                    .foregroundColor(.primary)
-                                Text(version.isEmpty ? "Version 1.0" : version)
-                                    .font(.footnote)
-                                    .foregroundColor(Color.gray)
-                                    .tint(Color.gray)
-                            }
-                            
-                            Spacer()
-                            
-                            Image(systemName: "checkmark")
-                        }
-                    }
-                    .padding(.vertical, 5)
-                    
-                    
-                } header: {
-                    Text("Create Project")
-                }
+                projectCreationSection
             }
             
-            
-            
-            Section {
-                ForEach(projects, id: \.self) { project in
-                    Button {
-                        selectProject(project: project)
-                    } label: {
-                        HStack {
-                            ProjectItem(project: project) {
-                                if (selectedProject == project || projectToSet == project) && !creating {
-                                    Spacer()
-                                    
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                        }
-                    }
-                }
-                .padding(.vertical, 5)
-                
-            } header: {}
+            projectSelectionSection
         }
         .popover(isPresented: $slideOverCard) {
             IconsView(projectIcon: $projectIcon)
@@ -166,17 +105,7 @@ struct CreateRequestProjectView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if creating {
                     PillButton {
-                        let project = ProjectEntity(context: moc)
-                        project.raw_creation_date = Date()
-                        project.raw_name = name
-                        project.raw_system_icon = projectIcon
-                        project.raw_version = version
-                        self.selectedProject = project
-                        if let request = request {
-                            self.selectedProject?.addToRequests(request)
-                        }
-                        try? moc.save()
-                        self.presentationMode.wrappedValue.dismiss()
+                        saveProject()
                     } content: {
                         Text("Save")
                             .font(.caption)
@@ -201,6 +130,89 @@ struct CreateRequestProjectView_Previews: PreviewProvider {
         NavigationView {
             CreateRequestProjectView(request: .constant(nil), selectedProject: .constant(nil))
         }
+    }
+}
+
+extension CreateRequestProjectView {
+    private var projectCreationSection: some View {
+        Section {
+            HStack {
+                Text("Name")
+                Spacer()
+                TextField("Fancy Project Name", text: $name)
+                    .multilineTextAlignment(.trailing)
+            }
+            .onTapGesture(perform: wiggleIcon)
+            
+            HStack {
+                Text("Version")
+                Spacer()
+                TextField("Version 1.0", text: $version)
+                    .multilineTextAlignment(.trailing)
+            }
+            .onTapGesture(perform: wiggleIcon)
+            
+            Button {
+                showCreateProjectSection()
+            } label: {
+                HStack {
+                    Button {
+                        showIconSelection()
+                    } label: {
+                        Image(systemName: "network")
+                            .padding(.horizontal, 11)
+                            .padding(.vertical, 10)
+                            .foregroundColor(Color.cyan)
+                            .background(Color.cyan.opacity(0.15))
+                            .cornerRadius(10)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .rotationEffect(.degrees(wiggling ? 3.5 : 1))
+                    .scaleEffect(wiggling ? 1.2 : 1)
+                    .animation(Animation.easeInOut(duration: 0.6).repeatCount(3, autoreverses: true), value: wiggling)
+                    
+                    VStack(alignment: .leading) {
+                        Text(name.isEmpty ? "Fancy Project Name" : name)
+                            .foregroundColor(.primary)
+                        Text(version.isEmpty ? "Version 1.0" : version)
+                            .font(.footnote)
+                            .foregroundColor(Color.gray)
+                            .tint(Color.gray)
+                    }
+                    
+                    Spacer()
+                    
+                    Image(systemName: "checkmark")
+                }
+            }
+            .padding(.vertical, 5)
+            
+            
+        } header: {
+            Text("Create Project")
+        }
+    }
+    
+    private var projectSelectionSection: some View {
+        Section {
+            ForEach(projects, id: \.self) { project in
+                Button {
+                    selectProject(project: project)
+                } label: {
+                    HStack {
+                        ProjectItem(project: project) {
+                            if (selectedProject == project || projectToSet == project) && !creating {
+                                Spacer()
+                                
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, 5)
+            
+        } header: {}
     }
 }
 
