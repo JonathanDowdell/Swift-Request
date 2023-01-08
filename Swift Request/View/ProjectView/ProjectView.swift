@@ -86,8 +86,7 @@ struct ProjectView: View {
             }
         }
         .popover(isPresented: $vm.shouldOpenProjectEditView) {
-            CreateProjectView(vm: CreateProjectViewModel(project: vm.project, moc: moc),
-                              previousVm: MainViewModel(context: moc))
+            CreateProjectView(project: vm.project)
         }
         .onAppear {vm.updateToken = UUID()}
         .navigationTitle(vm.project.name)

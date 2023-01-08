@@ -123,7 +123,7 @@ struct MainView: View {
                     }
                 }
                 .popover(isPresented: $vm.shouldPresentNewProject) {
-                    CreateProjectView(vm: CreateProjectViewModel(moc: moc), previousVm: vm)
+                    CreateProjectView(project: nil, previousVm: vm)
                 }
             }
             .onAppear {
