@@ -1,5 +1,5 @@
 //
-//  Swift_RequestApp.swift
+//  Swift_Request_App.swift
 //  Swift Request
 //
 //  Created by Jonathan Dowdell on 12/19/21.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Swift_RequestApp: App {
+struct Swift_Request_App: App {
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {

@@ -10,7 +10,6 @@
 		2403EFFC27839DBF00ECE984 /* JsonViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2403EFFB27839DBF00ECE984 /* JsonViewer.swift */; };
 		2403EFFF2783A06700ECE984 /* JsonTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2403EFFE2783A06700ECE984 /* JsonTreeView.swift */; };
 		2403F0012783A24A00ECE984 /* JsonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2403F0002783A24A00ECE984 /* JsonItem.swift */; };
-		2403F00B2783B37900ECE984 /* appStore-receipt.json in Resources */ = {isa = PBXBuildFile; fileRef = 2403F00A2783B37900ECE984 /* appStore-receipt.json */; };
 		2429F1BC27B2359600CE8E35 /* StatusCodeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1BB27B2359600CE8E35 /* StatusCodeItem.swift */; };
 		2429F1BF27B23B9900CE8E35 /* ResponseEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1BD27B23B9900CE8E35 /* ResponseEntity+CoreDataClass.swift */; };
 		2429F1C027B23B9900CE8E35 /* ResponseEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1BE27B23B9900CE8E35 /* ResponseEntity+CoreDataProperties.swift */; };
@@ -23,7 +22,7 @@
 		2429F1D627B6EDCD00CE8E35 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1D527B6EDCD00CE8E35 /* CodeEditorView.swift */; };
 		2429F1D927B86CF600CE8E35 /* ProjectEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1D727B86CF600CE8E35 /* ProjectEntity+CoreDataClass.swift */; };
 		2429F1DA27B86CF600CE8E35 /* ProjectEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2429F1D827B86CF600CE8E35 /* ProjectEntity+CoreDataProperties.swift */; };
-		2440A546276F9A2200943B06 /* Swift_RequestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440A545276F9A2200943B06 /* Swift_RequestApp.swift */; };
+		2440A546276F9A2200943B06 /* Swift_Request_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440A545276F9A2200943B06 /* Swift_Request_App.swift */; };
 		2440A54A276F9A2300943B06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2440A549276F9A2300943B06 /* Assets.xcassets */; };
 		2440A54D276F9A2300943B06 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2440A54C276F9A2300943B06 /* Preview Assets.xcassets */; };
 		2440A54F276F9A2300943B06 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2440A54E276F9A2300943B06 /* Persistence.swift */; };
@@ -86,7 +85,6 @@
 		2403EFFB27839DBF00ECE984 /* JsonViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonViewer.swift; sourceTree = "<group>"; };
 		2403EFFE2783A06700ECE984 /* JsonTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonTreeView.swift; sourceTree = "<group>"; };
 		2403F0002783A24A00ECE984 /* JsonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonItem.swift; sourceTree = "<group>"; };
-		2403F00A2783B37900ECE984 /* appStore-receipt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "appStore-receipt.json"; sourceTree = "<group>"; };
 		2429F1BB27B2359600CE8E35 /* StatusCodeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusCodeItem.swift; sourceTree = "<group>"; };
 		2429F1BD27B23B9900CE8E35 /* ResponseEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResponseEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2429F1BE27B23B9900CE8E35 /* ResponseEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResponseEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -99,7 +97,7 @@
 		2429F1D727B86CF600CE8E35 /* ProjectEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2429F1D827B86CF600CE8E35 /* ProjectEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2440A542276F9A2200943B06 /* Swift Request.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift Request.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2440A545276F9A2200943B06 /* Swift_RequestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_RequestApp.swift; sourceTree = "<group>"; };
+		2440A545276F9A2200943B06 /* Swift_Request_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_Request_App.swift; sourceTree = "<group>"; };
 		2440A549276F9A2300943B06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2440A54C276F9A2300943B06 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2440A54E276F9A2300943B06 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -214,8 +212,7 @@
 				2440A573276FEA1D00943B06 /* Entity */,
 				2440A55C276FC48100943B06 /* Model */,
 				24F770C0277B06E1001C94A9 /* Extension */,
-				2440A545276F9A2200943B06 /* Swift_RequestApp.swift */,
-				2403F00A2783B37900ECE984 /* appStore-receipt.json */,
+				2440A545276F9A2200943B06 /* Swift_Request_App.swift */,
 				2440A549276F9A2300943B06 /* Assets.xcassets */,
 				2440A550276F9A2300943B06 /* Swift_Request.xcdatamodeld */,
 				24EED9972780083500FC5CDA /* Swift-Request-Info.plist */,
@@ -522,7 +519,6 @@
 			files = (
 				2440A54D276F9A2300943B06 /* Preview Assets.xcassets in Resources */,
 				2440A54A276F9A2300943B06 /* Assets.xcassets in Resources */,
-				2403F00B2783B37900ECE984 /* appStore-receipt.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,7 +562,7 @@
 				24F77083277270F2001C94A9 /* MethodItem.swift in Sources */,
 				24E0032927BBCBC3009E5332 /* SettingsView.swift in Sources */,
 				24F770862772716C001C94A9 /* BodyType.swift in Sources */,
-				2440A546276F9A2200943B06 /* Swift_RequestApp.swift in Sources */,
+				2440A546276F9A2200943B06 /* Swift_Request_App.swift in Sources */,
 				2403EFFF2783A06700ECE984 /* JsonTreeView.swift in Sources */,
 				244CF92F278666170055FB02 /* ParamEntity+CoreDataClass.swift in Sources */,
 				2486708A27B2316000E0A3F9 /* RequestEntity+CoreDataClass.swift in Sources */,
