@@ -9,6 +9,10 @@ import SwiftUI
 
 struct CreateProjectView: View {
     
+    @Environment(\.managedObjectContext) private var moc
+    
+    @Environment(\.presentationMode) private var presentationMode
+    
     @State private var name = ""
     
     @State private var title = ""
@@ -26,10 +30,6 @@ struct CreateProjectView: View {
     private var project: ProjectEntity?
     
     private var previousVm: MainViewModel?
-    
-    @Environment(\.managedObjectContext) private var moc
-    
-    @Environment(\.presentationMode) private var presentationMode
     
     private var sortedAssignedRequests: [RequestEntity] {
         let request: [RequestEntity] = projectRequests
